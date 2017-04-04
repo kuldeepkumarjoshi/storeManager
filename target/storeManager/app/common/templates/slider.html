@@ -1,0 +1,21 @@
+<div class="col-md-12 col-xs-12" style="padding:0px;background: rgba(2,2,2,0.7);">
+	<div class="col-md-12 col-xs-12 slider" >
+		<div class="col-md-1 col-xs-1 arrow">
+			 <div ng-click="prev()"><i class=" padding-web-left-10 fa fa-chevron-left"></i></div>
+		</div>
+		<div  class="col-md-10 col-xs-10 slide" >
+	   	 	<img ng-src="{{selectedImage.src}}" class="slide-image"/>
+	  	</div>
+	  	<div class="col-md-1 col-xs-1 arrow">
+			<div ng-click="next()"><i class=" padding-web-left-10 fa fa-chevron-right"></i></div>
+		</div>
+	</div>
+	<div class="col-md-12 col-xs-12 albumContaner">
+		<div class="row album">
+			<div class="col-md-2 col-xs-2" style="padding: 3px;" ng-click="setIndex($index)" data-ng-repeat="image in rail">
+					 <img ng-if="$index!=selectedIndex" ng-src="{{image.smallSrc}}" class="thumbNail">
+					  <img ng-if="$index==selectedIndex" ng-src="{{image.smallSrc}}" class="thumbNail2">
+			</div>
+		</div>
+	</div>
+</div>

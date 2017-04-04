@@ -1,0 +1,78 @@
+<style>
+.editable-clear-x:before{
+	margin-top: -15px !important;
+	z-index : 100 !important;
+	top : 50px !important;
+	right : 6px !important;
+}
+.btn{
+	margin-right:1%;
+	}
+
+
+sup{
+color:RED;
+}
+</style>
+
+<div class="container-fluid" style="margin:1%;">
+	<div class="col-md-12 col-sm-12" style="border-bottom: 1px solid #EEEEEE;">
+		<h3>Party</h3>
+	</div>
+	 <div class="col-md-12 col-sm-12" style="margin-top:1%;height:45px;">
+  		<button class="btn col-md-1 col-sm-1 btn-white btn-round"
+			tooltip-placement="auto" tooltip="Save" ng-click="saveParty()">
+			<i class="fa fa-save fa-lg text-info"></i>
+		</button>
+		<button class="btn col-md-1 col-sm-1 btn-white btn-round"
+			style="margin-left: 1%;" tooltip-placement="auto" tooltip="Cancel"
+			ng-click="cancel()">
+			<i class="fa fa-ban fa-lg text-warning"></i>
+		</button>
+ 	 </div>
+ 	 <div  class="col-md-12 col-sm-12" style="height:605px;">
+
+		 	 <div class="widget-header widget-header-small">
+					<h4 class="widget-title smaller">
+						<i class="ace-icon fa fa-check-square-o bigger-110"></i>
+						General Information
+					</h4>
+				<span ng-show="false">{{party.id}}</span>
+			</div>
+			<div class="col-md-6 col-sm-6" style="float: left">
+				<div class="profile-info-row">
+					<div class="profile-info-name">Name<sup>*</sup>:</div>
+						<div class="profile-info-value">
+							<input type="text" class="form-control" required ng-required="true" data-ng-model="party.partyName" />
+						</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name">Category<sup>*</sup>:</div>
+					<div class="profile-info-value" style="max-width:120px;">
+						 <select  class="form-control" ng-model="extraData.category" ng-options="ops as ops.text for ops in extraData.valueList"
+							ng-change="setChanges()">
+								<option value=''>- Please Choose Paper Group-</option>
+								</select>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name">Description:</div>
+					<div class="profile-info-value">
+						<input type="text" class="form-control" required ng-required="true" data-ng-model="party.partyDescription" />
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name">From Date:</div>
+					<div class="profile-info-value">
+						<input type="text" class="form-control" required ng-required="true" ng-value="party.fromDate" readOnly/>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name">Active:</div>
+					<div class="profile-info-value">
+						 <input type="checkbox" ng-model="party.active">
+					</div>
+				</div>
+		 </div>
+	</div>
+</div>

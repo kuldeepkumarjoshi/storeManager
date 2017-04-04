@@ -1,0 +1,65 @@
+body{
+background: url('../imageMin/back6.jpg') repeat;
+background-size: cover;
+color:white;
+}
+h1{
+	font-size: 18px;
+}
+.link{
+border-top-style:groove	;
+border-bottom-style:groove;
+padding:2% 0% 2% 7%;
+font-size:13px;
+width:100%;
+}
+.thumbNail2{
+border:medium ridge teal;
+border-width: 5px;
+    border-radius: 8px 8px 8px 8px;
+    border-spacing: 3px;
+    height: 100px;
+    width: 100%;
+}
+.navbar-nav > li > a {
+    line-height: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+.nav > li > a {
+    padding:0px;
+}
+.albumContaner{
+	margin-top:1%;
+	overflow:hidden;
+	height:140px;
+}
+.slide-image{
+	height: 232px;
+}
+.arrow{
+margin-top:35%;
+font-size:2em;
+}
+
+.heading{
+	 text-align: left;
+	 cursor: pointer;
+}
+.contactImage{
+	padding:0px;
+}
+.imagesCss{
+border-radius: 12px;
+    height: 86px;
+    width: 100%;
+}
+.subTitle{
+	font-size:15px;
+border-bottom: 1px solid #eee;
+margin-top:1%;
+}
+.para{
+font-size:12px;
+}
+

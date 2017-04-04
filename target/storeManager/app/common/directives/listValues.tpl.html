@@ -1,0 +1,11 @@
+<style>
+.validationError {
+        border-color: #FA787E;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(250, 120, 126, 0.6);
+    }
+</style>
+<select ng-class="{'form-control' : true, 'validationError' : listinvalid()}" ng-model="metamodel" ng-change="onvaluechange({modelng : metamodel})"
+ng-disabled="listdisable()" ng-required="listrequired()"
+ng-options= "data.label for data in dataValues">
+	<option value="">--Select--</option>
+</select>

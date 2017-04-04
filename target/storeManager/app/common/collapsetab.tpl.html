@@ -1,0 +1,56 @@
+<style type="text/css">
+    .pointer {
+        cursor: pointer
+    }
+
+    .sub-menu-link {
+        padding-left: 35px !important;
+        border-radius: 0px !important;
+        color: #555555 !important;
+    }
+
+    .sub-menu.active > a {
+        color: #FFFFFF !important;
+    }
+
+    .sub-menu {
+        border: 1px solid #DDDDDD;
+        margin-top: -1px !important;
+    }
+</style>
+
+<!--  Generates Collapsible Tab Menu and Sub Menu, JSON Data must be in following form :
+
+$scope.menuList = [
+	    {"name":"Evaluation Reports",
+		"submenus":[{"name":"Scholastic Tabulation Report","url":""},{"name":"Co-Scholastic Tabulation Report","url":""},{"name":"Consolidate Report Card","url":""},{"name":"Student Report Card","url":""},{"name":"Change Request Report","url":""},{"name":"Evaluation Scheme Report","url":""}]},
+		{"name":"Class Reports",
+		"submenus":[{"name":"Class Student Report","url":""},{"name":"Class Subject Teacher Report","url":""},{"name":"Student Subject Allocation Report","url":""},{"name":"Class Schedule Report","url":""},{"name":"Student Attendance Report","url":""},{"name":"Student Health Record Report","url":""}]},
+		{"name":"User Reports",
+		"submenus":[{"name":"Student Summary Report","url":""},{"name":"Student Detail Report","url":""},{"name":"Teacher Summary Report","url":""},{"name":"Teacher Detail Report","url":""}]},
+		{"name":"Collaboration Reports",
+		"submenus":[]},
+		{"name":"Audit Reports",
+		"submenus":[]}
+	];
+
+-->
+
+<div class="list-group" id="menuGroup" style="min-height: 620px;">
+    <a ng-repeat-start="menu in menuList" ng-click="collapseAll(menu.name)" data-toggle="collapse"
+       data-parent="#menuGroup" href="#menu-{{$index}}" class="list-group-item"
+       ng-class="{active: menu.name == activeSelectedMenuName}">
+        <span class="fa"
+              ng-class="{'fa-caret-down': menu.name == selectedMenuName,'fa-caret-right': menu.name != selectedMenuName && menu.submenus.length != 0}"></span>
+        {{menu.name}}
+    </a>
+
+    <div ng-repeat-end id="menu-{{$index}}" class="menu collapse">
+        <ul class="nav nav-pills nav-stacked" id="subMenuGroup">
+            <li id="#sub-menu-{{$index}}" class="sub-menu pointer"
+                ng-class="{active: submenu.name == selectedSubMenuName}" ng-repeat="submenu in menu.submenus">
+                <a class="sub-menu-link" ng-click="setNameAndRedirect(submenu)"> {{submenu.name}} </a>
+            </li>
+        </ul>
+    </div>
+</div>
