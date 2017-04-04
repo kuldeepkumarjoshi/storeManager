@@ -1,0 +1,264 @@
+<style>
+    #advSearch.ng-enter {
+        animation: slidein 1s;
+    }
+
+    #advSearch.ng-leave {
+        animation: slideout 1s;
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+
+        /* Make clicks pass-through */
+    #loading-bar,
+    #loading-bar-spinner {
+        pointer-events: none;
+        -webkit-pointer-events: none;
+        -webkit-transition: 0.5s linear all;
+        -moz-transition: 0.5s linear all;
+        -o-transition: 0.5s linear all;
+        transition: 0.5s linear all;
+    }
+
+    #loading-bar.ng-enter,
+    #loading-bar.ng-leave.ng-leave-active,
+    #loading-bar-spinner.ng-enter,
+    #loading-bar-spinner.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+
+    #loading-bar.ng-enter.ng-enter-active,
+    #loading-bar.ng-leave,
+    #loading-bar-spinner.ng-enter.ng-enter-active,
+    #loading-bar-spinner.ng-leave {
+        opacity: 1;
+    }
+
+    #loading-bar .bar {
+        -webkit-transition: width 350ms;
+        -moz-transition: width 350ms;
+        -o-transition: width 350ms;
+        transition: width 350ms;
+
+        background: #29d;
+        position: fixed;
+        z-index: 2000;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+    }
+
+        /* Fancy blur effect */
+    #loading-bar .peg {
+        display: block;
+        position: absolute;
+        right: 0px;
+        width: 100px;
+        height: 100%;
+        box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+        opacity: 1.0;
+
+        -webkit-transform: rotate(3deg) translate(0px, -4px);
+        -moz-transform: rotate(3deg) translate(0px, -4px);
+        -ms-transform: rotate(3deg) translate(0px, -4px);
+        -o-transform: rotate(3deg) translate(0px, -4px);
+        transform: rotate(3deg) translate(0px, -4px);
+    }
+
+    #loading-bar-spinner {
+        display: block;
+        position: fixed;
+        z-index: 100;
+        top: 10px;
+        left: 10px;
+    }
+
+    #loading-bar-spinner .spinner-icon {
+        width: 14px;
+        height: 14px;
+
+        border: solid 2px transparent;
+        border-top-color: #29d;
+        border-left-color: #29d;
+        border-radius: 10px;
+
+        -webkit-animation: loading-bar-spinner 400ms linear infinite;
+        -moz-animation: loading-bar-spinner 400ms linear infinite;
+        -ms-animation: loading-bar-spinner 400ms linear infinite;
+        -o-animation: loading-bar-spinner 400ms linear infinite;
+        animation: loading-bar-spinner 400ms linear infinite;
+    }
+
+    @-webkit-keyframes loading-bar-spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @-moz-keyframes loading-bar-spinner {
+        0% {
+            -moz-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -moz-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @-o-keyframes loading-bar-spinner {
+        0% {
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @-ms-keyframes loading-bar-spinner {
+        0% {
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes loading-bar-spinner {
+        0% {
+            transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<nav id="header" class="navbar navbar-primary" role="navigation" ng-controller="HeaderCtrl"
+     style="border-radius:0px;margin-bottom:5px; position: fixed;width: 100%;top:0px;z-index: 100;">
+    <div class="collapse navbar-collapse" id="mainNav">
+
+        <ul class="nav navbar-nav">
+            <!-- Menu Part -->
+            <li class="dropdown">
+                <a class="dropdown-toggle pointer" data-toggle="dropdown" id="mainMenu">
+                    Menu <i class="fa fa-chevron-circle-down"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="mainMenu">
+                    <li role="presentation" ng-repeat-start="menu in mainMenuList">
+                        <a role="menuitem" href="{{menu.url}}"> {{menu.name}} </a>
+                    </li>
+                    <li role="presentation" class="divider" ng-repeat-end ng-show="$first"></li>
+
+                    <li role="presentation" class="divider"></li>
+                    <li ng-mouseenter="showMoreList=true" ng-mouseleave="showMoreList=false">
+                        <a role="menuitem" href="#" class="dropdown-toggle" data-toggle="dropdown" id="moreMenu">
+                            More <span style="margin-left:70%" class="fa fa-chevron-right"></span>
+                        </a>
+                        <ul ng-show="showMoreList" class="dropdown-menu" role="menu" aria-labelledby="moreMenu"
+                            style="width:322px;height:auto;left:158px;position:absolute;top:-2px;display:inline-block;">
+                            <li role="presentation" style="font-size: 30px;">
+                                <span style="padding: 3px 20px;cursor: default"> More </span>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+
+                            <li role="presentation" style="display:inline-block;min-width:150px;max-width:150px"
+                                ng-repeat="moreMenu in moreMenuList">
+                                <a role="menuitem" href="{{moreMenu.url}}"> {{moreMenu.name}} </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Academic Year Dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle pointer" data-toggle="dropdown" id="acadYearMenu">
+                    {{currentAcdYearName}} <i class="fa fa-chevron-circle-down"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="acadYearMenu">
+                    <li role="presentation" ng-repeat="(key,name) in acdYearList" ng-click="setAcademicYear(key)">
+                        <a role="menuitem" href="#"> {{name}} </a>
+                    </li>
+                </ul>
+            </li>
+            
+            <!-- Academic Year Unit Dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle pointer" data-toggle="dropdown" id="acadYearUnitMenu">
+                    {{currentAcdYearUnitName}} <i class="fa fa-chevron-circle-down"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="acadYearUnitMenu">
+                    <li role="presentation" ng-repeat="(key,name) in acdYearUnitList" ng-click="setAcademicYearUnit(key)">
+                        <a role="menuitem" href="#"> {{name}} </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- School Info Part(Name, Logo) -->
+        <div class="navbar-header" id="schoolInfo" style="margin-left: 25%;">
+            <a class="navbar-brand" style="padding: 10px;">
+                <img src="/images/logo_ICG.png" width="30px" height="30px"/>
+                {{headerTitle}}
+            </a>
+        </div>
+
+        <!-- Right Navigation Part -->
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle pointer" data-toggle="dropdown" id="userSettingAndInfo">
+                    {{currentUser}} <i class="fa fa-chevron-circle-down"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="userSettingAndInfo">
+                    <li role="presentation">
+                        <a role="menuitem"
+                           onclick="window.open(this.href,'_blank','width=800,height=500,scrollbar,resizable'); return false;"
+                           href="https://accounts.google.com/EditPasswd">
+                            <i class="fa fa-gear text-success"></i> My Settings
+                        </a>
+                    </li>
+                    <!-- <li role="presentation">
+                        <a role="menuitem" href="/usersetting.do"> <i class="fa fa-gears text-success"></i> User
+                            Settings </a>
+                    </li> -->
+                    <li role="presentation" class="divider"></li>
+
+                    <li role="presentation">
+                        <a role="menuitem" href="/logout.do"> <i class="fa fa-sign-out text-danger"></i> Logout </a>
+                    </li>
+                    
+                    <li role="presentation" ng-if="initialLoggedUser">
+                        <a role="menuitem" href="/logoutAsUser.do"> <i class="fa fa-sign-out text-danger"></i> Logout As {{currentUser}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Advanced Search -->
+        <!-- <form name="AdvanceSearchForm" class="navbar-form navbar-right" role="search" style="width:20%;text-align:left;">
+            <div class="form-group">
+                <div class="input-group">
+                      <span class="input-group-addon" style="border-radius: 20px 0 0 20px;"> <i class="fa fa-search text-primary"></i> </span>
+                    <input id="advSearch" type="text" class="form-control" placeholder="Search" style="border-radius: 0 20px 20px 0;width: 150px"
+                    ng-focus="incLength()" ng-blur="decLength()" />
+                </div>
+              </div>
+        </form> -->
+
+    </div>
+</nav>

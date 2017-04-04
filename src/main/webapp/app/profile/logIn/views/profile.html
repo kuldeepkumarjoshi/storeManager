@@ -1,0 +1,40 @@
+<style>
+.editable-clear-x:before{
+	margin-top: -15px !important;
+	z-index : 100 !important;
+	top : 50px !important;
+	right : 6px !important;
+}
+</style>
+<div class="row">
+	<div class="col-md-12 col-sm-12" style="border-bottom: 1px solid #eee;">
+		<h1><i class="fa fa-user fa-lg"></i> PROFILE </h1>
+	</div>
+	<div ng-if="permission" class="col-md-offset-2 col-md-10 col-sm-5" style="margin-top:20%;">
+                <input type="text" class="form-control webInput" ng-model="login.name" placeholder="Enter Username or Eventname" required autofocus><br/>
+                <input type="password" class="form-control webInput" ng-model="login.password" placeholder="Password" required>
+               <button class="col-md-offset-4 btn btn-lg col-md-3 btn-primary" ng-click="login()">Login</button>
+               <div class="col-md-12 col-sm-12">
+              		  <a href="#" class="pull-right need-help">Need help? </a>
+               </div> 
+	</div>
+	<div class="col-md-12 col-sm-12">
+			
+			<div class="para widget-toolbar no-border">
+				<ul class="nav nav-tabs" id="recent-tab">
+					<li	style="cursor: pointer;margin-top:2%;">
+						<i class="ace-icon fa fa-users green"></i>	 USERS
+					</li>
+					<li		ng-class="{active:isActive}" class="pull-right"
+						ng-click="isActive=true;setView('party');"	style="width:17%;cursor: pointer">
+						<a data-toggle="tab" style="padding:7%;"><i class="ace-icon fa fa-filter green"></i> PARTY </a>
+					</li>
+					<li ng-class="{active:!isActive}" class="pull-right"
+					ng-click="isActive=false;setView('manager');"	 style="width:17%;cursor: pointer">
+						<a data-toggle="tab" style="padding:7%;"> <i class="ace-icon fa fa-table green"></i> MANAGER </a>
+					</li>
+				</ul>
+			</div>
+		<div ui-view class="container-fluid page-content"></div>
+	</div>
+</div>

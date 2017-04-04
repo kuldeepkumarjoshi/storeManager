@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+ <hibernate-mapping>
+  <class name="com.eventManagement.entity.Event" table="event">
+      <meta attribute="class-description">       This class contains the event detail.   </meta>
+    	<id name="id" type="long" column="id">   <generator class="increment"/>    </id>
+
+    <property name="title" column="title" type="string" ></property>
+    <property name="description" column="description" type="string"></property>
+    <property name="fromDate" column="fromDate" type="date"></property>
+    <property name="toDate" column="toDate" type="date"></property>
+    <property name="photoUrl" column="photoUrl" type="string"></property>
+    <property name="isDeleted" column="isDeleted" type="boolean"></property>
+    <property name="requestId" column="request_id" type="long"></property>
+
+  </class>
+
+  <class name="com.eventManagement.entity.User" table="user">
+      <meta attribute="class-description">       This class contains the user detail.   </meta>
+    	<id name="id" type="long" column="id">   <generator class="increment"/>    </id>
+
+    <property name="firstName" column="firstName" type="string" ></property>
+    <property name="lastName" column="lastName" type="string" ></property>
+    <property name="email" column="email" type="string"></property>
+    <property name="role" column="role" type="string"></property>
+    <property name="dob" column="dob" type="date"></property>
+    <property name="photoUrl" column="photoUrl" type="string"></property>
+  	<property name="isDeleted" column="isDeleted" type="boolean"></property>
+    <property name="requestId" column="request_id" type="long"></property>
+
+  </class>
+  <class name="com.eventManagement.entity.EventUser" table="eventUser">
+      <meta attribute="class-description">       This class contains the event user detail.   </meta>
+    	<id name="id" type="long" column="id">   <generator class="increment"/>    </id>
+
+    <property name="userId" column="user_id" type="long" ></property>
+    <property name="eventId" column="event_id" type="long"></property>
+    <property name="userName" column="userName" type="string"></property>
+    <property name="eventTitle" column="eventTitle" type="string"></property>
+    <property name="isDeleted" column="isDeleted" type="boolean"></property>
+  </class>
+
+ </hibernate-mapping>
