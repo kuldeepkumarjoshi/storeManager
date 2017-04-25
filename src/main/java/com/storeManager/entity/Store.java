@@ -1,69 +1,109 @@
 package com.storeManager.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
 
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-@EnableTransactionManagement
-@Entity
-@Table(name="stock")
-public class Store {
 
+public class Store extends CommanEntity implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Override
 	public String toString() {
-		return "Stock [id=" + id + ", Ticker=" + name + "]";
-	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
-	
-	@Column(name="name")
-	private int name;
-	
-	@Column(name="zoneId")
-	private String zonId;
-	
-	@Column(name="contactId")
-	private String contactId;
-
-	public int getId() {
-		return id;
+		return "Stock [id=" + getId() + ", Ticker=" + name + "]";
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	private String name;
+	
+	private Long zoneId;
+	
+	private String address;
+	
+	private String contactName;
+	
+	private String contactNumber1;
+	
+	private String contactNumber2;
+	
+	private String contactNumber3;
+	
+	private String email;
+	
+	private Date mostRecentOrderDate;
 
-	public int getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getZonId() {
-		return zonId;
-	}
-
-	public void setZonId(String zonId) {
-		this.zonId = zonId;
-	}
-
-	public String getContactId() {
-		return contactId;
-	}
-
-	public void setContactId(String contactId) {
-		this.contactId = contactId;
-	}
 	
-	
+	public String getAddress() {
+		return address;
+	}
 
-	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getContactName() {
+		return contactName;
+	}
+
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+
+	public String getContactNumber1() {
+		return contactNumber1;
+	}
+
+	public void setContactNumber1(String contactNumber1) {
+		this.contactNumber1 = contactNumber1;
+	}
+
+	public String getContactNumber2() {
+		return contactNumber2;
+	}
+
+	public void setContactNumber2(String contactNumber2) {
+		this.contactNumber2 = contactNumber2;
+	}
+
+	public String getContactNumber3() {
+		return contactNumber3;
+	}
+
+	public void setContactNumber3(String contactNumber3) {
+		this.contactNumber3 = contactNumber3;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getMostRecentOrderDate() {
+		return mostRecentOrderDate;
+	}
+
+	public void setMostRecentOrderDate(Date mostRecentOrderDate) {
+		this.mostRecentOrderDate = mostRecentOrderDate;
+	}
+
+	public Long getZoneId() {
+		return zoneId;
+	}
+
+	public void setZoneId(Long zoneId) {
+		this.zoneId = zoneId;
+	}
+
 }

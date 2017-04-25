@@ -19,6 +19,7 @@
 		<logback.version>1.0.13</logback.version>
 		<jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
 		 <spring.profiles>dev</spring.profiles>
+		 
 	</properties>
 
 	<dependencies>
@@ -253,9 +254,11 @@
 			<artifactId>tomcat7-maven-plugin</artifactId>
 			<version>2.2</version>
 			<configuration>
-			 <update>true</update>
-						<path>/</path>
-						<port>9575</port>
+					 <path>/</path>
+						  <update>true</update>
+						<url>http://localhost:9575/</url>
+						   <username>admin</username>
+                		    <password>admin</password>
 			</configuration>
 		  </plugin>
 
@@ -331,31 +334,31 @@
 				    <executable>grunt</executable>
 				  </configuration>
 				</plugin> -->
-			<plugin>
+		<!-- 	<plugin>
 			   <groupId>pl.allegro</groupId>
 			   <artifactId>grunt-maven-plugin</artifactId>
 			   <version>1.5.0</version>
 			   <configuration>
-			       <!-- relative to src/main/webapp/, default: static -->
+			       relative to src/main/webapp/, default: static
 			       <jsSourceDirectory>src/main/webapp/app</jsSourceDirectory>
 
-			       <!-- example options usage to get verbose output in logs -->
+			       example options usage to get verbose output in logs
 			       <gruntOptions>
-			           <gruntOption>--verbose</gruntOption>
+			           <gruntOption>verbose</gruntOption>
 			       </gruntOptions>
 
-			       <!-- example npm install env variable -->
+			       example npm install env variable
 			       <npmEnvironmentVar>
 			           <PHANTOMJS_CDNURL>http://cnpmjs.org/downloads</PHANTOMJS_CDNURL>
 			       </npmEnvironmentVar>
 
-			       <!-- example options usage to filter variables in given resource -->
+			       example options usage to filter variables in given resource
 			       <filteredResources>
 			           <filteredResource>maven-properties.json</filteredResource>
 			       </filteredResources>
 
 			   </configuration>
-			   <!-- <executions>
+			   <executions>
 			       <execution>
 			           <goals>
 			               <goal>create-resources</goal>
@@ -364,8 +367,8 @@
 			                <goal>grunt</goal>
 			            </goals>
 			        </execution>
-			    </executions> -->
-			</plugin>
+			    </executions>
+			</plugin> -->
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
 		    <artifactId>maven-surefire-plugin</artifactId>

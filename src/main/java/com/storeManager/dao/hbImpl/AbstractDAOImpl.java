@@ -29,7 +29,7 @@ public abstract class AbstractDAOImpl<E> {
 			    session = sessionFactory.openSession();
 			}
 			Transaction trans=session.beginTransaction();
-			 created= (Long) session.save(e);
+			 created= (Long) session.save(e); 
 			trans.commit();
 			session.close();
 		} catch (Exception ex) {
@@ -93,6 +93,7 @@ public abstract class AbstractDAOImpl<E> {
 			}
 			Transaction trans=session.beginTransaction();
 	         list = session.createQuery(hql).list();
+	         System.out.println("list size:"+list.size());
 	         trans.commit();
 	         session.close();
 		} catch (Exception ex) {
@@ -159,7 +160,7 @@ public abstract class AbstractDAOImpl<E> {
 			    session = sessionFactory.openSession();
 			}
 			trans=session.beginTransaction();
-			  e = (E) session.get(tempClass,id.intValue());
+			  e = (E) session.get(tempClass,id);
 			  trans.commit();
 			  session.close();
 		} catch (Exception ex) {

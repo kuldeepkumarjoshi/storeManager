@@ -3,44 +3,95 @@
  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
- <hibernate-mapping>
-  <class name="com.eventManagement.entity.Event" table="event">
-      <meta attribute="class-description">       This class contains the event detail.   </meta>
-    	<id name="id" type="long" column="id">   <generator class="increment"/>    </id>
-
-    <property name="title" column="title" type="string" ></property>
-    <property name="description" column="description" type="string"></property>
-    <property name="fromDate" column="fromDate" type="date"></property>
-    <property name="toDate" column="toDate" type="date"></property>
-    <property name="photoUrl" column="photoUrl" type="string"></property>
-    <property name="isDeleted" column="isDeleted" type="boolean"></property>
-    <property name="requestId" column="request_id" type="long"></property>
-
-  </class>
-
-  <class name="com.eventManagement.entity.User" table="user">
-      <meta attribute="class-description">       This class contains the user detail.   </meta>
-    	<id name="id" type="long" column="id">   <generator class="increment"/>    </id>
-
-    <property name="firstName" column="firstName" type="string" ></property>
-    <property name="lastName" column="lastName" type="string" ></property>
+ <hibernate-mapping package="com.storeManager">
+  <class name="com.storeManager.entity.Store" table="store">
+    <meta attribute="class-description">       This class contains the store detail.   </meta>
+    <id name="id" column="id" type="long">   <generator class="increment"/>    </id>
+ 	<property name="deleted" column="deleted" type="boolean"></property>
+ 	<property name="active" column="active" type="boolean"></property>
+ 	<property name="createdBy" column="createdBy" type="string"></property>
+ 	<property name="lastModifiedBy" column="lastModifiedBy" type="string"></property>
+ 	<property name="createdDate" column="createdDate" type="date"></property> 	
+ 	<property name="lastModifiedDate" column="lastModifiedDate" type="date"></property>
+ 	
+    <property name="name" column="name" type="string" not-null="true" index="INDSstoreName"></property>
+   
+    <property name="address" column="address" type="string" not-null="true"></property>
+    <property name="contactName" column="contactName" type="string" unique="true" not-null="true" index="INDScontactName"></property>
+    <property name="contactNumber1" column="contactNumber1" type="string" not-null="true" index="INDScontactNumber1"></property>
+    <property name="contactNumber2" column="contactNumber2" type="string"></property>
+    <property name="contactNumber3" column="contactNumber3" type="string"></property>
     <property name="email" column="email" type="string"></property>
-    <property name="role" column="role" type="string"></property>
-    <property name="dob" column="dob" type="date"></property>
-    <property name="photoUrl" column="photoUrl" type="string"></property>
-  	<property name="isDeleted" column="isDeleted" type="boolean"></property>
-    <property name="requestId" column="request_id" type="long"></property>
-
+    <property name="mostRecentOrderDate" column="mostRecentOrderDate" type="date"></property>
+    <property name="zoneId"  column="zoneId" type="long" ></property>
+            
   </class>
-  <class name="com.eventManagement.entity.EventUser" table="eventUser">
-      <meta attribute="class-description">       This class contains the event user detail.   </meta>
-    	<id name="id" type="long" column="id">   <generator class="increment"/>    </id>
+  
+  <class name="com.storeManager.entity.Zone" table="zone">
+    <meta attribute="class-description">       This class contains the zone detail.   </meta>
+    <id name="id" column="id" type="long">   <generator class="increment"/>    </id>
+ 	<property name="deleted" column="deleted" type="boolean"></property>
+ 	<property name="active" column="active" type="boolean"></property>
+ 	<property name="createdBy" column="createdBy" type="string"></property>
+ 	<property name="lastModifiedBy" column="lastModifiedBy" type="string"></property>
+ 	<property name="createdDate" column="createdDate" type="date"></property> 	
+ 	<property name="lastModifiedDate" column="lastModifiedDate" type="date"></property>
 
-    <property name="userId" column="user_id" type="long" ></property>
-    <property name="eventId" column="event_id" type="long"></property>
-    <property name="userName" column="userName" type="string"></property>
-    <property name="eventTitle" column="eventTitle" type="string"></property>
-    <property name="isDeleted" column="isDeleted" type="boolean"></property>
+    <property name="name" column="name" type="string" unique="true" not-null="true" index="INDZzoneName"></property>      
   </class>
+  
+  <class name="com.storeManager.entity.OrderItem" table="orderitem">
+    <meta attribute="class-description">       This class contains the order detail.   </meta>
+    <id name="id" column="id" type="long">   <generator class="increment"/>    </id>
+ 	<property name="deleted" column="deleted" type="boolean" ></property>
+ 	<property name="active" column="active" type="boolean"></property>
+ 	<property name="createdBy" column="createdBy" type="string"></property>
+ 	<property name="lastModifiedBy" column="lastModifiedBy" type="string"></property>
+ 	<property name="createdDate" column="createdDate" type="date"></property> 	
+ 	<property name="lastModifiedDate" column="lastModifiedDate" type="date"></property>
+
+    <property name="title" column="title" type="string" not-null="true"></property>
+    <property name="storeId" column="storeId" type="long" not-null="true" index="INDOIstoreId"></property>    
+    <property name="total" column="total" type="double" not-null="true"></property>
+    <property name="subTotal" column="subTotal" type="double" not-null="true"></property>
+    <property name="status" column="status" type="string" not-null="true" index="INDOIstatus"></property>   
+    <property name="poNumber" column="poNumber" type="long"></property>    
+    <property name="orderDate" column="orderDate" type="date" index="INDOIorderDate"></property>
+    <property name="remarks" column="remarks" type="string"></property>
+    <property name="poReceivedOnEmail" column="poReceivedOnEmail" type="boolean"></property>
+    <property name="orderReceivedNotification" column="orderReceivedNotification" type="boolean" not-null="true"></property>
+    <property name="orderDeliveredNotification" column="orderDeliveredNotification" type="boolean" not-null="true"></property>
+  </class>
+  
+   <class name="com.storeManager.entity.OrderProduct" table="orderProduct">
+  	 <meta attribute="class-description">       This class contains the order product detail.   </meta>
+    <id name="id" column="id" type="long">   <generator class="increment"/>    </id>
+ 	<property name="deleted" column="deleted" type="boolean"></property>
+ 	<property name="active" column="active" type="boolean"></property>
+ 	<property name="createdBy" column="createdBy" type="string"></property>
+ 	<property name="lastModifiedBy" column="lastModifiedBy" type="string"></property>
+ 	<property name="createdDate" column="createdDate" type="date"></property> 	
+ 	<property name="lastModifiedDate" column="lastModifiedDate" type="date"></property>
+ 	
+ 	<property name="orderId" column="orderId" type="long" not-null="true" index="INDOPorderId"></property>
+ 	<property name="productId" column="productId" type="long" not-null="true" index="INDOPproductId"></property>    
+ 	<property name="quantity" column="quantity" type="int" not-null="true"></property>
+ 	<property name="price" column="price" type="double" not-null="true"></property>
+   </class>
+   
+    <class name="com.storeManager.entity.Product" table="product">
+  	 <meta attribute="class-description">       This class contains the order product detail.   </meta>
+    <id name="id" column="id" type="long">   <generator class="increment"/>    </id>
+ 	<property name="deleted" column="deleted" type="boolean"></property>
+ 	<property name="active" column="active" type="boolean"></property>
+ 	<property name="createdBy" column="createdBy" type="string"></property>
+ 	<property name="lastModifiedBy" column="lastModifiedBy" type="string"></property>
+ 	<property name="createdDate" column="createdDate" type="date"></property> 	
+ 	<property name="lastModifiedDate" column="lastModifiedDate" type="date"></property>
+ 	
+ 	<property name="name" column="name" type="string" not-null="true" index="INDPname"></property>
+ 	<property name="description" column="description" type="string" ></property>    
+ 	<property name="price" column="price" type="double" not-null="true"></property>
+   </class>
 
  </hibernate-mapping>

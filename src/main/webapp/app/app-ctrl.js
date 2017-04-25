@@ -72,48 +72,25 @@
 	                };
 	            }
 	        };
-	        var imageNo=1;
-	        setBackGround();
-	        $interval(setBackGround, 8000);
-	        function setBackGround(){
-	        	if(imageNo>3){
-	        	imageNo=1;
-	        	}
-	        	 $scope.url="url('images/back"+imageNo+".jpg')  no-repeat border-box";
-	        	 $scope.style={"background":  $scope.url,"background-size":"cover"};
-	        	 imageNo=imageNo+1;
-	        }
+	       
 
 	        $scope.setBG=function(type){
 	        	$scope.home='';
-	        	$scope.gallery='';
 	        	$scope.about='';
-	        	$scope.contact='';
-	        	$scope.event='';
-	        	$scope.service='';
-	        	$scope.profile='';
-	        	$scope.user='';
-	        	$scope.requester='';
+	        	$scope.stores='';
+	        	$scope.zones='';
 	        	switch(type){
 	        	case "/home":$scope.home='back-color';
 	        		break;
-	        	case "/store":				        		
+	        	case "/stores":				        		
 	        					$scope.stores='back-color';
 	        		break;
 	        	case "/about":$scope.about='back-color';
 	        		break;
-	        	case "/contact":$scope.contact='back-color';
-	        		break;
-	        	case "/event":$scope.event='back-color';
-	        		break;
-	        	case "/ourService":$scope.service='back-color';
-	        		break;
-	        	case "/profile":$scope.profile='back-color';
-	        		break;
-	        	case "/user":$scope.user='back-color';
-        			break;
-	        	case "/requester":$scope.requester='back-color';
-	        		break;
+	        	case "/zones":$scope.zones='back-color';
+        			break;	        	
+	        	/*case "/contact":$scope.contact='back-color';
+	        		break;*/
 	        	default:$location.path('/home');
 	        			$scope.home='back-color';
 	        			break;

@@ -14,6 +14,12 @@
 					params : {
 						operation : 'getAll'
 					}
+				},
+				getAllByZoneId:{
+					method : 'GET',
+					params : {
+						operation : 'getAllByZoneId'
+					}
 				}
 			});
 

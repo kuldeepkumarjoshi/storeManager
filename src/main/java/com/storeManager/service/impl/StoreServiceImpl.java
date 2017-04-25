@@ -1,5 +1,7 @@
 package com.storeManager.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,11 @@ public class StoreServiceImpl  extends AbstractServiceImpl<Store> implements Sto
 	public StoreDAO getObjectDao() {
 	
 		return storeDAO;
+	}
+
+	@Override
+	public List<Store> getAllByZoneId(long parseLong, String databaseString) {		
+		return storeDAO.getAllByZoneId(parseLong,databaseString);
 	}
 
 	

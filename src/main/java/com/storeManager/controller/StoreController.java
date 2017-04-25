@@ -47,6 +47,16 @@ public class StoreController {
 			return resultMap;
 		}
 		
+		@RequestMapping(value="/getAllByZoneId",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getAllByZoneId(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			String zoneId = request.getParameter("zoneId");
+			List<Store> storeList = storeService.getAllByZoneId(Long.parseLong(zoneId),"from Store");
+			resultMap.put("storeList",storeList);			
+			return resultMap;
+		}
+		
 		@RequestMapping(value="/getAllPaginated",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String,Object> getAllStorePaginated(HttpServletRequest request){
