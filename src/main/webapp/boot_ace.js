@@ -7,7 +7,7 @@
 
 (function(window, head) {
     "use strict";
-var root="..";
+var root="/storeManager";
     head.js(
     	// Pre-load these for splash-screen progress bar...
     	

@@ -1,27 +1,27 @@
-<style>
-.gridStyle {
-    border: 1px solid rgb(212,212,212);
-    width: 100%; 
-    color:Black !important;
-}
-sup{
-color:RED;
-}
-
-</style>
-<div class="container-fluid transparent">
-	<div class="col-md-12 col-sm-12" style="border-bottom: 1px solid #eee;">
-		<h1><i class="fa fa-user fa-lg"></i> ORDER </h1>
+<div class=" headerTitle" style="border-bottom: 1px solid #eee;height: 49px;padding: 2% 0% 0% 0%;background-color: #d4b587;color: white;">
+		<div class="col-md-1 col-sm-1 col-xs-1 "><i class="fa fa-arrow-left fa-lg"></i> </div>
+		<div class="col-md-8 col-sm-8 col-xs-8 " style="margin-top: 1%;">Select Product </div>
 	</div>
-	<div class="col-md-12 col-sm-12" style="margin-top:1%;">
-		<button class="col-md-1 btn btn-plus btn-white" ng-click="saveOrder()"
+	<div class="" style="padding: 2% 0% 0% 2%;height: 49px;text-align:center;">Zone - {{selectedZone.entity.name}} <br/>
+	Store - {{selectedStore.entity.name}}</div>
+<div class=" transparent">
+	
+	
+	<div class="" style="margin-top:1%;">
+		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(productData)"  ui-grid-exporter >
+   		 </div>
+	</div>
+     <div class="col-md-12 col-sm-12" style="margin-top:1%;">
+			<div class="label ">PO Received: </div>
+			<div class="label ">PO Number: </div>
+			<div class="label ">Delivery Date: </div>		
+			<div class="label ">remarks: </div>			
+	</div>
+    <div class="col-md-12 col-sm-12" style="margin-top:1%;text-align: center;">
+		<button class="btn btn-plus btn-white" ng-click="saveOrder()" style="width:50%;"
 		tooltip-placement="auto" tooltip="save order" tooltip-append-to-body="true">
 		<i class="fa fa-save fa-lg text-success"></i></button>
 	</div>
-	<div class="col-md-12 col-sm-12" style="margin-top:1%;">
-		<div ui-grid="gridOptions" class="gridStyle"  ui-grid-auto-resize ng-style="getTableHeight()" ui-grid-exporter >
-		</div>
-    </div>
 </div>
 
 

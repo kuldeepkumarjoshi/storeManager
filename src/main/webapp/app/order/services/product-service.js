@@ -4,7 +4,7 @@
 	define([], function() {
 
 		var ProductService = function($resource, $interpolate) {
-			var data = $resource('/rest/product/:operation/:id',{
+			var data = $resource('/storeManager/rest/product/:operation/:id',{
 				id:"@id",
 				operation:"@operation"
 			},

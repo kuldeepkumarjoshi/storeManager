@@ -8,13 +8,13 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.storeManager.dao.StoreDAO;
 import com.storeManager.entity.Store;
 
 
-@Component
+@Repository("storeDAO")
 public class StoreDAOImpl extends AbstractDAOImpl<Store> implements StoreDAO {
 
 	@Override

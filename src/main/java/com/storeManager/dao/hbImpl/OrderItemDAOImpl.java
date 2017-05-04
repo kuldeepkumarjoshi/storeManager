@@ -2,13 +2,13 @@ package com.storeManager.dao.hbImpl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.storeManager.dao.OrderItemDAO;
 import com.storeManager.entity.OrderItem;
 import com.storeManager.mail.MailService;
 
-@Component
+@Repository("orderItemDAO")
 public class OrderItemDAOImpl extends AbstractDAOImpl<OrderItem> implements OrderItemDAO {
 
 	@Autowired

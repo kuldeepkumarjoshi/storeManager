@@ -4,7 +4,7 @@
 	define([], function() {
 
 		var ZoneService = function($resource, $interpolate) {
-			var data = $resource('/rest/zone/:operation/:id',{
+			var data = $resource('/storeManager/rest/zone/:operation/:id',{
 				id:"@id",
 				operation:"@operation"
 			},

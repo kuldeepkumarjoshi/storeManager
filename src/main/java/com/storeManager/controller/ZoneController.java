@@ -22,7 +22,6 @@ import com.storeManager.service.ZoneService;
 public class ZoneController {
 		
 		@Autowired		
-		@Qualifier("zoneServiceImpl")
 		ZoneService zoneService;
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)

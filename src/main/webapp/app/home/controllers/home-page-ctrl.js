@@ -16,7 +16,9 @@
 								console.log(res);
 							});
 					};
-					
+					 $scope.createOrder= function(){
+						 $location.path('/zones');
+					 };
 					$scope.postData=function(){
 						$http.post('/eventManagment/dataFile/contacts.json',{
 							params:{

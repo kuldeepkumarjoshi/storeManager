@@ -3,19 +3,17 @@ package com.storeManager.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.storeManager.dao.StoreDAO;
 import com.storeManager.entity.Store;
 import com.storeManager.service.StoreService;
 
-@Component
+@Service("storeService")
 public class StoreServiceImpl  extends AbstractServiceImpl<Store> implements StoreService {
 
 	
 	@Autowired
-	@Qualifier("storeDAOImpl")
 	StoreDAO storeDAO;	
 	
 	@Override

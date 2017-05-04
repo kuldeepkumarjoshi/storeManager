@@ -22,8 +22,7 @@ import com.storeManager.service.OrderItemService;
 public class OrderItemController {
 		
 		@Autowired		
-		@Qualifier("orderItemServiceImpl")
-		OrderItemService orderService;
+		OrderItemService orderItemService;
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
@@ -33,7 +32,7 @@ public class OrderItemController {
 			String orderId = request.getParameter("orderId");
 			
 			
-			OrderItem order  = orderService.getById(Long.parseLong(orderId),OrderItem.class);
+			OrderItem order  = orderItemService.getById(Long.parseLong(orderId),OrderItem.class);
 			resultMap.put("order", order);
 			return resultMap;
 		}
@@ -42,7 +41,7 @@ public class OrderItemController {
 		@ResponseBody
 		public Map<String,Object> getAllOrder(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			List<OrderItem> orderList = orderService.getAll("from OrderItem");
+			List<OrderItem> orderList = orderItemService.getAll("from OrderItem");
 			resultMap.put("orderList",orderList);			
 			return resultMap;
 		}
@@ -52,7 +51,7 @@ public class OrderItemController {
 		public Map<String,Object> getAllOrderPaginated(HttpServletRequest request){
 			int start =Integer.parseInt(request.getParameter("start"));
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			List<OrderItem> orderList = orderService.getAllPaginated("from OrderItem",start);
+			List<OrderItem> orderList = orderItemService.getAllPaginated("from OrderItem",start);
 			resultMap.put("orderList",orderList);			
 			return resultMap;
 		}
@@ -62,7 +61,7 @@ public class OrderItemController {
 		public String deleteOrder(HttpServletRequest request){
 			String orderID = request.getParameter("id");
 			//System.out.println( request.getSession().getAttributeNames());
-			orderService.remove(Long.parseLong(orderID),OrderItem.class);			
+			orderItemService.remove(Long.parseLong(orderID),OrderItem.class);			
 			return "success";
 		}
 		
@@ -76,7 +75,7 @@ public class OrderItemController {
 			OrderItem order = new OrderItem();
 		
 			//System.out.println( request.getSession().getAttributeNames());
-			orderService.update(order);
+			orderItemService.update(order);
 		
 			return "success";
 		}
@@ -90,7 +89,7 @@ public class OrderItemController {
 			
 			OrderItem order = new OrderItem();
 			System.out.println("order::"+order);
-			orderService.insert(order);
+			orderItemService.insert(order);
 			resultMap.put("order", order);
 			return resultMap;
 		}

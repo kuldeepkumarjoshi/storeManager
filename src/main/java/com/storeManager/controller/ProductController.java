@@ -22,7 +22,6 @@ import com.storeManager.service.ProductService;
 public class ProductController {
 		
 		@Autowired		
-		@Qualifier("productServiceImpl")
 		ProductService productService;
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)

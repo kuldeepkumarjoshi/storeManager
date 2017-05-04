@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,11 +25,9 @@ import com.storeManager.vo.OrderItemVO;
 public class OrderProductController {
 		
 		@Autowired		
-		@Qualifier("orderProductServiceImpl")
 		OrderProductService orderProductService;
 		
 		@Autowired		
-		@Qualifier("orderItemServiceImpl")
 		OrderItemService orderItemService;
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)

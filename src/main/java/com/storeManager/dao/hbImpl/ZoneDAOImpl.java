@@ -1,13 +1,13 @@
 package com.storeManager.dao.hbImpl;
 
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.storeManager.dao.ZoneDAO;
 import com.storeManager.entity.Zone;
 
 
-@Component
+@Repository("zoneDAO")
 public class ZoneDAOImpl extends AbstractDAOImpl<Zone> implements ZoneDAO {
 
 	

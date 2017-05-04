@@ -38,6 +38,11 @@
 						  };
 					$scope.gridOptions = {
 						multiSelect : false,
+						showFooter: true,
+						footerTemplate: 
+							'<div ng-show="showFooter" class="ngFooterPanel" ng-class="{\'ui-widget-content\': jqueryUITheme, \'ui-corner-bottom\': jqueryUITheme}" ' +
+							'ng-style="footerStyle()"><div ng-style="{ \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}} " ng-cell style="text-align:right;">' +
+							'{{getTotal(col.field)}}</div></div>',
 						enableCellEditOnFocus : true,
 						 exporterMenuCsv: true,
 						 enableGridMenu: true,
@@ -45,34 +50,19 @@
 						data : 'productData',
 						columnDefs : [
 								{
-									name: 's.no',
-									cellTemplate: '<div align="center" style="padding-top: 6%;" class="ngCellText">{{grid.renderContainers.body.visibleRowCache.indexOf(row) +1}}</div>',
-									enableSorting : false,
-									width:60
-								},
-								{
 									field : 'name',
-									displayName: 'Name',
-									enableCellEdit: false,
-									width:300,
+									displayName: 'Product',
 									cellTemplate:'<div class="" style="padding-left: 2%;cursor:pointer;">'+" {{row.entity.name}} "+'</div>'
 								},
 								{
 									field : 'price',
-									enableCellEdit: true,
 									displayName:'Unit price'									
 								},
 								{
 									field : ' ',
 									displayName:'Quantity',
-									enableCellEdit: false,
+									enableCellEdit: true,
 									cellTemplate:'<div class="" style="padding-left: 2%;"><input type="text" name="quantity" ng-model="row.entity.quantity" class="form-control" /></div>'
-									
-								},
-								{
-									field : ' ',
-									displayName:'Sub total',
-									cellTemplate:'<div class="" style="padding-left: 2%;">'+"{{row.entity.quantity*row.entity.price }}"+'</div>'
 									
 								}/*,
 								{ 

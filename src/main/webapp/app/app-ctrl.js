@@ -7,7 +7,7 @@
 			//logoutTimer.startLogoutTimer(60*10*1000);
 
 
-
+			$scope.headerText="";
 			$scope.notifications = i18nNotifications;
 	        $scope.breadcrumbs = breadcrumbs;
 	        //cfpLoadingBar.start();
@@ -58,7 +58,7 @@
 	         * @param dataList
 	         * @returns {{height: string}}
 	         */
-	        $scope.getTableStyle = function (dataList) {
+	        $scope.getTableHeight = function (dataList) {
 
 	            var rowHeight = 30;
 	            var headerHeight = 30 + 5;
@@ -80,14 +80,14 @@
 	        	$scope.stores='';
 	        	$scope.zones='';
 	        	switch(type){
-	        	case "/home":$scope.home='back-color';
+	        	case "/home":$scope.home='back-color';$scope.headerText ="Welcome";
 	        		break;
-	        	case "/stores":				        		
+	        	case "/stores":				        	$scope.headerText ="Select Store";	
 	        					$scope.stores='back-color';
 	        		break;
 	        	case "/about":$scope.about='back-color';
 	        		break;
-	        	case "/zones":$scope.zones='back-color';
+	        	case "/zones":$scope.zones='back-color'; $scope.headerText ="Select Zone";
         			break;	        	
 	        	/*case "/contact":$scope.contact='back-color';
 	        		break;*/

@@ -13,46 +13,29 @@ li:hover{
 background: rgba(3, 3, 3, 0.7) !important;
 }
 .back-color{
-background: rgba(0, 100, 0, 0.8) !important;
-color:white !important;
+/* background: rgba(0, 100, 0, 0.8) !important; */
 }
  .nav,.nav li a{
 padding:0px;
 }
-
-  @media (min-width: 601px) {
-
-
-.link{
-border-top-style:groove	;
-border-bottom-style:groove;
-padding:7% 0% 7% 2%;
-font-size:24px;
-width:100%;
-}
-
-li{
-margin-top:1%;
-}
-.navbar-nav{
-float:none;
-}
-.navbar-nav li{
-float:none;
-}
-}
 </style>
-<nav class="navbar navbar-default" style="margin-bottom:0px;background: transparent;border-color: transparent;" ng-init="Clickcollapse=false;">
-<div class="container-fluid" style="padding: 0px;">
-      <div class="navbar-header" style="">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" ng-click="Clickcollapse = !Clickcollapse;" style="margin-right: 12%;">
+<nav class="navbar navbar-default label-primary" style=" background-color: #193340;margin-bottom: 0px;" ng-init="Clickcollapse=false;">
+
+      <div class=" navbar-header" style="">
+       	<button type="button" class="col-md-1 col-sm-1 col-xs-1 navbar-toggle collapsed" data-toggle="collapse" ng-click="Clickcollapse = !Clickcollapse;" 
+       	style="border-color: transparent;float: left;">
 	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
+	        <span class="icon-bar" style="background: white;"></span>
+	        <span class="icon-bar" style="    background: white;"></span>
+	        <span class="icon-bar" style="    background: white;"></span>
 	      </button>
+      	<a  href="#/home" class="col-md-8 col-sm-8 col-xs-8 " style="text-align:center;color:white;margin-top: 3%;font-family: initial;font-size: 21px;">STORE MANAGER</a>
+	    <a  href="#/zones" class="col-md-1 col-sm-1 col-xs-1 " style="text-align:center;color:white;margin-top: 3%;"><i class="fa fa-plus-circle fa-2x"></i></a>
+	    
+	    
 	</div>
-	<div class="collapse navbar-collapse" ng-class="{'in':Clickcollapse}">
+	
+	<div ng-hide="true" class="collapse navbar-collapse" ng-class="{'in':Clickcollapse}">
 		    <ul class="nav navbar-nav">
 		    	<li ><a  href="#/home">
 		    		<div ng-click="Clickcollapse = !Clickcollapse;setBG('/home');" class="link {{home}}"> <i class="fa fa-home fa-lg"></i> Home </div></a></li>
@@ -71,5 +54,5 @@ float:none;
 			    	<div ng-click="Clickcollapse = !Clickcollapse;setBG('/profile');" class="link {{profile}}"> <i class="fa fa-dot-circle-o fa-lg"></i> PROFILE </div></a></li>
 		    --> </ul>
 	</div>
-</div>
+
 </nav>
