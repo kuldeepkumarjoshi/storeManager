@@ -1,0 +1,3 @@
+INSERT INTO store (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name, address, contactName, contactNumber1, contactNumber2, contactNumber3, email, mostRecentOrderDate, zoneId) VALUES
+(2, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'store1', 'kuldeep','kuldeep',  '5163', '1234', NULL, 'asdf@ads.com', '2017-04-12', 2),
+(3, false, true, 'admin', 'amidn', '2017-04-05', '2017-04-19', 'store2', 'test', 'test',  'store2', 'store2', 'store2', 'store2', '2017-04-12', 2);
