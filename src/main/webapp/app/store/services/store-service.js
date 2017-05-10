@@ -4,7 +4,7 @@
 	define([], function() {
 
 		var StoreService = function($resource, $interpolate) {
-			var data = $resource('/storeManager/rest/store/:operation/:id',{
+			var data = $resource('/rest/store/:operation/:id',{
 				id:"@id",
 				operation:"@operation"
 			},

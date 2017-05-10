@@ -1,5 +1,6 @@
 package com.storeManager.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.storeManager.entity.OrderProduct;
 import com.storeManager.entity.Product;
 import com.storeManager.service.ProductService;
 
@@ -46,6 +48,21 @@ public class ProductController {
 			return resultMap;
 		}
 		
+		@RequestMapping(value="/getAllOrderProducts",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getAllOrderProducts(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			List<Product> productList = productService.getAll("from Product");
+			List<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
+			for (Product product : productList) {
+				orderProductList.add(new OrderProduct(product)) ;
+			}
+			resultMap.put("productList",orderProductList);			
+			return resultMap;
+		}		
+		
+		
+
 		@RequestMapping(value="/getAllPaginated",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String,Object> getAllProductPaginated(HttpServletRequest request){

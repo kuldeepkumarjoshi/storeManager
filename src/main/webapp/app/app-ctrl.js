@@ -11,7 +11,10 @@
 			$scope.notifications = i18nNotifications;
 	        $scope.breadcrumbs = breadcrumbs;
 	        //cfpLoadingBar.start();
-
+	        $scope.$back=function(){
+				window.history.back();
+			}
+	        
 	        $scope.$on('$routeChangeError', function (event, current, previous, rejection) {
 	            i18nNotifications.pushForCurrentRoute('errors.route.changeError', 'danger', {}, {rejection: rejection});
 	        });
@@ -58,8 +61,10 @@
 	         * @param dataList
 	         * @returns {{height: string}}
 	         */
-	        $scope.getTableHeight = function (dataList) {
-
+	        $scope.getTableHeight = function (dataList,extraAdd ) {
+	        	if(extraAdd == null){
+	        		extraAdd = 0 ;
+	        	}
 	            var rowHeight = 30;
 	            var headerHeight = 30 + 5;
 	            if (dataList == null || dataList === undefined && dataList.length === 0) {
@@ -68,7 +73,7 @@
 	                };
 	            } else {
 	                return {
-	                    height: (dataList.length * rowHeight + headerHeight) + "px"
+	                    height: (dataList.length * rowHeight + headerHeight)+extraAdd + "px"
 	                };
 	            }
 	        };

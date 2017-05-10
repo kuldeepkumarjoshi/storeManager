@@ -4,7 +4,7 @@
 	define([], function() {
 
 		var OrderService = function($resource, $interpolate) {
-			var data = $resource('/storeManager/rest/order/:operation/:id',{
+			var data = $resource('/rest/order/:operation/:id',{
 				id:"@id",
 				operation:"@operation"
 			},
@@ -17,8 +17,7 @@
 				},
 				save:{
 					method : 'POST',
-					url:'/rest/orderProduct/save'
-					
+					url:'/rest/orderProduct/save'					
 				}
 			});
 

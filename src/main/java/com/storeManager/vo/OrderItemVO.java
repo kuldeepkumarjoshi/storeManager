@@ -24,7 +24,7 @@ public class OrderItemVO extends CommanEntity {
 	
 	private Long poNumber;
 	
-	private Date orderDate;
+	private Date deliveryDate;
 	private String remarks;
 	
 	private boolean poReceivedOnEmail = Boolean.FALSE;
@@ -89,13 +89,7 @@ public class OrderItemVO extends CommanEntity {
 		this.poNumber = poNumber;
 	}
 
-	public Date getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
+	
 
 	public boolean isPoReceivedOnEmail() {
 		return poReceivedOnEmail;
@@ -135,6 +129,14 @@ public class OrderItemVO extends CommanEntity {
 
 	public void setStore(Store store) {
 		this.store = store;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 
 }

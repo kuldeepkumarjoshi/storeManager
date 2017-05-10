@@ -4,11 +4,15 @@
 	define([], function() {
 
 		var ProductService = function($resource, $interpolate) {
-			var data = $resource('/storeManager/rest/product/:operation/:id',{
+			var data = $resource('/rest/product/:operation/:id',{
 				id:"@id",
 				operation:"@operation"
 			},
-			{
+			{ 	getAllOrderProducts:{
+					method : 'GET',
+					url:'/rest/product/getAllOrderProducts',
+					
+				},
 				getAllProducts:{
 					method : 'GET',
 					params : {

@@ -1,19 +1,22 @@
-<div class=" transparent">
-
-	<div class="col-md-12 col-sm-12" style="margin-top:1%;">
-		<button class="col-md-1 btn btn-plus btn-white" ng-click="createOrder()"
-		tooltip-placement="auto" tooltip="Create new order" tooltip-append-to-body="true">
-		<i class="fa fa-plus fa-lg text-success"></i></button>
+<br/>
+<div class="container-fluid transparent">
+	<div class="bg-primary" >
+	  Orders in progress
 	</div>
-	<!-- <div class="col-md-10 col-sm-10">
-		<u><i><h3>V ROCK</h3></i></u> -A Team Effort.
+	<div class=""  >
+		<div ng-show="inprogressOrders.length" ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(inprogressOrders)"  ui-grid-exporter >
+	  		 </div>
+	  		 <div ng-hide="inprogressOrders.length"> No Order found in progress status.
+	  		 </div>
 	</div>
-	<div class="col-md-12 col-sm-12">
-		<div class="col-md-offset-3 col-md-5">
-			Email:<input type="text" class="form-control" ng-model="user.email" />
-			Password:<input type="password" class="form-control" ng-model="user.password" />
-			<button ng-click="login()" class="btn btn-round"></button>
-		</div>
+	<br/>
+	<div class="bg-primary">
+	  Last orders
 	</div>
-	 -->
+	<div class="" style="margin-top:1%;" >
+		<div ng-show="opportunityData.length" ui-grid="gridOptionOpportunity" class="grid" ui-grid-auto-resize ng-style="getTableHeight(opportunityData)"  ui-grid-exporter >
+	  		 </div>
+  		 <div ng-hide="opportunityData.length"> No store in passive state.
+  		 </div>
+	</div>
 </div>

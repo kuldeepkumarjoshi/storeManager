@@ -1,0 +1,23 @@
+INSERT INTO public.product
+(id, deleted, active, createdby, lastmodifiedby, createddate, lastmodifieddate, name, description, price)	VALUES 
+(10001, false, true, 'admin' , 'admin',          '12/10/2015', '10/4/2016',   'p.mogia', 'p.mogia', 18);
+
+INSERT INTO public.product
+(id, deleted, active, createdby, lastmodifiedby, createddate, lastmodifieddate, name, description, price)	VALUES 
+(10002, false, true, 'admin' , 'admin',          '12/10/2015', '10/4/2016',   'p.pandade', 'p.pandade', 18);
+
+INSERT INTO public.product
+(id, deleted, active, createdby, lastmodifiedby, createddate, lastmodifieddate, name, description, price)	VALUES 
+(10003, false, true, 'admin' , 'admin',          '12/10/2015', '10/4/2016',   'p.gold', 'p.gold', 90);
+
+INSERT INTO public.product
+(id, deleted, active, createdby, lastmodifiedby, createddate, lastmodifieddate, name, description, price)	VALUES 
+(10004, false, true, 'admin' , 'admin',          '12/10/2015', '10/4/2016',   'S.sug', 'S.sug', 30);
+
+INSERT INTO public.product
+(id, deleted, active, createdby, lastmodifiedby, createddate, lastmodifieddate, name, description, price)	VALUES 
+(10005, false, true, 'admin' , 'admin',          '12/10/2015', '10/4/2016',   'CW.50', 'CW.50', 5);
+
+INSERT INTO public.product
+(id, deleted, active, createdby, lastmodifiedby, createddate, lastmodifieddate, name, description, price)	VALUES 
+(10006, false, true, 'admin' , 'admin',          '12/10/2015', '10/4/2016',   'CW.100', 'CW.100', 6);

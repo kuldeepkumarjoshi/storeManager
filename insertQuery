@@ -1,21 +1,22 @@
-/*INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
-(1, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Vodadra');
+INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
+(1002, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Vodadra');
+INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
+(1001, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Ahmedabad');
+
+
 
 INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
-(2, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Ahmedabad');
-
+(1003, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Surat');
 INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
-(3, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Surat');
+(1004, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Anant');
 INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
-(4, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Anant');
+(1005, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Jharkhand');
 INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
-(5, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Jharkhand');
-INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
-(6, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Madhya Pradesh'); */
-
+(1006, false, true, 'admin', 'admin', '2017-04-05', '2017-04-13', 'Madhya Pradesh'); 
+/*
 delete from zone where id=0
 
 
-/*
+
 UPDATE store SET zoneid = 1 WHERE zoneid = 0;
 */

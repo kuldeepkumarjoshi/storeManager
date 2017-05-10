@@ -3,6 +3,7 @@ package com.storeManager.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.storeManager.enums.OrderStatusType;
 import com.storeManager.vo.OrderItemVO;
 
 
@@ -14,14 +15,18 @@ public class OrderItem extends CommanEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	public OrderItem(OrderItemVO orderItemVO) {
-		title = orderItemVO.getTitle();
+		title = orderItemVO.getTitle()+"_"+new Date();
 		storeId = orderItemVO.getStoreId();
 		store = orderItemVO.getStore();
-		total = orderItemVO.getTotal();
-		subTotal = orderItemVO.getSubTotal();
+		if(orderItemVO.getOrderProducts()!=null){
+			for(OrderProduct orderProduct : orderItemVO.getOrderProducts()){
+				subTotal =  subTotal + orderProduct.getPrice()*orderProduct.getQuantity();
+			}
+		}
+		total = subTotal;
 		status = orderItemVO.	getStatus();
 		poNumber = orderItemVO.getPoNumber();
-		orderDate = orderItemVO.getOrderDate();
+		deliveryDate = orderItemVO.getDeliveryDate();
 		remarks = orderItemVO.getRemarks();
 
 	}
@@ -30,10 +35,7 @@ public class OrderItem extends CommanEntity implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return "Zone [id=" + getId() + ", title=" + title + "]";
-	}
+	
 	
 	
 	
@@ -43,13 +45,13 @@ public class OrderItem extends CommanEntity implements Serializable{
 	
 	private Store store;
 	
-	private double total;
-	private double subTotal;
-	private String status;
+	private double total = 0.0;
+	private double subTotal =0.0 ;
+	private String status = OrderStatusType.IN_PROGRESS.toString();
 	
 	private Long poNumber;
 	
-	private Date orderDate;
+	private Date deliveryDate;
 	private String remarks;
 	
 	private Boolean poReceivedOnEmail = Boolean.FALSE;
@@ -114,14 +116,6 @@ public class OrderItem extends CommanEntity implements Serializable{
 		this.poNumber = poNumber;
 	}
 
-	public Date getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
-
 	public Boolean isPoReceivedOnEmail() {
 		return poReceivedOnEmail;
 	}
@@ -152,6 +146,26 @@ public class OrderItem extends CommanEntity implements Serializable{
 
 	public void setStore(Store store) {
 		this.store = store;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderItem [title=" + title + ", storeId=" + storeId
+				+ ", store=" + store + ", total=" + total + ", subTotal="
+				+ subTotal + ", status=" + status + ", poNumber=" + poNumber
+				+ ", deliveryDate=" + deliveryDate + ", remarks=" + remarks
+				+ ", poReceivedOnEmail=" + poReceivedOnEmail
+				+ ", orderReceivedNotification=" + orderReceivedNotification
+				+ ", orderDeliveredNotification=" + orderDeliveredNotification
+				+ "]";
 	}
 
 }

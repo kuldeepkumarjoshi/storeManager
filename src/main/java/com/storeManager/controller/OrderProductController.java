@@ -1,5 +1,6 @@
 package com.storeManager.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,12 +93,18 @@ public class OrderProductController {
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			OrderItem orderItem = new OrderItem(orderItemVO);
 			Long orderItemId = orderItemService.insert(orderItem);
+			orderItem.setId(orderItemId);
+			List<OrderProduct> createOrderProduct = new ArrayList<OrderProduct>();
 			for (OrderProduct orderproduct : orderItemVO.getOrderProducts()) {
-				orderproduct.setOrderId(orderItemId);
+				if(orderproduct.getQuantity()!=0){
+					orderproduct.setOrderId(orderItemId);
+					orderproduct.setOrderItem(orderItem);
+					createOrderProduct.add(orderproduct);
+				}
 			}
 			
-			System.out.println("product::"+orderItemVO.getOrderProducts());
-			Map<Long, OrderProduct> saveMap = orderProductService.insertAll(orderItemVO.getOrderProducts());
+			System.out.println("product::"+createOrderProduct);
+			Map<Long, OrderProduct> saveMap = orderProductService.insertAll(createOrderProduct);
 			resultMap.put("saveMap", saveMap);
 			return resultMap;
 		}
