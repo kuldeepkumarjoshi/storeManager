@@ -55,7 +55,7 @@
     <property name="total" column="total" type="double" not-null="true"></property>
     <property name="subTotal" column="subTotal" type="double" not-null="true"></property>
     <property name="status" column="status" type="string" not-null="true" index="INDOIstatus"></property>   
-    <property name="poNumber" column="poNumber" type="long"></property>    
+    <property name="poNumber" column="poNumber" type="string"></property>    
     <property name="deliveryDate" column="deliveryDate" type="date" index="INDOIorderDate"></property>
     <property name="remarks" column="remarks" type="string"></property>
     <property name="poReceivedOnEmail" column="poReceivedOnEmail" type="boolean"></property>
