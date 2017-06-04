@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -75,6 +76,20 @@ public class OrderItemController {
 			resultMap.put("orders", orders);
 			return resultMap;
 		}
+		
+
+		@RequestMapping(value="/getAllByStore",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String, Object> getAllByStore(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();	
+			String storeId = request.getParameter("storeId");
+			Store store = new Store();
+			store.setId(Long.parseLong(storeId));
+			List<OrderItem> orders = orderBusiness.getAllByStore(store);
+			resultMap.put("orders", orders);
+			return resultMap;
+		}
+		
 		
 		@RequestMapping(value="/getDashBoardDetail",method=RequestMethod.GET)
 		@ResponseBody
@@ -183,9 +198,6 @@ public class OrderItemController {
 		@RequestMapping(value="/update",method=RequestMethod.PUT)
 		@ResponseBody
 		public String updateOrder(HttpServletRequest request,Model model){
-			String name = request.getParameter("name");
-			String price = request.getParameter("price");
-			String symbol = request.getParameter("symbol");
 			OrderItem order = new OrderItem();
 		
 			//System.out.println( request.getSession().getAttributeNames());

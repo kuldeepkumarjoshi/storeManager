@@ -3,11 +3,14 @@ package com.storeManager.business;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.storeManager.entity.OrderItem;
 import com.storeManager.entity.OrderProduct;
+import com.storeManager.entity.Store;
 import com.storeManager.entity.Zone;
 import com.storeManager.enums.OrderStatusType;
 import com.storeManager.service.OrderItemService;
@@ -51,6 +54,12 @@ public class OrderBusiness {
 		OrderItem order  = orderItemService.getById(Long.parseLong(orderId),OrderItem.class);
 		return order;
 	}
+
+	public List<OrderItem> getAllByStore(Store store) {
+		SimpleExpression spe = Restrictions.eq("store", store);
+		return orderItemService.getAllByFKoreignKey(spe, OrderItem.class);		 
+	}
+
 	
 	
 }

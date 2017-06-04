@@ -3,6 +3,8 @@ package com.storeManager.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.SimpleExpression;
+
 public interface CommanDAO<E> {
 
 	public Long insert(E e);
@@ -16,4 +18,6 @@ public interface CommanDAO<E> {
 	public Map<Long,E> insertAll(List<E> elist);
 	
 	public List<E> getAllPaginated(String hql,int start);
+	
+	public List<E> getAllByFKoreignKey(SimpleExpression spe , Class<E> tempClass);
 }

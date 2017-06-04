@@ -22,80 +22,42 @@
 <div class="col-md-12 col-sm-12" style="margin-top: 1%;">
 
 	<div class="input-group" style="width: 100%;">
-		<span class="input-group-addon inputGroup inputGroupAddon"
-			id="basic-addon1"> Zone :</span> <select
-			class="form-control inputGroup"
-			ng-options="zone as zone.name for zone in zones track by zone.id"
-			ng-model="selectedZone" ng-change="setStores(selectedZone)"
-			aria-describedby="basic-addon2">
-
-		</select>
-	</div>
-	<br />
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon1"> Contact name :</span>
+		<input type="text" class="form-control inputGroup"	ng-model="store.contactName" placeholder="Enter contact name" aria-describedby="basic-addon2">	
+	</div><br />
 	<div class="input-group" style="width: 100%;">
-		<span class="input-group-addon inputGroup inputGroupAddon"
-			id="basic-addon1"> Store :</span> <select
-			class="form-control inputGroup"
-			ng-options="store as store.name for store in zoneStores track by store.name"
-			ng-model="orderItemVo.store" aria-describedby="basic-addon2">
-
-		</select>
-	</div>
-	<br />
-
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon2"> Store :</span>
+		<input type="text" class="form-control inputGroup"	ng-model="store.name" placeholder="Enter store name"	aria-describedby="basic-addon3">
+	</div><br />
 	<div class="input-group" style="width: 100%;">
-		<span class="input-group-addon inputGroup inputGroupAddon"
-			id="basic-addon1"> Status :</span> <select
-			class="form-control inputGroup" placeholder="Select Status"
-			ng-options="status as status for status in statusList"
-			ng-model="orderItemVo.status" aria-describedby="basic-addon2">
-		</select>
-	</div>
-	<br />
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon3"> Contact number 1 :</span>
+		<input type="text" class="form-control inputGroup" ng-model="store.contactNumber1" placeholder="Enter contact number 1" aria-describedby="basic-addon4">
+	</div><br/>
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon"	id="basic-addon5"> Contact number 2 :</span>
+		<input type="text" class="form-control inputGroup" ng-model="store.contactNumber2" placeholder="Enter contact number 2"	aria-describedby="basic-addon6">
+	</div><br />
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon7"> Contact number 3 :</span> 
+		<input type="text" class="form-control inputGroup" ng-model="store.contactNumber3" placeholder="Enter contact number 3"	aria-describedby="basic-addon8">
+	</div><br />	
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon9"> Address :</span>
+		<textarea class="form-control inputGroup" ng-model="store.address"	style="width: 100%;" placeholder="Enter address" rows="5"
+			aria-describedby="basic-addon10"></textarea>
+	</div><br />
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon11"> Email :</span> 
+		<input type="text" class="form-control inputGroup" ng-model="store.email" placeholder="Enter email"	aria-describedby="basic-addon12">
+	</div><br />
 </div>
-<div class="ol-md-12 col-sm-12" style="">
-	<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize
-		ng-style="getTableHeight(productData,35)" ui-grid-exporter></div>
-</div>
-<div class="col-md-12 col-sm-12" style="margin-top: 1%;">
-	<br />
-	<div class="input-group" style="width: 100%;">
-		<span class="input-group-addon inputGroup inputGroupAddon"
-			id="basic-addon1"> <input type="checkbox"
-			ng-model="orderItemVo.poReceivedOnEmail"
-			aria-label="Radio button for following text input"> PO email
-			:
-		</span> <input type="text" class="form-control inputGroup"
-			ng-model="orderItemVo.poNumber" placeholder="Enter PO Number"
-			aria-describedby="basic-addon2">
-	</div>
-	<br />
-	<div class="input-group">
-		<span class="input-group-addon inputGroup inputGroupAddon"
-			id="basic-addon2">Delivery Date:</span> <input type="text"
-			class="form-control inputGroup" datepicker-popup="dd/MM/yyyy"
-			ng-model="orderItemVo.deliveryDate" is-open="opened" max-date="maxDate"
-			min-date="minDate" ng-required="true" show-weeks="false"
-			close-text="Close" readonly="true" ng-change=""
-			ng-click="open($event)" /> <span class="input-group-btn">
-			<button type="button" class="btn btn-white btn-md"
-				ng-click="open($event)">
-				<i class="fa fa-calendar fa-lg text-info"></i>
-			</button>
-		</span>
-	</div>
-	<br />
-	<div class="input-group" style="width: 100%;">
-		<textarea class="form-control inputGroup" ng-model="orderItemVo.remarks"
-			style="width: 100%;" placeholder="Remarks" rows="5"
-			aria-describedby="basic-addon4"></textarea>
-	</div>
-	<br />
+<div class="ol-md-12 col-sm-12" style=""  ng-show="storeOrderData">
+	<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize	ng-style="getTableHeight(storeOrderData,35)" ui-grid-exporter></div>
 </div>
 <div class="col-md-12 col-sm-12"
 	style="margin-top: 1%; text-align: center;">
-	<button class="btn btn-plus btn-white" ng-click="saveOrder()"
-		style="width: 50%;">Save order</button>
+	<button class="btn btn-plus btn-white" ng-click="saveStore()"
+		style="width: 50%;">Save store</button>
 </div>
 <br/>
 

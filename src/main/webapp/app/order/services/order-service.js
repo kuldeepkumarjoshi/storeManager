@@ -27,6 +27,12 @@
 						operation :'getBeforeEdit'
 					}
 				},
+				getAllByStore:{
+					method : 'GET',
+					params : {
+						operation : 'getAllByStore'
+					}
+				},
 				save:{
 					method : 'POST',
 					url:'/rest/orderProduct/save'					

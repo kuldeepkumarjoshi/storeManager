@@ -3,6 +3,8 @@ package com.storeManager.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.SimpleExpression;
+
 import com.storeManager.dao.CommanDAO;
 
 
@@ -28,6 +30,12 @@ public abstract class AbstractServiceImpl<E> {
 	public String remove(Long id,Class<E> tempClass) {
 		objectDao = (CommanDAO<E>) getObjectDao();
 		return objectDao.remove(id, tempClass);
+	}
+
+	
+	public List<E> getAllByFKoreignKey(SimpleExpression spe,Class<E> tempClass) {
+		objectDao = (CommanDAO<E>) getObjectDao();
+		return objectDao.getAllByFKoreignKey(spe, tempClass);
 	}
 
 	public List<E> getAll(String hql) {

@@ -5,12 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.storeManager.entity.OrderProduct;
 
 public abstract class AbstractDAOImpl<E> {
 
@@ -152,8 +157,7 @@ public abstract class AbstractDAOImpl<E> {
 		E e=null;
 		Session session =null;
 		Transaction trans =null;
-		try {
-			
+		try {			
 			try {
 			    session = sessionFactory.getCurrentSession();
 			} catch (HibernateException ex) {
@@ -164,14 +168,33 @@ public abstract class AbstractDAOImpl<E> {
 			  trans.commit();
 			  session.close();
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			
-			
-			
+			ex.printStackTrace();			
 		}
 		return e;
 	}
 
+
+	public List<E> getAllByFKoreignKey(SimpleExpression selectedCrs,Class<E> tempClass) {
+		List<E> list = null;
+		try {
+			Session session;
+			try {
+			    session = sessionFactory.getCurrentSession();
+			} catch (HibernateException exce) {
+			    session = sessionFactory.openSession();
+			}
+			Transaction trans=session.beginTransaction();
+			Criteria cr = session.createCriteria(tempClass);			
+			cr.add(selectedCrs);			
+	         list = cr.list();
+	         System.out.println("list size:"+list.size());
+	         trans.commit();
+	         session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
 
 
 	public E update(E e) {

@@ -17,8 +17,7 @@ public class OrderItemServiceImpl  extends AbstractServiceImpl<OrderItem> implem
 	OrderItemDAO orderItemDAO;	
 	
 	@Override
-	public OrderItemDAO getObjectDao() {
-	
+	public OrderItemDAO getObjectDao() {	
 		return orderItemDAO;
 	}
 
@@ -27,8 +26,6 @@ public class OrderItemServiceImpl  extends AbstractServiceImpl<OrderItem> implem
 		
 		return orderItemDAO.getByOrderStatus(status,className);
 	}
-
-	
 
 
 }
