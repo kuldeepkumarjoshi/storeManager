@@ -8,13 +8,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.storeManager.business.ProductBusiness;
 import com.storeManager.entity.OrderProduct;
 import com.storeManager.entity.Product;
 import com.storeManager.service.ProductService;
@@ -25,6 +25,9 @@ public class ProductController {
 		
 		@Autowired		
 		ProductService productService;
+		
+		@Autowired
+		ProductBusiness productBusiness;
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
@@ -52,7 +55,8 @@ public class ProductController {
 		@ResponseBody
 		public Map<String,Object> getAllOrderProducts(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			List<Product> productList = productService.getAll("from Product");
+			List<Product> productList = productBusiness.getAllProductList();
+			
 			List<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
 			for (Product product : productList) {
 				orderProductList.add(new OrderProduct(product)) ;
@@ -86,9 +90,7 @@ public class ProductController {
 		@RequestMapping(value="/update",method=RequestMethod.PUT)
 		@ResponseBody
 		public String updateProduct(HttpServletRequest request,Model model){
-			String name = request.getParameter("name");
-			String price = request.getParameter("price");
-			String symbol = request.getParameter("symbol");
+			
 			Product product = new Product();
 		
 			//System.out.println( request.getSession().getAttributeNames());

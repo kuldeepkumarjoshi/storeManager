@@ -9,9 +9,6 @@
 					var isAdmin=true;
 					$scope.newQuickOrder ={};
 					$scope.$parent.quickTitle = "Select Zone";
-					$scope.images=[];
-						var deleteBtn='<a ng-click="grid.appScope.deleteConfirmation(row)" style="cursor:pointer;margin-left:2%" uib-tooltip-placement="auto" uib-tooltip="Delete" uib-tooltip-append-to-body="true"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
-						var editBtn='<a ng-click="grid.appScope.editPage(row)" style="cursor:pointer;margin-left:2%" uib-tooltip-placement="auto" uib-tooltip="Edit" uib-tooltip-append-to-body="true"><i class="fa fa-pencil-square-o fa-lg text-info"></i></a>';
 					
 					 console.log(QuickOrderZoneData);
 					
@@ -28,7 +25,7 @@
 						  };
 						  
 					  $scope.quickStoreView =function(row){
-						  $rootScope.selectedZone = row;
+						  $rootScope.selectedZone = row.entity;
 						  $location.path('/quickOrder/selectStore').search({id:row.entity.id});
 					  }
 					$scope.gridOptions = {
@@ -41,19 +38,10 @@
 						columnDefs : [
 								{
 									field : 'name',
-									displayName: 'Name',
+									displayName: 'Zone',
 									enableCellEdit: false,
-									cellTemplate:'<a class="" href="#" style="padding-left: 2%;" ng-click="grid.appScope.quickStoreView(row)">'+" {{row.entity.name }} "+'</a>'
-								}/*,
-								{
-									field:'  ',
-									displayName:'  ',
-									name:' ',
-									enableCellEdit: false, 
-									enableSorting : false,
-									visible : isAdmin,
-									cellTemplate:'<div class="" style="padding-top: 1%;">'+editBtn+deleteBtn+'</div>'
-								}*/
+									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.quickStoreView(row)">'+" {{row.entity.name }} "+'</div>'
+								}
 								],
 
 					};

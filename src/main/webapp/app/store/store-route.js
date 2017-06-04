@@ -6,10 +6,10 @@
 		var StoreRoute = function ($routeProvider, $stateProvider) {
 			$stateProvider.state('store',{
 	            url:'/stores?id',
-	            templateUrl: 'app/store/views/store.html',
-	            controller: 'StoreCtrl',
+	            templateUrl: 'app/store/views/store-home.html',
+	            controller: 'StoreHomeCtrl',
 	            resolve: {
-					StoreData : ['StoreService','$stateParams', function (StoreService,$stateParams) {
+					StoreHomeData : ['StoreService','$stateParams', function (StoreService,$stateParams) {
 						
 						if($stateParams.id == null || $stateParams.id == undefined ){
 							return StoreService.getAllStores().$promise.then(function(response){
@@ -30,9 +30,9 @@
                     displayName: 'Store'
                 }
 	        }).state('store-create',{
-	            url:'/store-create',
-	            templateUrl: 'app/store/views/store-create.html',
-	            controller: 'StoreCreateCtrl',	           
+	            url:'/store-createEdit',
+	            templateUrl: 'app/store/views/store-createEdit.html',
+	            controller: 'StoreCreateEditCtrl',	           
 	            data: {
                     displayName: 'Store-Create'
                 }

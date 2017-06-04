@@ -15,11 +15,9 @@
 						operation : 'getAll'
 					}
 				},
-				save:{
+				saveZone:{
 					method :'POST',
-					params:{
-						operation:'save'
-					}
+					url:'/rest/zone/save'
 				}
 			});
 

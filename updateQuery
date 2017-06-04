@@ -1,1 +1,1 @@
-ALTER TABLE zone ALTER COLUMN active TYPE boolean USING active::boolean
+ALTER TABLE orderitem ALTER COLUMN ponumber TYPE varchar(255) USING ponumber::varchar(255)

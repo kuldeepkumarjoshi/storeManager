@@ -1,4 +1,4 @@
-/* CREATE TABLE IF NOT EXISTS zone (
+ CREATE TABLE IF NOT EXISTS zone (
   id bigint NOT NULL,
   deleted char(1) DEFAULT false,
   active char(1) DEFAULT true,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS orderitem (
   total double precision NOT NULL,
   subTotal double precision NOT NULL,
   status varchar(255) NOT NULL,
-  poNumber bigint DEFAULT NULL,
+  poNumber varchar(255) DEFAULT NULL,
   orderDate date DEFAULT NULL,
   remarks varchar(255) DEFAULT NULL,
   poReceivedOnEmail boolean DEFAULT NULL,

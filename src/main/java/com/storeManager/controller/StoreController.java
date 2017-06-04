@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.storeManager.business.StoreBusiness;
 import com.storeManager.entity.Store;
 import com.storeManager.service.StoreService;
 
@@ -22,6 +23,9 @@ public class StoreController {
 		
 		@Autowired		
 		StoreService storeService;
+		
+		@Autowired
+		StoreBusiness storeBusiness;
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
@@ -40,7 +44,9 @@ public class StoreController {
 		@ResponseBody
 		public Map<String,Object> getAllStore(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			List<Store> storeList = storeService.getAll("from Store");
+			
+			List<Store> storeList = storeBusiness.getAllStores();
+		
 			resultMap.put("storeList",storeList);			
 			return resultMap;
 		}

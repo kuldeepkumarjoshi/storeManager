@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.storeManager.business.StoreBusiness;
+import com.storeManager.business.ZoneBusiness;
 import com.storeManager.entity.Zone;
 import com.storeManager.service.ZoneService;
 
@@ -23,6 +26,9 @@ public class ZoneController {
 		
 		@Autowired		
 		ZoneService zoneService;
+		
+		@Autowired
+		ZoneBusiness zoneBusiness;
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
@@ -41,7 +47,7 @@ public class ZoneController {
 		@ResponseBody
 		public Map<String,Object> getAllZone(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			List<Zone> zoneList = zoneService.getAll("from Zone");
+			List<Zone> zoneList = zoneBusiness.getAllZones();
 			resultMap.put("zoneList",zoneList);			
 			return resultMap;
 		}
@@ -82,14 +88,16 @@ public class ZoneController {
 		
 		@RequestMapping(value="/save",method=RequestMethod.POST)
 		@ResponseBody
-		public Map<String,Object> saveZone(HttpServletRequest request){
+		public Map<String,Object> saveZone(@RequestBody Zone zone ,HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			String zoneName = request.getParameter("zoneName");
-			System.out.println("zone name::"+zoneName);
 			
-			Zone zone = new Zone();
+			if(zone.getId() == null ){
+				zoneService.insert(zone);
+			}else{
+				zoneService.update(zone);
+			}
 			System.out.println("zone::"+zone);
-			zoneService.insert(zone);
+			
 			resultMap.put("zone", zone);
 			return resultMap;
 		}

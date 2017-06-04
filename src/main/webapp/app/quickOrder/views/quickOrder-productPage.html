@@ -6,11 +6,11 @@ border-radius:0px;
 	width:40%;
 }
 </style>
-<div class="" style="padding: 2% 0% 0% 2%;height: 49px;text-align:center;">Zone - {{selectedZone.entity.name}} <br/>
+<div class="bg-primary" style="padding: 2% 0% 2% 2%;">Zone - {{selectedZone.entity.name}} <br/>
 	Store - {{selectedStore.entity.name}}
 </div>
 	
-<div class="" style="margin-top:1%;">
+<div class="" style="">
 	<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(productData,35)"  ui-grid-exporter >
   		 </div>
 </div>
@@ -41,8 +41,8 @@ border-radius:0px;
 	</div>
 	<br/>
 </div>
-<div class="col-md-12 col-sm-12" style="margin-top:1%;text-align: center;">
-	<button class="btn btn-plus btn-white" ng-click="saveOrder()" style="width:50%;">Save order</button>
+<div class="col-md-12 col-sm-12"  style="margin-top:1%;text-align: center;">
+	<button class="btn btn-plus btn-white" ng-disabled="orderTotal == 0" ng-click="saveOrder()" style="width:50%;">Save order</button>
 </div>
 
 

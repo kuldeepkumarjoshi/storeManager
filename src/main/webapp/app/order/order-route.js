@@ -6,8 +6,8 @@
 		var OrderRoute = function ($routeProvider, $stateProvider) {
 			$stateProvider.state('order',{
 	            url:'/orders',
-	            templateUrl: 'app/order/views/order.html',
-	            controller: 'OrderCtrl',
+	            templateUrl: 'app/order/views/order-home.html',
+	            controller: 'OrderHomeCtrl',
 	            resolve: {
 					OrderData : ['OrderService','$stateParams', function (OrderService,$stateParams) {
                     	return OrderService.getAllOrders().$promise.then(function(response){
@@ -19,14 +19,24 @@
                     displayName: 'Order'
                 }
 	        }).state('orderCreate',{
-	            url:'/order-create',
-	            templateUrl: 'app/order/views/order-create.html',
-	            controller: 'OrderCreateCtrl',	
+	            url:'/order-createEdit?id',
+	            templateUrl: 'app/order/views/order-createEdit.html',
+	            controller: 'OrderCreateEditCtrl',	
 	            resolve: {
-					ProductData : ['ProductService','$stateParams', function (ProductService,$stateParams) {
-                    	return ProductService.getAllProducts().$promise.then(function(response){
-                    		return response;
-                    	});
+	            	OrderProductData : ['OrderService','$stateParams', function (OrderService,$stateParams) {
+	            		if($stateParams.id == null || $stateParams.id == undefined ){
+	            			return OrderService.getBeforeCreate().$promise.then(function(response){
+	                    		return response;
+	                    	});
+	            		}else{
+	            			var obj={
+	            				orderId : 	$stateParams.id,
+	            			};
+	            			return OrderService.getBeforeEdit(obj).$promise.then(function(response){
+	                    		return response;
+	                    	});
+	            		}
+                    	
                     }]
                 },
 	            data: {

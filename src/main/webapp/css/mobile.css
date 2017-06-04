@@ -4,9 +4,10 @@
 .link{
 border-top-style:groove	;
 border-bottom-style:groove;
-padding:2% 0% 2% 7%;
+padding:7% 0% 7% 7%;
 font-size:13px;
 width:100%;
+color:white;
 }
 .thumbNail2{
 border:medium ridge teal;

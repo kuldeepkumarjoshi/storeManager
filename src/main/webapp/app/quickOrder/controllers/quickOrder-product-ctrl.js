@@ -7,8 +7,7 @@
 
 				var QuickOrderProductCtrl = function($scope, $location,$rootScope,uiGridConstants , $q,$interval,QuickOrderProductData,OrderService, i18nNotifications) {
 					var isAdmin=true; 
-					$scope.$parent.quickTitle = "Enter Detail";
-					$scope.images=[];
+					$scope.$parent.quickTitle = "Select Products";
 					$scope.opened = false;
 					$scope.orderTotal = 0 ;
 					//$scope.maxDate = new Date();
@@ -18,15 +17,13 @@
 					    $event.stopPropagation();
 					    $scope.opened = true;
 				  };
-						var deleteBtn='<a ng-click="grid.appScope.deleteConfirmation(row)" style="cursor:pointer;margin-left:2%" uib-tooltip-placement="auto" uib-tooltip="Delete" uib-tooltip-append-to-body="true"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
-						var editBtn='<a ng-click="grid.appScope.editPage(row)" style="cursor:pointer;margin-left:2%" uib-tooltip-placement="auto" uib-tooltip="Edit" uib-tooltip-append-to-body="true"><i class="fa fa-pencil-square-o fa-lg text-info"></i></a>';
-					
+						
 				//	 console.log(OrderData);
 						$scope.saveOrder=function(){
 							var obj={
-									title:$rootScope.selectedZone.entity.name+"_"+$rootScope.selectedStore.entity.name,
+									title:$rootScope.selectedZone.name+"_"+$rootScope.selectedStore.name,
 									orderProducts:	$scope.productData,	
-									status:"inProgress",
+									status:"IN_PROGRESS",
 									poNumber:$scope.poNumber,
 									deliveryDate:$scope.deliveryDate,
 									remarks:$scope.remarks,
@@ -90,21 +87,10 @@
 									aggregationType: uiGridConstants.aggregationTypes.sum,
 									footerCellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.orderTotal}}</div>',
 									cellTemplate:'<div class="row"><div class="" >'+
-									'<input type="number" ng-change="grid.appScope.calculateOrderTotal()" class="form-control"  ng-model="row.entity.quantity" style="text-align:center;margin: 1%;padding: 1%;"  ></button>'
+									'<input type="number" min="0" step="1" ng-change="grid.appScope.calculateOrderTotal()" class="form-control"  ng-model="row.entity.quantity" style="text-align:center;margin: 1%;padding: 1%;"  ></button>'
 		                       
 									
 								}
-								  
-								/*,
-								{ 
-									field:'  ',
-									displayName:'  ',
-									name:' ',
-									enableCellEdit: false, 
-									enableSorting : false,
-									visible : isAdmin,
-									cellTemplate:'<div class="" style="padding-top: 1%;">'+editBtn+deleteBtn+'</div>'
-								}*/
 								],
 
 					};

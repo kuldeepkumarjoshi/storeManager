@@ -11,7 +11,7 @@
 	            resolve: {
 	            	DashboadData : ['HomePageService','$stateParams', function (HomePageService,$stateParams) {
 	            		var obj={
-	            				status:'inProgress'
+	            				status:'IN_PROGRESS'
 	            		};
                     	return HomePageService.getDashboadData(obj).$promise.then(function(response){
                     		return response;

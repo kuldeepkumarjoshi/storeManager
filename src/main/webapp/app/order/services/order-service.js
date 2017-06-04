@@ -15,6 +15,18 @@
 						operation : 'getAll'
 					}
 				},
+				getBeforeCreate:{
+					method :'GET',
+					params : {
+						operation :'getBeforeCreate'
+					}
+				},
+				getBeforeEdit:{
+					method :'GET',
+					params : {
+						operation :'getBeforeEdit'
+					}
+				},
 				save:{
 					method : 'POST',
 					url:'/rest/orderProduct/save'					

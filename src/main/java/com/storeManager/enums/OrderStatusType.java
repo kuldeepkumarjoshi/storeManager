@@ -1,7 +1,7 @@
 package com.storeManager.enums;
 
 public enum OrderStatusType {
-	IN_PROGRESS("inProgress"),COMPLETED("completed");
+	IN_PROGRESS("IN_PROGRESS"),COMPLETED("COMPLETED");
 	
 	private String description;
 

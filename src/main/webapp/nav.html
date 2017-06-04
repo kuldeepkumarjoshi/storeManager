@@ -6,7 +6,7 @@ li a {
 }
 
 li a:hover{
-	 color: #F0A0C6;
+	 color: white;
      text-decoration:none;
 }
 li:hover{
@@ -22,10 +22,10 @@ padding:0px;
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 4;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #193340;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -35,13 +35,13 @@ padding:0px;
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: white;
     display: block;
     transition: 0.3s;
 }
 
 .sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
+    color: white;
 }
 
 .sidenav .closebtn {
@@ -55,9 +55,9 @@ padding:0px;
 <nav class="navbar navbar-default label-primary" style="color:white; background-color: #193340;margin-bottom: 0px;" ng-init="Clickcollapse=false;">
 
       <div class=" navbar-header" style="">
-       	<span class="col-md-1 col-sm-1 col-xs-1 " data-toggle="collapse" ng-click="Clickcollapse = !Clickcollapse;" style="margin-top:3%;color:white;cursor:pointer" onclick="openNav()"><i class="fa fa-bars fa-2x"></i></span>
+       	<span class="col-md-2 col-sm-2 col-xs-2 " data-toggle="collapse" ng-click="Clickcollapse = !Clickcollapse;" style="margin-top:3%;color:white;cursor:pointer" ><i class="fa fa-bars fa-2x"></i></span>
       	<a  href="#/home" class="col-md-8 col-sm-8 col-xs-8 " style="text-align:center;color:white;margin-top: 3%;font-family: initial;font-size: 21px;">STORE MANAGER</a>
-	    <a  href="#/quickOrder" class="col-md-1 col-sm-1 col-xs-1 " style="text-align:center;color:white;margin-top: 3%;"><i class="fa fa-plus-circle fa-2x"></i></a>
+	    <a  href="#/quickOrder/selectZone" class="col-md-1 col-sm-1 col-xs-1 " style="text-align:center;color:white;margin-top: 3%;"><i class="fa fa-plus-circle fa-2x"></i></a>
 	    
 	    
 	</div>
@@ -65,20 +65,21 @@ padding:0px;
 	<div  class="collapse navbar-collapse sidenav" style="width: 180px;" ng-class="{'in':Clickcollapse}">
 		    <ul class="nav navbar-nav">
 		   		 <li ><a href="#" style="" ng-click="Clickcollapse = !Clickcollapse" >
-		   		 	<div class="link" style="margin-right: 2%;float: right;"><i class="fa fa-times fa-2x"></i></div></a></li>
+		   		 	<div class="link" style=""><i class="fa fa-times fa-2x"></i></div></a></li>
 		    	
 		    	<li ><a  href="#/home">
 		    		<div ng-click="Clickcollapse = !Clickcollapse;setBG('/home');" class="link {{home}}"> <i class="fa fa-home fa-lg"></i> Dashboard </div></a></li>
-		    	 <li class=""><a href="#/about">
-			    	<div ng-click="Clickcollapse = !Clickcollapse;setBG('/about');" class="link {{about}}"> <i class="fa fa-street-view fa-lg"></i> About </div></a></li>
-			<!-- 
-		    	<li class=""><a href="#/zones">
+		    	 <li class=""><a href="#/orders">
+			    	<div ng-click="Clickcollapse = !Clickcollapse;setBG('/orders');" class="link {{orders}}"> <i class="fa fa-gears fa-lg"></i> Orders </div></a></li>
+				<li class=""><a href="#/zones">
 		    		<div ng-click="Clickcollapse = !Clickcollapse;setBG('/zones');" class="link {{zones}}"> <i class="fa fa-picture-o fa-lg"></i> Zones </div></a></li>
 		    	 <li class=""><a href="#/stores">
 		    		<div ng-click="Clickcollapse = !Clickcollapse;setBG('/stores')" class="link {{stores}}"> <i class="fa fa-fire fa-lg"></i> Stores </div></a></li>
-			  	<li class=""><a href="#/orders">
-			    	<div ng-click="Clickcollapse = !Clickcollapse;setBG('/orders');" class="link {{orders}}"> <i class="fa fa-gears fa-lg"></i> Orders </div></a></li>
-			  --></ul>
+			  
+		    	 <li class=""><a href="#/about">
+			    	<div ng-click="Clickcollapse = !Clickcollapse;setBG('/about');" class="link {{about}}"> <i class="fa fa-street-view fa-lg"></i> About </div></a></li>
+			  
+			</ul>
 	</div>
 
 </nav>

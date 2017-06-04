@@ -12,7 +12,7 @@
 	        $scope.breadcrumbs = breadcrumbs;
 	        //cfpLoadingBar.start();
 	        $scope.$back=function(){
-				window.history.back();
+				$window.history.back();
 			}
 	        
 	        $scope.$on('$routeChangeError', function (event, current, previous, rejection) {
@@ -96,7 +96,7 @@
         			break;	        	
 	        	/*case "/contact":$scope.contact='back-color';
 	        		break;*/
-	        	default:$location.path('/home');
+	        	default:$location.path('/order-createEdit');
 	        			$scope.home='back-color';
 	        			break;
 

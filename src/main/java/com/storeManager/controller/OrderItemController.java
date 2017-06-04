@@ -1,5 +1,6 @@
 package com.storeManager.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.storeManager.business.OrderBusiness;
+import com.storeManager.business.ProductBusiness;
+import com.storeManager.business.StoreBusiness;
+import com.storeManager.business.ZoneBusiness;
 import com.storeManager.comparator.StoreLastDateComparator;
 import com.storeManager.entity.OrderItem;
+import com.storeManager.entity.OrderProduct;
+import com.storeManager.entity.Product;
 import com.storeManager.entity.Store;
+import com.storeManager.entity.Zone;
 import com.storeManager.enums.OrderStatusType;
 import com.storeManager.service.OrderItemService;
 import com.storeManager.service.StoreService;
+import com.storeManager.vo.OrderItemVO;
 
 @Controller
 @RequestMapping("/order")
@@ -31,6 +40,18 @@ public class OrderItemController {
 		@Autowired		
 		StoreService storeService;
 		
+		@Autowired
+		StoreBusiness storeBusiness;
+		
+		@Autowired
+		ZoneBusiness zoneBusiness;
+ 		
+		@Autowired
+		ProductBusiness productBusiness;
+		
+		@Autowired
+		OrderBusiness orderBusiness;
+		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String, OrderItem> getById(HttpServletRequest request,Model model){
@@ -38,8 +59,8 @@ public class OrderItemController {
 			
 			String orderId = request.getParameter("orderId");
 			
-			
-			OrderItem order  = orderItemService.getById(Long.parseLong(orderId),OrderItem.class);
+			OrderItem order  =  orderBusiness.getOrderItemById(orderId);
+		
 			resultMap.put("order", order);
 			return resultMap;
 		}
@@ -65,7 +86,7 @@ public class OrderItemController {
 				status = OrderStatusType.IN_PROGRESS.toString();
 			}
 			List<OrderItem> orders  = orderItemService.getByOrderStatus(status,OrderItem.class);
-			List<Store> stores = storeService.getAll("from Store");
+			List<Store> stores = storeBusiness.getAllStores();
 			Collections.sort(stores,  new StoreLastDateComparator());
 		
 			resultMap.put("inprogressOrders", orders);
@@ -79,6 +100,63 @@ public class OrderItemController {
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			List<OrderItem> orderList = orderItemService.getAll("from OrderItem");
 			resultMap.put("orderList",orderList);			
+			return resultMap;
+		}
+		
+		@RequestMapping(value="/getBeforeCreate",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getBeforeCreate(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			List<Product> productList = productBusiness.getAllProductList();
+			List<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
+			OrderItemVO orderItemVo = new OrderItemVO();
+			for (Product product : productList) {
+				orderProductList.add(new OrderProduct(product)) ;
+			}
+			orderItemVo.setOrderProducts(orderProductList);
+			List<Store> stores = storeBusiness.getAllStores();
+			List<Zone> zones = zoneBusiness.getAllZones();
+			List<String> statusList = orderBusiness.getOrderStatus();
+			orderItemVo.setStore(stores.get(0));
+			resultMap.put("orderItemVo",orderItemVo);
+			resultMap.put("stores",stores);
+			resultMap.put("zones",zones);
+			resultMap.put("statusList",statusList);
+			return resultMap;
+		}
+		
+		@RequestMapping(value="/getBeforeEdit",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getBeforeEdit(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			String orderId = request.getParameter("orderId");
+			List<OrderProduct> selectedOrderProductList = orderBusiness.getOrderProductsByOrderId(orderId);
+			Map<Long,OrderProduct> orderProductKeyMap = new HashMap<Long, OrderProduct>();
+			OrderItemVO orderItemVo = new OrderItemVO(orderBusiness.getOrderItemById(orderId));
+			for (OrderProduct orderProduct : selectedOrderProductList) {
+				orderProductKeyMap.put(orderProduct.getProductId(), orderProduct);
+			}
+			List<Product> productList = productBusiness.getAllProductList();
+			List<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
+			
+			for (Product product : productList) {
+				if(orderProductKeyMap.containsKey(product.getId())){
+					OrderProduct orderProduct = orderProductKeyMap.get(product.getId());
+					orderProduct.setName(product.getName());
+					
+					orderProductList.add(orderProduct);
+				}else{
+					orderProductList.add(new OrderProduct(product)) ;
+				}
+			}
+			orderItemVo.setOrderProducts(orderProductList);
+			List<Store> stores = storeBusiness.getAllStores();
+			List<Zone> zones = zoneBusiness.getAllZones();
+			List<String> statusList = orderBusiness.getOrderStatus();
+			resultMap.put("orderItemVo",orderItemVo);
+			resultMap.put("stores",stores);
+			resultMap.put("zones",zones);
+			resultMap.put("statusList",statusList);
 			return resultMap;
 		}
 		

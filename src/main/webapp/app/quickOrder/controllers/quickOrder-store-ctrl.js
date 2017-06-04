@@ -7,14 +7,10 @@
 
 				var QuickOrderStoreCtrl = function($scope,$q,$interval, $location, $http,$rootScope,QuickOrderStoreData, i18nNotifications) {
 					var isAdmin=true; 
-					$scope.$parent.quickTitle = "Select Store";
-					$scope.images=[];
-						var deleteBtn='<a ng-click="grid.appScope.deleteConfirmation(row)" style="cursor:pointer;margin-left:2%" uib-tooltip-placement="auto" uib-tooltip="Delete" uib-tooltip-append-to-body="true"><i class="fa fa-trash-o fa-lg text-danger"></i></a>';
-						var editBtn='<a ng-click="grid.appScope.editPage(row)" style="cursor:pointer;margin-left:2%" uib-tooltip-placement="auto" uib-tooltip="Edit" uib-tooltip-append-to-body="true"><i class="fa fa-pencil-square-o fa-lg text-info"></i></a>';
-					
+					$scope.$parent.quickTitle = "Select Store";				
 										
 					$scope.orderCreateView =function(row){
-						  $rootScope.selectedStore = row; 
+						  $rootScope.selectedStore = row.entity; 
 						  $location.path('/quickOrder/selectProduct');
 					 };
 					 console.log(QuickOrderStoreData);
@@ -36,14 +32,15 @@
 						columnDefs : [
 								{
 									field : 'name',
-									displayName: 'Store Name',
+									displayName: 'Store',
 									enableCellEdit: false,					
-									cellTemplate:'<a class="" href="#" style="padding-left: 2%;cursor:pointer;" ng-click="grid.appScope.orderCreateView(row)">'+" {{row.entity.name }} "+'</a>'
+									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.orderCreateView(row)">'+" {{row.entity.name }} "+'</div>'
 								},
 								{
 									field : 'mostRecentOrderDate',
 									displayName: 'Last Order',
-									enableCellEdit: false,
+									cellFilter: 'date:"dd/MM/yyyy"', 
+									filterCellFiltered:true
 								}],
 
 					};

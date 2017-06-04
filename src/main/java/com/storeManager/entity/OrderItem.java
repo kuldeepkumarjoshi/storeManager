@@ -24,21 +24,20 @@ public class OrderItem extends CommanEntity implements Serializable{
 			}
 		}
 		total = subTotal;
-		status = orderItemVO.	getStatus();
+		status = orderItemVO.getStatus();
 		poNumber = orderItemVO.getPoNumber();
 		deliveryDate = orderItemVO.getDeliveryDate();
 		remarks = orderItemVO.getRemarks();
-
+		poReceivedOnEmail = orderItemVO.isPoReceivedOnEmail();
+		orderDeliveredNotification = orderItemVO.isOrderDeliveredNotification();
+		orderReceivedNotification = orderItemVO.isOrderReceivedNotification();
+		setCommanEntity(orderItemVO.getId(),orderItemVO.isActive(),orderItemVO.isDeleted(),orderItemVO.getCreatedBy(),orderItemVO.getCreatedDate(),
+				orderItemVO.getLastModifiedBy(),orderItemVO.getLastModifiedDate());
 	}
 
 	public OrderItem() {
 		// TODO Auto-generated constructor stub
-	}
-
-	
-	
-	
-	
+	}	
 	private String title;
 	
 	private Long storeId;
@@ -49,7 +48,7 @@ public class OrderItem extends CommanEntity implements Serializable{
 	private double subTotal =0.0 ;
 	private String status = OrderStatusType.IN_PROGRESS.toString();
 	
-	private Long poNumber;
+	private String poNumber;
 	
 	private Date deliveryDate;
 	private String remarks;
@@ -108,11 +107,11 @@ public class OrderItem extends CommanEntity implements Serializable{
 		this.storeId = storeId;
 	}
 
-	public Long getPoNumber() {
+	public String getPoNumber() {
 		return poNumber;
 	}
 
-	public void setPoNumber(Long poNumber) {
+	public void setPoNumber(String poNumber) {
 		this.poNumber = poNumber;
 	}
 

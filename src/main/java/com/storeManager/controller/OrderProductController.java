@@ -91,21 +91,37 @@ public class OrderProductController {
 		@ResponseBody
 		public Map<String,Object> saveOrderProduct(@RequestBody OrderItemVO orderItemVO, HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
+			Map<Long, OrderProduct> saveMap = null;
 			OrderItem orderItem = new OrderItem(orderItemVO);
-			Long orderItemId = orderItemService.insert(orderItem);
-			orderItem.setId(orderItemId);
-			List<OrderProduct> createOrderProduct = new ArrayList<OrderProduct>();
-			for (OrderProduct orderproduct : orderItemVO.getOrderProducts()) {
-				if(orderproduct.getQuantity()!=0){
-					orderproduct.setOrderId(orderItemId);
-					orderproduct.setOrderItem(orderItem);
-					createOrderProduct.add(orderproduct);
-				}
+			if(orderItemVO.getId() == null){
+				Long orderItemId = orderItemService.insert(orderItem);
+				orderItem.setId(orderItemId);				
+			}else{
+				orderItem = orderItemService.update(orderItem);
 			}
-			
+			List<OrderProduct> createOrderProduct = new ArrayList<OrderProduct>();
+			List<OrderProduct> updateOrderProduct = new ArrayList<OrderProduct>();
+			for (OrderProduct orderproduct : orderItemVO.getOrderProducts()) {
+				
+				if(orderproduct.getQuantity()!=0){
+					orderproduct.setOrderId(orderItem.getId());
+					orderproduct.setOrderItem(orderItem);
+					if(orderproduct.getId() == null){
+						createOrderProduct.add(orderproduct);
+					}else{
+						updateOrderProduct.add(orderproduct);						
+					}
+				}else{
+					if(orderproduct.getId() != null){
+						orderproduct.setDeleted(Boolean.TRUE);
+						updateOrderProduct.add(orderproduct);
+					}
+				}
+			}			
 			System.out.println("product::"+createOrderProduct);
-			Map<Long, OrderProduct> saveMap = orderProductService.insertAll(createOrderProduct);
-			resultMap.put("saveMap", saveMap);
+			saveMap = orderProductService.insertAll(createOrderProduct);
+			updateOrderProduct = orderProductService.updateAll(updateOrderProduct);
+			resultMap.put("success", "order saved successfully.");
 			return resultMap;
 		}
 		
