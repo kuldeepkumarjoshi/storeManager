@@ -11,14 +11,11 @@
 					 console.log(StoreHomeData);
 					 
 					 $scope.createStore= function(){
-						 $rootScope.selectedZone = {id:null,name:""};
+						 $rootScope.selectedStore = {id:null,name:""};
 						 $location.path('/store-createEdit');
 					 };
 					$scope.storeData = StoreHomeData.storeList;
-					$scope.storeCreateView =function(row){
-						  $rootScope.selectedStore = row.entity; 
-						  $location.path('/store-createEdit').search({id:row.entity.id});
-					 };
+					
 					
 					 var fakeI18n = function( title ){
 						    var deferred = $q.defer();
@@ -39,7 +36,7 @@
 									field : 'name',
 									displayName: 'Store',
 									enableCellEdit: false,					
-									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.storeCreateView(row)">'+" {{row.entity.name }} "+'</div>'
+									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.$storeCreateView(row)">'+" {{row.entity.name }} "+'</div>'
 								},
 								{
 									field : 'mostRecentOrderDate',

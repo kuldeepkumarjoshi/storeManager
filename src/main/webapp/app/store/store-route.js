@@ -5,24 +5,15 @@
 
 		var StoreRoute = function ($routeProvider, $stateProvider) {
 			$stateProvider.state('store',{
-	            url:'/stores?id',
+	            url:'/stores',
 	            templateUrl: 'app/store/views/store-home.html',
 	            controller: 'StoreHomeCtrl',
 	            resolve: {
 					StoreHomeData : ['StoreService','$stateParams', function (StoreService,$stateParams) {
 						
-						if($stateParams.id == null || $stateParams.id == undefined ){
 							return StoreService.getAllStores().$promise.then(function(response){
 	                    		return response;
-	                    	});
-						}else{
-							var obj={
-									zoneId:$stateParams.id
-							};
-							return StoreService.getAllByZoneId(obj).$promise.then(function(response){
-	                    		return response;
-	                    	});
-						}                    	
+	                    	});						                    	
                     }]
                 },
 	            data: {
@@ -36,7 +27,7 @@
 					StoreData : ['StoreService','OrderService','$stateParams', function (StoreService,OrderService,$stateParams) {
 						
 						if($stateParams.id == null || $stateParams.id == undefined ){
-							return StoreService.getAllStores().$promise.then(function(response){
+							return StoreService.getBeforeCreate().$promise.then(function(response){
 	                    		return response;
 	                    	});
 						}else{

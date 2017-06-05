@@ -66,7 +66,7 @@
 										field : 'name',
 										displayName: 'Store',
 										enableCellEdit: false,
-										cellTemplate:'<div class="linkDiv" style="padding-left: 2%;" ng-click="grid.appScope.quickStoreView(row)">'+" {{row.entity.name }} "+'</div>'
+										cellTemplate:'<div class="linkDiv" style="padding-left: 2%;" ng-click="grid.appScope.$storeCreateView(row)">'+" {{row.entity.name }} "+'</div>'
 									},{
 										field : 'mostRecentOrderDate',
 										displayName: 'Last order',

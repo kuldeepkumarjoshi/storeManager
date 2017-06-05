@@ -23,7 +23,7 @@
 					  $scope.zoneStores = _.filter($scope.stores,function(item){
 						  return (zone.id == item.zoneId);							  
 					  });
-					  $scope.selectedStore  = $scope.zoneStores[0] ;
+					  $scope.orderItemVo.store  = $scope.zoneStores[0] ;
 				  };
 						
 				//	 console.log(OrderData);

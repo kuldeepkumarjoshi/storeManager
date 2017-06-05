@@ -15,6 +15,16 @@
 						operation : 'getAll'
 					}
 				},
+				save:{
+					method : 'POST',
+					url:'/rest/store/save'
+				},
+				getBeforeCreate:{
+					method : 'GET',
+					params : {
+						operation : 'getBeforeCreate'
+					}
+				},
 				getAllByZoneId:{
 					method : 'GET',
 					params : {

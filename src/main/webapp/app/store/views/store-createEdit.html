@@ -20,14 +20,24 @@
 </div>
 
 <div class="col-md-12 col-sm-12" style="margin-top: 1%;">
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon"
+			id="basic-addon1"> Zone :</span> <select
+			class="form-control inputGroup"
+			ng-options="zone as zone.name for zone in zones track by zone.id"
+			ng-model="selectedZone" 
+			aria-describedby="basic-addon2">
 
+		</select>
+	</div><br />
+
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon2"> Store name:</span>
+		<input type="text" class="form-control inputGroup"	ng-model="store.name" placeholder="Enter store name"	aria-describedby="basic-addon3">
+	</div><br />
 	<div class="input-group" style="width: 100%;">
 		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon1"> Contact name :</span>
 		<input type="text" class="form-control inputGroup"	ng-model="store.contactName" placeholder="Enter contact name" aria-describedby="basic-addon2">	
-	</div><br />
-	<div class="input-group" style="width: 100%;">
-		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon2"> Store :</span>
-		<input type="text" class="form-control inputGroup"	ng-model="store.name" placeholder="Enter store name"	aria-describedby="basic-addon3">
 	</div><br />
 	<div class="input-group" style="width: 100%;">
 		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon3"> Contact number 1 :</span>
@@ -51,9 +61,11 @@
 		<input type="text" class="form-control inputGroup" ng-model="store.email" placeholder="Enter email"	aria-describedby="basic-addon12">
 	</div><br />
 </div>
-<div class="ol-md-12 col-sm-12" style=""  ng-show="storeOrderData">
-	<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize	ng-style="getTableHeight(storeOrderData,35)" ui-grid-exporter></div>
+<div class="ol-md-12 col-sm-12" style=""  ng-show="orderData.length > 0">
+	<div class="bg-primary" style="padding: 2% 0% 2% 2%;">Orders <br/></div>
+	<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize	ng-style="getTableHeight(orderData)" ui-grid-exporter></div>
 </div>
+
 <div class="col-md-12 col-sm-12"
 	style="margin-top: 1%; text-align: center;">
 	<button class="btn btn-plus btn-white" ng-click="saveStore()"

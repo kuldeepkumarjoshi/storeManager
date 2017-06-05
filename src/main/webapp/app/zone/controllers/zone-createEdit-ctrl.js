@@ -31,10 +31,7 @@
 						$scope.quickTitle = "Edit Zone";
 					}
 					
-					$scope.orderCreateView =function(row){
-						  $rootScope.selectedStore = row; 
-						  $location.path('/quickOrder/selectProduct');
-					 };
+					
 					 var fakeI18n = function( title ){
 						    var deferred = $q.defer();
 						    $interval( function() {
@@ -54,7 +51,7 @@
 									field : 'name',
 									displayName: 'Store',
 									enableCellEdit: false,					
-									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.orderCreateView(row)">'+" {{row.entity.name }} "+'</div>'
+									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.$storeCreateView(row)">'+" {{row.entity.name }} "+'</div>'
 								},
 								{
 									field : 'mostRecentOrderDate',

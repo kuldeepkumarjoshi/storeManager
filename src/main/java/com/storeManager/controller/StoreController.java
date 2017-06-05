@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.storeManager.business.StoreBusiness;
+import com.storeManager.business.ZoneBusiness;
 import com.storeManager.entity.Store;
+import com.storeManager.entity.Zone;
 import com.storeManager.service.StoreService;
 
 @Controller
@@ -27,6 +30,9 @@ public class StoreController {
 		@Autowired
 		StoreBusiness storeBusiness;
 		
+		@Autowired
+		ZoneBusiness zoneBusiness;
+			
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String, Store> getById(HttpServletRequest request,Model model){
@@ -61,6 +67,14 @@ public class StoreController {
 			return resultMap;
 		}
 		
+		@RequestMapping(value="/getBeforeCreate",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getBeforeCreate(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();			
+			List<Zone> zones = zoneBusiness.getAllZones();			
+			resultMap.put("zones",zones);
+			return resultMap;
+		}
 		@RequestMapping(value="/getAllPaginated",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String,Object> getAllStorePaginated(HttpServletRequest request){
@@ -84,9 +98,6 @@ public class StoreController {
 		@RequestMapping(value="/update",method=RequestMethod.PUT)
 		@ResponseBody
 		public String updateStore(HttpServletRequest request,Model model){
-			String name = request.getParameter("name");
-			String price = request.getParameter("price");
-			String symbol = request.getParameter("symbol");
 			Store store = new Store();
 		
 			//System.out.println( request.getSession().getAttributeNames());
@@ -97,14 +108,13 @@ public class StoreController {
 		
 		@RequestMapping(value="/save",method=RequestMethod.POST)
 		@ResponseBody
-		public Map<String,Object> saveStore(HttpServletRequest request){
+		public Map<String,Object> saveStore(@RequestBody Store store ,HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			String storeName = request.getParameter("storeName");
-			System.out.println("store name::"+storeName);
-			
-			Store store = new Store();
-			System.out.println("store::"+store);
-			storeService.insert(store);
+			if(store.getId() == null){
+				store.setId( storeService.insert(store));
+			}else{
+				store = storeService.update(store);
+			}
 			resultMap.put("store", store);
 			return resultMap;
 		}

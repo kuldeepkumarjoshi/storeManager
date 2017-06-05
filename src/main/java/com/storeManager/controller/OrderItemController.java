@@ -84,9 +84,12 @@ public class OrderItemController {
 			Map<String,Object> resultMap = new HashMap<String, Object>();	
 			String storeId = request.getParameter("storeId");
 			Store store = new Store();
+			List<Zone> zones = zoneBusiness.getAllZones();
 			store.setId(Long.parseLong(storeId));
 			List<OrderItem> orders = orderBusiness.getAllByStore(store);
+			
 			resultMap.put("orders", orders);
+			resultMap.put("zones", zones);
 			return resultMap;
 		}
 		

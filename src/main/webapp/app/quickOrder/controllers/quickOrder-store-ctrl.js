@@ -39,8 +39,9 @@
 								{
 									field : 'mostRecentOrderDate',
 									displayName: 'Last Order',
-									cellFilter: 'date:"dd/MM/yyyy"', 
-									filterCellFiltered:true
+									cellFilter: '', 
+									filterCellFiltered:true,
+									cellTemplate:'<div style="background-color:rgba(230, 121, 121, 0.69);">{{row.entity.mostRecentOrderDate | date:"dd/MM/yyyy"}}</div>'
 								}],
 
 					};

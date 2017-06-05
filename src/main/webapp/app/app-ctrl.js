@@ -14,7 +14,10 @@
 	        $scope.$back=function(){
 				$window.history.back();
 			}
-	        
+	        $scope.$storeCreateView =function(row){
+				  $rootScope.selectedStore = row.entity; 
+				  $location.path('/store-createEdit').search({id:row.entity.id});
+			 };
 	        $scope.$on('$routeChangeError', function (event, current, previous, rejection) {
 	            i18nNotifications.pushForCurrentRoute('errors.route.changeError', 'danger', {}, {rejection: rejection});
 	        });
@@ -96,7 +99,7 @@
         			break;	        	
 	        	/*case "/contact":$scope.contact='back-color';
 	        		break;*/
-	        	default:$location.path('/order-createEdit');
+	        	default:$location.path('/stores');
 	        			$scope.home='back-color';
 	        			break;
 
