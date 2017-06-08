@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.storeManager.business.OrderBusiness;
 import com.storeManager.entity.OrderItem;
 import com.storeManager.entity.OrderProduct;
 import com.storeManager.service.OrderItemService;
@@ -30,6 +31,9 @@ public class OrderProductController {
 		
 		@Autowired		
 		OrderItemService orderItemService;
+		
+		@Autowired
+		OrderBusiness orderBusiness; 
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
@@ -94,7 +98,7 @@ public class OrderProductController {
 			Map<Long, OrderProduct> saveMap = null;
 			OrderItem orderItem = new OrderItem(orderItemVO);
 			if(orderItemVO.getId() == null){
-				Long orderItemId = orderItemService.insert(orderItem);
+				Long orderItemId = orderBusiness.insert(orderItem);
 				orderItem.setId(orderItemId);				
 			}else{
 				orderItem = orderItemService.update(orderItem);

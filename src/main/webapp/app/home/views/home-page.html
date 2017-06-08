@@ -1,19 +1,21 @@
-<br/>
-<div class="container-fluid transparent">
-	<div class="bg-primary" style="padding: 2% 0% 2% 2%;">
-	  Orders in progress
+<div class=" transparent">
+	<div class="col-md-12 col-sm-12" style="margin-top: 1%;">
+		<div class="bg-primary topicTitle" style="">
+		  Orders in progress
+		</div>
 	</div>
-	<div class=""  >
+	<div class="col-md-12 col-sm-12" style="margin-bottom:1%"  >
 		<div ng-show="inprogressOrders.length" ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(inprogressOrders)"  ui-grid-exporter >
 	  		 </div>
 	  		 <div ng-hide="inprogressOrders.length"> No Order found in progress status.
 	  		 </div>
 	</div>
-	<br/>
-	<div class="bg-primary" style="padding: 2% 0% 2% 2%;">
-	  Last orders
+	<div class="col-md-12 col-sm-12" style="">
+		<div class="bg-primary topicTitle" style="">
+		  Last orders
+		</div>
 	</div>
-	<div class="" style="" >
+	<div class="col-md-12 col-sm-12" style="" >
 		<div ng-show="opportunityData.length" ui-grid="gridOptionOpportunity" class="grid" ui-grid-auto-resize ng-style="getTableHeight(opportunityData)"  ui-grid-exporter >
 	  		 </div>
   		 <div ng-hide="opportunityData.length"> No store in passive state.

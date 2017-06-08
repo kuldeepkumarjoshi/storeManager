@@ -15,12 +15,9 @@ background: rgba(3, 3, 3, 0.7) !important;
 .back-color{
 /* background: rgba(0, 100, 0, 0.8) !important; */
 }
- .nav,.nav li a{
-padding:0px;
-}
+
 .sidenav {
     height: 100%;
-    width: 0;
     position: fixed;
     z-index: 4;
     top: 0;
@@ -28,7 +25,6 @@ padding:0px;
     background-color: #193340;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
 }
 
 .sidenav a {
@@ -52,20 +48,20 @@ padding:0px;
     margin-left: 50px;
 }
 </style>
-<nav class="navbar navbar-default label-primary" style="color:white; background-color: #193340;margin-bottom: 0px;" ng-init="Clickcollapse=false;">
+<nav class="navbar navbar-default label-primary" style="color:white; background-color: #193340;margin-bottom: 0px;border:none;border-radius: 0px;" ng-init="Clickcollapse=false;">
 
-      <div class=" navbar-header" style="">
-       	<span class="col-md-2 col-sm-2 col-xs-2 " data-toggle="collapse" ng-click="Clickcollapse = !Clickcollapse;" style="margin-top:3%;color:white;cursor:pointer" ><i class="fa fa-bars fa-2x"></i></span>
-      	<a  href="#/home" class="col-md-8 col-sm-8 col-xs-8 " style="text-align:center;color:white;margin-top: 3%;font-family: initial;font-size: 21px;">STORE MANAGER</a>
-	    <a  href="#/quickOrder/selectZone" class="col-md-1 col-sm-1 col-xs-1 " style="text-align:center;color:white;margin-top: 3%;"><i class="fa fa-plus-circle fa-2x"></i></a>
+      <div class=" navbar-header" style="width:100%;">
+       	<span ng-show="isMobile" class="col-md-2 col-sm-2 col-xs-2 " data-toggle="collapse" ng-click="Clickcollapse = !Clickcollapse;" style="margin-top:3%;color:white;cursor:pointer" ><i class="fa fa-bars fa-2x"></i></span>
+      	<a  href="#/home" class="col-md-11 col-sm-8 col-xs-8 appHeaderTitle" >STORE MANAGER</a>
+	    <a  href="#/quickOrder/selectZone" class="col-md-1 col-sm-1 col-xs-1 quickOrderBtn" style=""><i class="fa fa-plus-circle fa-2x"></i></a>
 	    
 	    
 	</div>
 	
-	<div  class="collapse navbar-collapse sidenav" style="width: 180px;" ng-class="{'in':Clickcollapse}">
+	<div  class="collapse navbar-collapse sidenav" style="width: 180px;height: 100%!important;" ng-class="{'in':Clickcollapse}">
 		    <ul class="nav navbar-nav">
-		   		 <li ><a href="#" style="" ng-click="Clickcollapse = !Clickcollapse" >
-		   		 	<div class="link" style=""><i class="fa fa-times fa-2x"></i></div></a></li>
+		   		 <li ng-show="isMobile" ><a href="#" style="" ng-click="Clickcollapse = !Clickcollapse" >
+		   		 	<div class="link"  style=""><i class="fa fa-times fa-2x"></i></div></a></li>
 		    	
 		    	<li ><a  href="#/home">
 		    		<div ng-click="Clickcollapse = !Clickcollapse;setBG('/home');" class="link {{home}}"> <i class="fa fa-home fa-lg"></i> Dashboard </div></a></li>

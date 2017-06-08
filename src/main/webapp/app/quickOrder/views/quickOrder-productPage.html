@@ -6,17 +6,17 @@ border-radius:0px;
 	width:40%;
 }
 </style>
-<div class="bg-primary" style="padding: 2% 0% 2% 2%;">Zone - {{selectedZone.name}} <br/>
-	Store - {{selectedStore.name}}
+<div class="col-md-12 col-sm-12" style="margin-top:1%;">
+	<div class="bg-primary topicTitle" style="">Zone - {{selectedZone.name}} <br/>
+		Store - {{selectedStore.name}}
+	</div>
 </div>
-	
-<div class="" style="">
+ <div class="col-md-12 col-sm-12" >
 	<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(productData,35)"  ui-grid-exporter >
   		 </div>
 </div>
- <div class="col-md-12 col-sm-12" style="margin-top:1%;">
- 	<br/>
-	 <div class="input-group">
+ <div class="col-md-12 col-sm-12" style="margin-top:2%;">
+ 	 <div class="input-group" style="width:100%">
 	  <span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon1">
 	  <input type="checkbox" ng-model="poReceivedOnEmail" aria-label="Radio button for following text input"> PO email :</span>
 	     <input type="text" class="form-control inputGroup" ng-model="poNumber"  placeholder="Enter PO Number" aria-describedby="basic-addon2">
@@ -41,7 +41,7 @@ border-radius:0px;
 	</div>
 	<br/>
 </div>
-<div class="col-md-12 col-sm-12"  style="margin-top:1%;text-align: center;">
+<div class="col-md-12 col-sm-12"  style="margin:1% 0% 1% 0%;text-align: center;">
 	<button class="btn btn-plus btn-white" ng-disabled="orderTotal == 0" ng-click="saveOrder()" style="width:50%;">Save order</button>
 </div>
 

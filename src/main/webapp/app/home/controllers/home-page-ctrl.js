@@ -8,6 +8,7 @@
 				var HomePageCtrl = function($scope,$q, $location, $interval, $rootScope,DashboadData,HomePageService, i18nNotifications) {
 
 					var isAdmin=true;
+					
 					$scope.newQuickOrder ={};					
 						
 					 console.log(DashboadData);
@@ -16,7 +17,7 @@
 					$scope.inprogressOrders = DashboadData.inprogressOrders;
 					$scope.opportunityData = DashboadData.passiveOppotunity;
 					 $scope.createEditOrderView2 =function(row){
-						  $rootScope.selectedOrder = row.entity;
+						  $rootScope.selectedStore = row.entity;
 						  $location.path('/order-createEdit').search({id:row.entity.id});
 					 };
 					
@@ -54,6 +55,7 @@
 
 					};
 					
+					
 					$scope.gridOptionOpportunity={
 							multiSelect : false,
 							enableCellEditOnFocus : false,
@@ -70,8 +72,9 @@
 									},{
 										field : 'mostRecentOrderDate',
 										displayName: 'Last order',
-										cellFilter: 'date:"dd/MM/yyyy"', 
-										filterCellFiltered:true
+										cellTemplate:'<div class="{{grid.appScope.$getClassByLastDate(row.entity.mostRecentOrderDate)}}">{{row.entity.mostRecentOrderDate | date:"dd/MM/yyyy"}}</div>'
+										
+																		
 									}],
 
 					};

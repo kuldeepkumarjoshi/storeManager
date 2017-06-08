@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.hibernate.criterion.SimpleExpression;
 
+import com.storeManager.entity.Store;
+
 
 public interface CommanService<E> {
 
@@ -20,4 +22,6 @@ public interface CommanService<E> {
 
 	public List<E> getAllPaginated(String hql,int start);
 	public List<E> getAllByFKoreignKey(SimpleExpression spe , Class<E> tempClass);
+	public E updateByCondition(Store store, Class<Store> tempClass,Map<String, Object> setterParams, Map<String, Object> creteriaMap);
+
 }

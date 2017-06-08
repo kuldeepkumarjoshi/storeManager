@@ -6,6 +6,7 @@ import java.util.Map;
 import org.hibernate.criterion.SimpleExpression;
 
 import com.storeManager.dao.CommanDAO;
+import com.storeManager.entity.Store;
 
 
 public abstract class AbstractServiceImpl<E> {
@@ -68,5 +69,11 @@ public abstract class AbstractServiceImpl<E> {
 		objectDao = (CommanDAO<E>) getObjectDao();
 		return objectDao.updateAll(updatableList);
 	}
+	
+	public E updateByCondition(E e, Class<E> tempClass,Map<String, Object> setterParams, Map<String, Object> creteriaMap){
+		objectDao = (CommanDAO<E>) getObjectDao();
+		return objectDao.updateByCondition(e, tempClass, setterParams,  creteriaMap);
+	}
+
 
 }

@@ -95,15 +95,3 @@ CREATE TABLE IF NOT EXISTS orderproduct (
 );
 CREATE INDEX INDOPproductId ON orderproduct (productId);
 CREATE INDEX INDOPorderId ON orderproduct (orderId);
-
-INSERT INTO zone (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name) VALUES
-(0, '0', '1', 'admin', 'admin', '2017-04-05', '2017-04-13', 'zone');
-
-INSERT INTO store (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name, address, contactName, contactNumber1, contactNumber2, contactNumber3, email, mostRecentOrderDate, zoneId) VALUES
-(0, '0', '1', 'admin', 'admin', '2017-04-05', '2017-04-13', 'store1', 'asdf', '142586', '5163', '1234', NULL, 'asdf@ads.com', '2017-04-12', 0),
-(1, '0', '1', 'admin', 'amidn', '2017-04-05', '2017-04-19', 'store2', 'store2', 'store2', 'store2', 'store2', 'store2', 'store2', '2017-04-12', 0);
-*/
-INSERT INTO product (id, deleted, active, createdBy, lastModifiedBy, createdDate, lastModifiedDate, name, description, price) VALUES
-(0, '0', '1', 'admin', 'admin', '2017-04-06', '2017-04-19', 'acer', 'acer computer', 14);
-
-

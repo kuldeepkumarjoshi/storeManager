@@ -1,15 +1,14 @@
-<br/>
-<div class="container-fluid transparent">
-<div>
-	<button class="col-md-1 btn btn-plus btn-white" ng-click="createStore()"
-				uib-tooltip-placement="auto">
-					 Create Store</button>
-</div><br/>
-	<div class="bg-primary" style="padding: 2% 0% 2% 2%;">
-	  Stores
+<div class="transparent">
+	<div class="col-md-12 col-sm-12" style="margin-bottom:1%;margin-top: 1%;">
+		<button class="col-md-2 col-sm-2 btn btn-plus btn-white" ng-click="createStore()"
+					uib-tooltip-placement="auto"> Create Store
+		</button>
+	</div>
+	<div class="col-md-12 col-sm-12" style="">
+		<div class=" bg-primary topicTitle">  Stores</div>
 	</div>
 
-<div class="" style="">
+<div class="col-md-12 col-sm-12" style="">
 		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(storeData)"  ui-grid-exporter >
    		 </div>
 </div>

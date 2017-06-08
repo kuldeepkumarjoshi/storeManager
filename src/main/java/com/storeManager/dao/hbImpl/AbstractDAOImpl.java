@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
+import org.mockito.internal.matchers.InstanceOf;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.storeManager.entity.OrderProduct;
@@ -23,16 +24,19 @@ public abstract class AbstractDAOImpl<E> {
 	@Autowired
 	public SessionFactory sessionFactory;
 
-
+	private Session getSession(){
+		Session session;
+		try {
+		    session = sessionFactory.getCurrentSession();
+		} catch (HibernateException exce) {
+		    session = sessionFactory.openSession();
+		}
+		return session;
+	}
 	public Long insert(E e)  {
 		Long created=null;
-		try {
-			Session session;
-			try {
-			    session = sessionFactory.getCurrentSession();
-			} catch (HibernateException exce) {
-			    session = sessionFactory.openSession();
-			}
+		try {			
+			Session session =getSession();
 			Transaction trans=session.beginTransaction();
 			 created= (Long) session.save(e); 
 			trans.commit();
@@ -45,12 +49,7 @@ public abstract class AbstractDAOImpl<E> {
 	}
 
 	public Map<Long,E> insertAll(List<E> elist) {
-		Session session;
-		try {
-		    session = sessionFactory.getCurrentSession();
-		} catch (HibernateException exce) {
-		    session = sessionFactory.openSession();
-		}
+		Session session =getSession();
 		Transaction tx = session.beginTransaction();
 		Map<Long,E> createdEntities = new HashMap<Long, E>();
 		for (E e : elist) {
@@ -60,21 +59,14 @@ public abstract class AbstractDAOImpl<E> {
 
 		tx.commit();
 		session.close();
-
 		return createdEntities;
 	}
 
 
 	public String remove(Long id,Class<E> tempClass) {
 		try {
-			
-			Session session;
-			try {
-			    session = sessionFactory.getCurrentSession();
-			} catch (HibernateException exce) {
-			    session = sessionFactory.openSession();
-			}
-			 Transaction trans=session.beginTransaction();
+			Session session =getSession();
+			Transaction trans=session.beginTransaction();
 		        E e = (E) session.load(tempClass, new Long(id));
 		        if(null != e){
 		            session.delete(e);
@@ -90,12 +82,7 @@ public abstract class AbstractDAOImpl<E> {
 
 		List<E> list = null;
 		try {
-			Session session;
-			try {
-			    session = sessionFactory.getCurrentSession();
-			} catch (HibernateException exce) {
-			    session = sessionFactory.openSession();
-			}
+			Session session =getSession();
 			Transaction trans=session.beginTransaction();
 	         list = session.createQuery(hql).list();
 	         System.out.println("list size:"+list.size());
@@ -112,12 +99,7 @@ public abstract class AbstractDAOImpl<E> {
 		int range=20;
 		try {
 		//	System.err.println("point");
-			Session session;
-			try {
-			    session = sessionFactory.getCurrentSession();
-			} catch (HibernateException e) {
-			    session = sessionFactory.openSession();
-			}
+			Session session =getSession();
 			Transaction trans=session.beginTransaction();
 			Query query = session.createQuery(hql);
 			query.setFirstResult(start);
@@ -135,12 +117,7 @@ public abstract class AbstractDAOImpl<E> {
 	public List<E> getAllByIsDeleted(String hql, Boolean isDeleted) {
 		List<E> list = null;
 		try {
-			Session session;
-			try {
-			    session = sessionFactory.getCurrentSession();
-			} catch (HibernateException ex) {
-			    session = sessionFactory.openSession();
-			}
+			Session session =getSession();
 			Transaction trans=session.beginTransaction();
 			Query query = session.createQuery(hql);
 			query.setParameter("isDeleted", isDeleted);
@@ -155,14 +132,10 @@ public abstract class AbstractDAOImpl<E> {
 
 	public E getById(Long id,Class<E> tempClass) {
 		E e=null;
-		Session session =null;
+		
 		Transaction trans =null;
 		try {			
-			try {
-			    session = sessionFactory.getCurrentSession();
-			} catch (HibernateException ex) {
-			    session = sessionFactory.openSession();
-			}
+			Session session =getSession();
 			trans=session.beginTransaction();
 			  e = (E) session.get(tempClass,id);
 			  trans.commit();
@@ -177,12 +150,7 @@ public abstract class AbstractDAOImpl<E> {
 	public List<E> getAllByFKoreignKey(SimpleExpression selectedCrs,Class<E> tempClass) {
 		List<E> list = null;
 		try {
-			Session session;
-			try {
-			    session = sessionFactory.getCurrentSession();
-			} catch (HibernateException exce) {
-			    session = sessionFactory.openSession();
-			}
+			Session session =getSession();
 			Transaction trans=session.beginTransaction();
 			Criteria cr = session.createCriteria(tempClass);			
 			cr.add(selectedCrs);			
@@ -199,12 +167,7 @@ public abstract class AbstractDAOImpl<E> {
 
 	public E update(E e) {
 		try {
-			Session session;
-			try {
-			    session = sessionFactory.getCurrentSession();
-			} catch (HibernateException ex) {
-			    session = sessionFactory.openSession();
-			}
+			Session session =getSession();
 			Transaction trans=session.beginTransaction();
 			session.update(e);
 	        trans.commit();
@@ -219,12 +182,8 @@ public abstract class AbstractDAOImpl<E> {
 
 	public List<E> updateAll(List<E> updatableList) {
 		List<E> updatedList=new ArrayList<E>();
-		Session session;
-		try {
-		    session = sessionFactory.getCurrentSession();
-		} catch (HibernateException exce) {
-		    session = sessionFactory.openSession();
-		}
+		
+		Session session =getSession();
 		Transaction tx = session.beginTransaction();
 		for (E e : updatableList) {
 			session.update(e);
@@ -235,5 +194,25 @@ public abstract class AbstractDAOImpl<E> {
 		return updatedList;
 	}
 
-
+	public E updateByCondition(E e,Class<E> tempClass,Map<String,Object> setterMap ,Map<String,Object> conditionMap){
+		Session session =getSession();
+		try{
+		String queryStr = "update "+tempClass.getSimpleName()+" set ";
+		for (String key : setterMap.keySet()) {
+			queryStr+= key +"=\'"+setterMap.get(key)+"\' ,";
+		}
+		queryStr = queryStr.substring(0,queryStr.length()-1);
+		queryStr+="where ";
+		for (String key : conditionMap.keySet()) {
+			queryStr+= key +"="+conditionMap.get(key)+" ,";
+		}		
+		queryStr = queryStr.substring(0,queryStr.length()-1);
+		System.out.println("query str :"+queryStr);
+		Query query = session.createQuery(queryStr);
+		query.executeUpdate();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return e;
+	}
 }

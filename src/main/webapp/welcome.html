@@ -23,13 +23,17 @@
 	cursor: pointer;
 	color:#428bca;
 }
+.bgRed{
+	background-color:rgba(230, 121, 121, 0.69); 
+}
 </style>
 </head>
 <body data-ng-controller="AppCtrl" >
 		<div>
-			 <div  ng-include="'nav.html'"></div>
-			<div >
-				<div  ui-view></div>
+			 <div class="" ng-include="'nav.html'"></div>
+			<div class="" style="">
+				<div ng-class="{'col-md-2 col-sm-2':!isMobile}"></div>
+				<div ng-class="{'col-md-10 col-sm-10':!isMobile}" ui-view></div>
 			</div>
 		</div>
 </body>

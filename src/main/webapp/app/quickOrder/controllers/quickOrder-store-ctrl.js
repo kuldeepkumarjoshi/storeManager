@@ -41,7 +41,7 @@
 									displayName: 'Last Order',
 									cellFilter: '', 
 									filterCellFiltered:true,
-									cellTemplate:'<div style="background-color:rgba(230, 121, 121, 0.69);">{{row.entity.mostRecentOrderDate | date:"dd/MM/yyyy"}}</div>'
+									cellTemplate:'<div class="{{grid.appScope.$getClassByLastDate(row.entity.mostRecentOrderDate)}}">{{row.entity.mostRecentOrderDate | date:"dd/MM/yyyy"}}</div>'
 								}],
 
 					};

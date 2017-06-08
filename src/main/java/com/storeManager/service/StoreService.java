@@ -9,5 +9,6 @@ public interface StoreService extends CommanService<Store> {
 
 	List<Store> getAllByZoneId(long parseLong, String string);
 
+
 	
 }

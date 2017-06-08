@@ -20,4 +20,5 @@ public interface CommanDAO<E> {
 	public List<E> getAllPaginated(String hql,int start);
 	
 	public List<E> getAllByFKoreignKey(SimpleExpression spe , Class<E> tempClass);
+	public E updateByCondition(E e,	 Class<E> tempClass,Map<String, Object> setterParams, Map<String, Object> creteriaMap);
 }

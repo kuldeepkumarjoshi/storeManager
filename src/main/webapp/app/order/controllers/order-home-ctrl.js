@@ -22,7 +22,8 @@
 						    return deferred.promise;
 						  };
 						  $scope.createEditOrderView =function(row){
-							  $rootScope.selectedOrder = row.entity;
+							  
+							  $rootScope.selectedStore = row.entity.store;
 							  $location.path('/order-createEdit').search({id:row.entity.id});
 						 };
 					$scope.gridOptions = {

@@ -51,7 +51,7 @@ public class CommanEntity {
 		return lastModifiedDate;
 	}
 	public void setLastModifiedDate(Date lastModifiedDate) {
-		this.lastModifiedDate = new Date();
+		this.lastModifiedDate = lastModifiedDate;
 	}
 	public Long getId() {
 		return id;

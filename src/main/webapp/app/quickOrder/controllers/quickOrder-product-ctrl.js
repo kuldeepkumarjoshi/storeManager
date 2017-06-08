@@ -27,8 +27,8 @@
 									poNumber:$scope.poNumber,
 									deliveryDate:$scope.deliveryDate,
 									remarks:$scope.remarks,
-									storeId: $rootScope.selectedStore.entity.id,
-									store: $rootScope.selectedStore.entity,
+									storeId: $rootScope.selectedStore.id,
+									store: $rootScope.selectedStore,
 									poReceivedOnEmail:$scope.poReceivedOnEmail
 							};
 							OrderService.save(obj,function(response){

@@ -25,7 +25,16 @@
 					  });
 					  $scope.orderItemVo.store  = $scope.zoneStores[0] ;
 				  };
-						
+				  function setSelectedZones(selecetedStore){
+					  var calZone ={};
+					 _.each($scope.zones,function(item){
+						  if (selecetedStore.zoneId == item.id){
+							  calZone =item;
+							  return item;
+						  }							  
+					  });
+					 return calZone;
+					}	
 				//	 console.log(OrderData);
 						$scope.saveOrder=function(){
 							var obj={
@@ -62,15 +71,18 @@
 					$scope.stores = OrderProductData.stores;
 					$scope.zones = OrderProductData.zones;
 					$scope.statusList = OrderProductData.statusList;
-					$scope.selectedZone = $scope.zones[0];
+					
 					$scope.selectedStatus =  $scope.orderItemVo.status;
-					$scope.setStores($scope.selectedZone);
+					
 					if($scope.orderItemVo.id == null || $scope.orderItemVo.id == undefined){
 						$scope.quickTitle = "Create Order";
+						$scope.selectedZone = $scope.zones[0];
 					}else{
+						$scope.selectedZone = setSelectedZones($rootScope.selectedStore);
 						$scope.quickTitle = "Edit Order";
 					}
 					
+					$scope.setStores($scope.selectedZone);
 					
 					 var fakeI18n = function( title ){
 						    var deferred = $q.defer();
