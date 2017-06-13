@@ -17,7 +17,7 @@
 					$scope.inprogressOrders = DashboadData.inprogressOrders;
 					$scope.opportunityData = DashboadData.passiveOppotunity;
 					 $scope.createEditOrderView2 =function(row){
-						  $rootScope.selectedStore = row.entity;
+						  $rootScope.selectedStore = row.entity.store;
 						  $location.path('/order-createEdit').search({id:row.entity.id});
 					 };
 					

@@ -19,6 +19,10 @@
 					method : 'POST',
 					url:'/rest/store/save'
 				},
+				deleteStore:{
+					method : 'DELETE',
+					url:'/rest/store/delete'
+				},
 				getBeforeCreate:{
 					method : 'GET',
 					params : {

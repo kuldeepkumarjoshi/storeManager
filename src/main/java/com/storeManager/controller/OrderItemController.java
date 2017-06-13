@@ -116,7 +116,7 @@ public class OrderItemController {
 		@ResponseBody
 		public Map<String,Object> getAllOrder(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
-			List<OrderItem> orderList = orderItemService.getAll("from OrderItem");
+			List<OrderItem> orderList = orderBusiness.getAllOrders();
 			resultMap.put("orderList",orderList);			
 			return resultMap;
 		}
@@ -190,11 +190,18 @@ public class OrderItemController {
 		
 		@RequestMapping(value="/delete",method=RequestMethod.DELETE)
 		@ResponseBody
-		public String deleteOrder(HttpServletRequest request){
+		public Map<String,String> deleteOrder(HttpServletRequest request){
+			Map<String,String> resultMap = new HashMap<String, String>();
 			String orderID = request.getParameter("id");
+			try{
+			orderBusiness.deleleOrder(Long.parseLong(orderID));
 			//System.out.println( request.getSession().getAttributeNames());
-			orderItemService.remove(Long.parseLong(orderID),OrderItem.class);			
-			return "success";
+			}catch(Exception e){
+				e.printStackTrace();
+				 resultMap.put("error", "error");
+			}
+			 resultMap.put("success", "success");
+			 return resultMap;
 		}
 		
 		

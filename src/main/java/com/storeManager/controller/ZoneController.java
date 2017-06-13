@@ -64,13 +64,19 @@ public class ZoneController {
 		
 		@RequestMapping(value="/delete",method=RequestMethod.DELETE)
 		@ResponseBody
-		public String deleteZone(HttpServletRequest request){
-			String zoneID = request.getParameter("id");
+		public Map<String,String> deleteOrder(HttpServletRequest request){
+			Map<String,String> resultMap = new HashMap<String, String>();
+			String zoneID = request.getParameter("zoneId");
+			try{
+				zoneBusiness.deleleZone(Long.parseLong(zoneID));
 			//System.out.println( request.getSession().getAttributeNames());
-			zoneService.remove(Long.parseLong(zoneID),Zone.class);			
-			return "success";
+			}catch(Exception e){
+				e.printStackTrace();
+				 resultMap.put("error", "error");
+			}
+			 resultMap.put("success", "success");
+			 return resultMap;
 		}
-		
 		
 		@RequestMapping(value="/update",method=RequestMethod.PUT)
 		@ResponseBody

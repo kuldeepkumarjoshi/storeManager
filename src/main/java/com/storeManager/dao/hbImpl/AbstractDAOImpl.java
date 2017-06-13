@@ -11,12 +11,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.SimpleExpression;
-import org.mockito.internal.matchers.InstanceOf;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.storeManager.entity.OrderProduct;
+import com.storeManager.search.SearchRequest;
+
+
 
 public abstract class AbstractDAOImpl<E> {
 
@@ -78,6 +79,72 @@ public abstract class AbstractDAOImpl<E> {
 		return "remove successfully";
 	}
 
+
+	public E update(E e) {
+		try {
+			Session session =getSession();
+			Transaction trans=session.beginTransaction();
+			session.update(e);
+	        trans.commit();
+	        session.close();
+	        return e;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public List<E> updateAll(List<E> updatableList) {
+		List<E> updatedList=new ArrayList<E>();
+		
+		Session session =getSession();
+		Transaction tx = session.beginTransaction();
+		for (E e : updatableList) {
+			session.update(e);
+			updatedList.add(e);
+		}
+		tx.commit();
+		session.close();
+		return updatedList;
+	}
+
+	public E updateByCondition(E e,Class<E> tempClass,Map<String,Object> setterMap ,Map<String,Object> conditionMap){
+		
+		try{
+			Session session =getSession();
+			Transaction trans=session.beginTransaction();
+		String queryStr = "update "+tempClass.getSimpleName()+" set ";
+		for (String key : setterMap.keySet()) {
+			queryStr+= key +"= :"+key+",";
+			
+		}
+		queryStr = queryStr.substring(0,queryStr.length()-1);
+		queryStr+=" where ";
+		for (String key : conditionMap.keySet()) {
+			queryStr+= key +"= :"+key+" ,";
+		}		
+		queryStr = queryStr.substring(0,queryStr.length()-1);
+		
+		Query query = session.createQuery(queryStr);
+		for (String key : setterMap.keySet()) {
+			query.setParameter(key, setterMap.get(key));			
+		}
+		for (String key : conditionMap.keySet()) {
+			query.setParameter(key, conditionMap.get(key));
+		}	
+		System.out.println("query print :"+query.getQueryString());
+		int result =query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		 trans.commit();
+         session.close();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return e;
+	}
+	
+	// ---search operation 
 	public List<E> getAll(String hql) {
 
 		List<E> list = null;
@@ -129,6 +196,22 @@ public abstract class AbstractDAOImpl<E> {
 		}
 		return list;
 	}
+	
+	public List<E> doSearch(SearchRequest searchRequest) {
+		List<E> list = null;
+		String hql ="";
+		try {
+			Session session =getSession();
+			Transaction trans=session.beginTransaction();
+			Query query =session.createQuery(hql);
+	         list = query.list();
+	         trans.commit();
+	         session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
 
 	public E getById(Long id,Class<E> tempClass) {
 		E e=null;
@@ -163,56 +246,42 @@ public abstract class AbstractDAOImpl<E> {
 		}
 		return list;
 	}
-
-
-	public E update(E e) {
+	
+	public List<E> getAllByCriteria(SimpleExpression selectedCrs,Class<E> tempClass) {
+		List<E> list = null;
 		try {
 			Session session =getSession();
 			Transaction trans=session.beginTransaction();
-			session.update(e);
-	        trans.commit();
-	        session.close();
-	        return e;
+			Criteria cr = session.createCriteria(tempClass);			
+			cr.add(selectedCrs);			
+	         list = cr.list();
+	         System.out.println("list size:"+list.size());
+	         trans.commit();
+	         session.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return null;
 		}
-
+		return list;
 	}
 
-	public List<E> updateAll(List<E> updatableList) {
-		List<E> updatedList=new ArrayList<E>();
-		
-		Session session =getSession();
-		Transaction tx = session.beginTransaction();
-		for (E e : updatableList) {
-			session.update(e);
-			updatedList.add(e);
-		}
-		tx.commit();
-		session.close();
-		return updatedList;
-	}
-
-	public E updateByCondition(E e,Class<E> tempClass,Map<String,Object> setterMap ,Map<String,Object> conditionMap){
-		Session session =getSession();
-		try{
-		String queryStr = "update "+tempClass.getSimpleName()+" set ";
-		for (String key : setterMap.keySet()) {
-			queryStr+= key +"=\'"+setterMap.get(key)+"\' ,";
-		}
-		queryStr = queryStr.substring(0,queryStr.length()-1);
-		queryStr+="where ";
-		for (String key : conditionMap.keySet()) {
-			queryStr+= key +"="+conditionMap.get(key)+" ,";
-		}		
-		queryStr = queryStr.substring(0,queryStr.length()-1);
-		System.out.println("query str :"+queryStr);
-		Query query = session.createQuery(queryStr);
-		query.executeUpdate();
-		}catch(Exception ex){
+	public List<E> getAllByCriteria(List<Criterion> criterias,Class<E> tempClass) {
+		List<E> list = null;
+		try {
+			Session session =getSession();
+			Transaction trans=session.beginTransaction();
+			Criteria cr = session.createCriteria(tempClass);	
+			for (Criterion se : criterias) {
+				cr.add(se);	
+			}
+					
+	         list = cr.list();
+	         System.out.println("list size:"+list.size());
+	         trans.commit();
+	         session.close();
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return e;
+		return list;
 	}
+
 }

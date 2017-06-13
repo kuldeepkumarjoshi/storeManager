@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.storeManager.service.OrderItemService;
 import com.storeManager.service.OrderProductService;
 import com.storeManager.service.StoreService;
 import com.storeManager.service.ZoneService;
+import com.storeManager.utility.GlobalFilterUtility;
 
 @Component
 public class OrderBusiness {
@@ -37,8 +39,11 @@ public class OrderBusiness {
 	OrderProductService orderProductService;
 
 	public List<Zone> getAllZones() {
-		List<Zone> zoneList = zoneService.getAll("from Zone");
+		List<Criterion> creterias = GlobalFilterUtility.getGlobalFilterCreteria();
+		
+		List<Zone> zoneList = zoneService.getAllByCriteria(creterias , Zone.class);
 		return zoneList;
+		
 	}
 
 	public List<String> getOrderStatus() {
@@ -83,6 +88,50 @@ public class OrderBusiness {
 		return orderId;
 		
 	}
+
+	public void deleleOrder(long longID) {
+		OrderItem odItem = new OrderItem();
+		odItem.setId(longID);
+		odItem.setDeleted(Boolean.TRUE);
+		Map<String,Object> setterParams = new HashMap<String, Object>();
+		setterParams.put("deleted", Boolean.TRUE);
+		Map<String,Object> creteriaMap = new HashMap<String, Object>();
+		creteriaMap.put("id", longID);
+		orderItemService.updateByCondition(odItem, OrderItem.class, setterParams, creteriaMap);
+		deleleAllOrderProductByOrderId(longID);
+	}
+
+	public void deleleOrderProduct(long longID) {
+		OrderProduct odProItem = new OrderProduct();
+		odProItem.setId(longID);
+		odProItem.setDeleted(Boolean.TRUE);
+		Map<String,Object> setterParams = new HashMap<String, Object>();
+		setterParams.put("deleted", Boolean.TRUE);
+		Map<String,Object> creteriaMap = new HashMap<String, Object>();
+		creteriaMap.put("id", longID);
+		orderProductService.updateByCondition(odProItem, OrderProduct.class, setterParams, creteriaMap);
+	}
+	
+	public void deleleAllOrderProductByOrderId(long orderlongID) {
+		OrderProduct odProItem = new OrderProduct();
+		odProItem.setId(orderlongID);
+		odProItem.setDeleted(Boolean.TRUE);
+		Map<String,Object> setterParams = new HashMap<String, Object>();
+		setterParams.put("deleted", Boolean.TRUE);
+		Map<String,Object> creteriaMap = new HashMap<String, Object>();
+		creteriaMap.put("orderId", orderlongID);
+		orderProductService.updateByCondition(odProItem, OrderProduct.class, setterParams, creteriaMap);
+	}
+
+	public List<OrderItem> getAllOrders() {
+		List<Criterion> creterias = GlobalFilterUtility.getGlobalFilterCreteria();		
+		
+		// List<Store> storeList = storeService.getAll("from Store");
+		List<OrderItem> orderItems = orderItemService.getAllByCriteria(creterias , OrderItem.class);
+		return orderItems;
+	}
+	
+	
 
 	
 	

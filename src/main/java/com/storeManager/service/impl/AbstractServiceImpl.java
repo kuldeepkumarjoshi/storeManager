@@ -3,6 +3,7 @@ package com.storeManager.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.SimpleExpression;
 
 import com.storeManager.dao.CommanDAO;
@@ -39,6 +40,15 @@ public abstract class AbstractServiceImpl<E> {
 		return objectDao.getAllByFKoreignKey(spe, tempClass);
 	}
 
+	public List<E> getAllByCriteria(SimpleExpression selectedCrs,Class<E> tempClass) {
+		objectDao = (CommanDAO<E>) getObjectDao();
+		return objectDao.getAllByCriteria(selectedCrs, tempClass);
+	}
+	public List<E> getAllByCriteria(List<Criterion> criterias,Class<E> tempClass) {
+		objectDao = (CommanDAO<E>) getObjectDao();
+		return objectDao.getAllByCriteria(criterias, tempClass);
+	}
+	
 	public List<E> getAll(String hql) {
 		objectDao = (CommanDAO<E>) getObjectDao();
 		return objectDao.getAll(hql);

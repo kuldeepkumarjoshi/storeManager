@@ -33,6 +33,11 @@
 						operation : 'getAllByStore'
 					}
 				},
+				deleteOrder:{
+					method : 'DELETE',
+					url:'/rest/order/delete'
+					
+				},
 				save:{
 					method : 'POST',
 					url:'/rest/orderProduct/save'					

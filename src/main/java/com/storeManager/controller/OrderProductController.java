@@ -69,11 +69,18 @@ public class OrderProductController {
 		
 		@RequestMapping(value="/delete",method=RequestMethod.DELETE)
 		@ResponseBody
-		public String deleteOrderProduct(HttpServletRequest request){
-			String orderProductID = request.getParameter("id");
+		public Map<String,String> deleteOrder(HttpServletRequest request){
+			Map<String,String> resultMap = new HashMap<String, String>();
+			String orderProductID = request.getParameter("orderProductID");
+			try{
+				orderBusiness.deleleOrderProduct(Long.parseLong(orderProductID));
 			//System.out.println( request.getSession().getAttributeNames());
-			orderProductService.remove(Long.parseLong(orderProductID),OrderProduct.class);			
-			return "success";
+			}catch(Exception e){
+				e.printStackTrace();
+				 resultMap.put("error", "error");
+			}
+			 resultMap.put("success", "success");
+			 return resultMap;
 		}
 		
 		

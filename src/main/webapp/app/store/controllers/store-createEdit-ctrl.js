@@ -10,10 +10,22 @@
 					
 						
 				//	 console.log(StoreData);
+					$scope.deleteStore =function(){
+						var obj={
+								storeId :$scope.store.id
+						};
+						StoreService.deleteStore(obj,function(response){
+							alert("deleted successfully.");
+							$scope.$back();
+						},function(response){
+							alert("error in delete store.");
+						});
+					}
 						$scope.saveStore=function(){
 							$scope.store.zoneId = $scope.selectedZone.id;
 							StoreService.save($scope.store,function(response){
 								alert("saved successfully.");
+								$scope.$back();
 							},function(response){
 								alert("error in save store.");
 							});

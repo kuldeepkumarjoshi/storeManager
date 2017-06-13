@@ -87,13 +87,19 @@ public class StoreController {
 		
 		@RequestMapping(value="/delete",method=RequestMethod.DELETE)
 		@ResponseBody
-		public String deleteStore(HttpServletRequest request){
-			String storeID = request.getParameter("id");
+		public Map<String,String> deleteStore(HttpServletRequest request){
+			Map<String,String> resultMap = new HashMap<String, String>();
+			String storeID = request.getParameter("storeId");
+			try{
+			storeBusiness.deleleStore(Long.parseLong(storeID));
 			//System.out.println( request.getSession().getAttributeNames());
-			storeService.remove(Long.parseLong(storeID),Store.class);			
-			return "success";
+			}catch(Exception e){
+				e.printStackTrace();
+				 resultMap.put("error", "error");
+			}
+			 resultMap.put("success", "success");
+			 return resultMap;
 		}
-		
 		
 		@RequestMapping(value="/update",method=RequestMethod.PUT)
 		@ResponseBody

@@ -51,6 +51,20 @@
 							};
 							OrderService.save(obj,function(response){
 								alert("saved successfully.");
+								$scope.$back();
+							},function(response){
+								alert("error in save order.");
+							});
+						};
+						$scope.deleteOrder=function(){
+							var obj={
+									id:$scope.orderItemVo.id,									
+									orderProducts:	$scope.orderItemVo.orderProducts,	
+									storeId: $scope.orderItemVo.store.id,									
+							};
+							OrderService.deleteOrder(obj,function(response){
+								alert("saved successfully.");
+								$scope.$back();
 							},function(response){
 								alert("error in save order.");
 							});

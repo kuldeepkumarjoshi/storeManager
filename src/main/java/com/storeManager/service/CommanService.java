@@ -3,6 +3,7 @@ package com.storeManager.service;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.SimpleExpression;
 
 import com.storeManager.entity.Store;
@@ -22,6 +23,6 @@ public interface CommanService<E> {
 
 	public List<E> getAllPaginated(String hql,int start);
 	public List<E> getAllByFKoreignKey(SimpleExpression spe , Class<E> tempClass);
-	public E updateByCondition(Store store, Class<Store> tempClass,Map<String, Object> setterParams, Map<String, Object> creteriaMap);
-
+	public E updateByCondition(E e,	 Class<E> tempClass,Map<String, Object> setterParams, Map<String, Object> creteriaMap);
+	public List<E> getAllByCriteria(List<Criterion> creterias,Class<E> tempClass) ;
 }
