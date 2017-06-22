@@ -9,7 +9,7 @@
 			function(common, StoreRoute, StoreHomeCtrl,StoreCreateEditCtrl, StoreService) {
 		
 		var moduleName = 'storePage';
-		angular.module(moduleName, [common, 'ui.grid.exporter', 'ui.grid.autoResize','ui.grid.selection','ui.grid.edit', 'ui.grid.cellNav'])
+		angular.module(moduleName, [common, 'ui.grid.exporter', 'ui.grid.autoResize','ui.grid.resizeColumns','ui.grid.selection','ui.grid.edit', 'ui.grid.cellNav'])
 				.config(StoreRoute)
 				.controller('StoreHomeCtrl', StoreHomeCtrl)
 				.controller('StoreCreateEditCtrl', StoreCreateEditCtrl)

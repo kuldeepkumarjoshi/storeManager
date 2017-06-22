@@ -5,10 +5,17 @@
 			[],
 			function() {
 
-				var StoreCreateEditCtrl = function($scope, $location,$rootScope,uiGridConstants , $q,$interval, $http,StoreService,StoreData, i18nNotifications) {
+				var StoreCreateEditCtrl = function($scope, $location,$rootScope,uiGridConstants , $q,$interval, $http,ngToast,StoreService,StoreData, i18nNotifications) {
 					var isAdmin=true; 
 					
-						
+					$scope.showToast =function(){
+						ngToast.create({
+							  className: 'alert-success',
+							  content: '<a href="#" class="">a message</a>'
+							});
+					}
+				
+					
 				//	 console.log(StoreData);
 					$scope.deleteStore =function(){
 						var obj={
@@ -74,16 +81,18 @@
 										
 								},*/
 								{
-									field : 'deliveryDate',
-									displayName: 'Delivery',
-									cellFilter: 'date:"dd/MM/yyyy"', 
-									filterCellFiltered:true
-								},
-								{
+									field : 'id',
+									displayName: 'Order Id'
+								},{
+									field : 'id',
+									displayName: 'P.Q.'
+								},{
+									field : 'poNumber',
+									displayName: 'PO Number'
+								},{
 									field : 'total',
 									displayName: 'Total'
-								},
-								{
+								},{
 									field : 'status',
 									displayName: 'Status'
 								}],
@@ -91,7 +100,7 @@
 					};
 					
 				};
-				return [ '$scope', '$location', '$rootScope','uiGridConstants' , '$q','$interval','$http', 'StoreService','StoreData','i18nNotifications', StoreCreateEditCtrl ];
+				return [ '$scope', '$location', '$rootScope','uiGridConstants' , '$q','$interval','$http','ngToast', 'StoreService','StoreData','i18nNotifications', StoreCreateEditCtrl ];
 			});
 
 }(define));

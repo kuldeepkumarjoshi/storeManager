@@ -11,7 +11,7 @@ public class Product extends CommanEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Override
 	public String toString() {
-		return "Zone [id=" + getId() + ", name=" + name + "]";
+		return "product [id=" + getId() + ", name=" + name + "]";
 	}
 	
 	private String name;

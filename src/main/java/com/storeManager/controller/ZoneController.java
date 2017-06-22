@@ -1,5 +1,8 @@
 package com.storeManager.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.storeManager.business.StoreBusiness;
 import com.storeManager.business.ZoneBusiness;
 import com.storeManager.entity.Zone;
 import com.storeManager.service.ZoneService;
+import com.storeManager.utility.CalendarUtil;
+import com.storeManager.vo.ZoneDetailVo;
 
 @Controller
 @RequestMapping("/zone")
@@ -49,6 +52,41 @@ public class ZoneController {
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			List<Zone> zoneList = zoneBusiness.getAllZones();
 			resultMap.put("zoneList",zoneList);			
+			return resultMap;
+		}
+		
+		@RequestMapping(value="/getAllZonesForZonePage",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getAllZonesForZonePage(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			String fromDateStr = request.getParameter("fromDate");
+			String month = request.getParameter("month");
+			String toDateStr = request.getParameter("toDate");
+			Date fromDate =null;
+			Date toDate = null;
+			Map<String,Date> monthLimits = new HashMap<String, Date>();
+			try {
+				
+					if(fromDateStr !=null && toDateStr !=null){
+						//SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");					
+							fromDate = new Date(Long.parseLong(fromDateStr));
+							toDate = new Date(Long.parseLong(toDateStr));						
+					}else{
+						monthLimits = CalendarUtil.getMonthLimit(monthLimits,month);
+						fromDate = monthLimits.get("fromDate");
+						toDate = monthLimits.get("toDate");
+						
+					}
+				
+				System.out.println("from :"+fromDate+" toDate :"+toDate);
+				List<ZoneDetailVo> zoneList = zoneBusiness.getAllZonesForZonePage(fromDate,toDate);
+				resultMap.put("zoneList",zoneList);
+				resultMap.put("fromDate", fromDate.getTime());
+				resultMap.put("toDate", toDate.getTime());
+				} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return resultMap;
 		}
 		

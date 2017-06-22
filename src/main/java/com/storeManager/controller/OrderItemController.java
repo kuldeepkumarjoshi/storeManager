@@ -2,6 +2,7 @@ package com.storeManager.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,9 @@ import com.storeManager.entity.Zone;
 import com.storeManager.enums.OrderStatusType;
 import com.storeManager.service.OrderItemService;
 import com.storeManager.service.StoreService;
+import com.storeManager.utility.CalendarUtil;
 import com.storeManager.vo.OrderItemVO;
+import com.storeManager.vo.StoreGridVo;
 
 @Controller
 @RequestMapping("/order")
@@ -93,7 +96,17 @@ public class OrderItemController {
 			return resultMap;
 		}
 		
-		
+		@RequestMapping(value="/getGridDataForOrderPage",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getGridDataForStorePage(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();			
+			String month = request.getParameter("month");
+			String status = request.getParameter("status");
+			String storeId = request.getParameter("storeId");	
+			List<OrderItemVO> orderVOList = orderBusiness.getGridDataForOrderPage(status,storeId,month);
+			resultMap.put("orderList",orderVOList);			
+			return resultMap;
+		}
 		@RequestMapping(value="/getDashBoardDetail",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String, Object> getDashBoardDetail(HttpServletRequest request,Model model){

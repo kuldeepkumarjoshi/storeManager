@@ -24,7 +24,7 @@ public class ProductBusiness {
 	public List<Product> getAllProductList() {
 		List<Criterion> creterias = GlobalFilterUtility.getGlobalFilterCreteria();
 		
-		List<Product> productList = productService.getAllByCriteria(creterias , Product.class);
+		List<Product> productList = productService.getAllByCriteria(creterias,null , Product.class);
 		return productList;
 	}
 	

@@ -1,22 +1,18 @@
 package com.storeManager.service.impl;
-
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.SimpleExpression;
 
 import com.storeManager.dao.CommanDAO;
-import com.storeManager.entity.Store;
-
 
 public abstract class AbstractServiceImpl<E> {
-
 
 	private CommanDAO<E> objectDao;
 
 	public abstract Object getObjectDao();
-
 	
 	public Long insert(E e)  {
 		objectDao = (CommanDAO<E>) getObjectDao();
@@ -28,12 +24,10 @@ public abstract class AbstractServiceImpl<E> {
 		return objectDao.insertAll(elist);
 	}
 
-
 	public String remove(Long id,Class<E> tempClass) {
 		objectDao = (CommanDAO<E>) getObjectDao();
 		return objectDao.remove(id, tempClass);
 	}
-
 	
 	public List<E> getAllByFKoreignKey(SimpleExpression spe,Class<E> tempClass) {
 		objectDao = (CommanDAO<E>) getObjectDao();
@@ -44,16 +38,16 @@ public abstract class AbstractServiceImpl<E> {
 		objectDao = (CommanDAO<E>) getObjectDao();
 		return objectDao.getAllByCriteria(selectedCrs, tempClass);
 	}
-	public List<E> getAllByCriteria(List<Criterion> criterias,Class<E> tempClass) {
+	
+	public List<E> getAllByCriteria(List<Criterion> criterias,Projection projection,Class<E> tempClass) {
 		objectDao = (CommanDAO<E>) getObjectDao();
-		return objectDao.getAllByCriteria(criterias, tempClass);
+		return objectDao.getAllByCriteria(criterias, projection, tempClass);
 	}
 	
 	public List<E> getAll(String hql) {
 		objectDao = (CommanDAO<E>) getObjectDao();
 		return objectDao.getAll(hql);
 	}
-
 	
 	public List<E> getAllPaginated(String hql,int start) {
 		objectDao = (CommanDAO<E>) getObjectDao();
@@ -85,5 +79,9 @@ public abstract class AbstractServiceImpl<E> {
 		return objectDao.updateByCondition(e, tempClass, setterParams,  creteriaMap);
 	}
 
+	public List executeQuery(String queryStr ,Map<String,Object> creteria) {
+		objectDao = (CommanDAO<E>) getObjectDao();
+		return objectDao.executeQuery(queryStr, creteria);
+	}
 
 }

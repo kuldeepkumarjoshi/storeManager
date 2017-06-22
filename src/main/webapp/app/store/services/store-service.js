@@ -23,6 +23,12 @@
 					method : 'DELETE',
 					url:'/rest/store/delete'
 				},
+				getGridDataForStorePage:{
+					method :'GET',
+					params:{
+						operation : 'getGridDataForStorePage'
+					}
+				},
 				getBeforeCreate:{
 					method : 'GET',
 					params : {

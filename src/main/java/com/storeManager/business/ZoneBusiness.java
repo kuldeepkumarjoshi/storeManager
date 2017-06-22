@@ -1,20 +1,26 @@
 package com.storeManager.business;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.storeManager.entity.Product;
 import com.storeManager.entity.Store;
 import com.storeManager.entity.Zone;
 import com.storeManager.service.StoreService;
 import com.storeManager.service.ZoneService;
 import com.storeManager.utility.GlobalFilterUtility;
+import com.storeManager.utility.QueryManager;
+import com.storeManager.vo.ZoneDetailVo;
 
 @Component
 public class ZoneBusiness {
@@ -28,7 +34,7 @@ public class ZoneBusiness {
 	public List<Zone> getAllZones() {
 		List<Criterion> creterias = GlobalFilterUtility.getGlobalFilterCreteria();		
 		
-		List<Zone> zoneList = zoneService.getAllByCriteria(creterias , Zone.class);
+		List<Zone> zoneList = zoneService.getAllByCriteria(creterias, null , Zone.class);
 		return zoneList;
 	}
 	
@@ -46,6 +52,22 @@ public class ZoneBusiness {
 		creteriaMap.put("zoneId", longID);
 		storeService.updateByCondition(new Store(), Store.class, setterParams, creteriaMapStore);
 	
+	}
+
+	public List<ZoneDetailVo> getAllZonesForZonePage(Date fromDate, Date toDate) throws SQLException {
+		List<ZoneDetailVo> zoneDetailVos  = new ArrayList<ZoneDetailVo>();
+		String saleDetailQuery = QueryManager.getzoneDetailWithTotalSale();
+		Map<String,Object> creteriaMap = new HashMap<String, Object>();
+		creteriaMap.put("fromDate", fromDate);
+		creteriaMap.put("toDate", toDate);
+		ArrayList list = (ArrayList) zoneService.executeQuery(saleDetailQuery,creteriaMap);
+		for (Object zoneObj : list) { 
+			Object[] zoneFields = (Object[]) zoneObj;			
+			zoneDetailVos.add(new ZoneDetailVo(zoneFields));
+		}
+		
+		return zoneDetailVos;
+		
 	}
 	
 }

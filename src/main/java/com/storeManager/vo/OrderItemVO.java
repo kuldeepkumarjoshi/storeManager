@@ -34,9 +34,14 @@ public class OrderItemVO extends CommanEntity {
 	private boolean orderReceivedNotification= Boolean.FALSE;
 	
 	private boolean orderDeliveredNotification= Boolean.FALSE;
-	public OrderItemVO(){
-		
+	
+	private String orderProductStr;
+	
+	
+	public OrderItemVO(Object[] orderFields){
+
 	}
+	
 	public OrderItemVO(OrderItem orderItem){
 		title = orderItem.getTitle();
 		storeId = orderItem.getStoreId();
@@ -53,6 +58,10 @@ public class OrderItemVO extends CommanEntity {
 		setCommanEntity(orderItem.getId(),orderItem.isActive(),orderItem.isDeleted(),orderItem.getCreatedBy(),orderItem.getCreatedDate(),
 				orderItem.getLastModifiedBy(),orderItem.getLastModifiedDate());
 	}
+	public OrderItemVO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -157,6 +166,16 @@ public class OrderItemVO extends CommanEntity {
 
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+	public String getOrderProductStr() {
+		return orderProductStr;
+	}
+	public void setOrderProductStr(String orderProductStr) {
+		this.orderProductStr = orderProductStr;
+	}
+	public void setOrderProductString(OrderProduct orderProduct) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -5,13 +5,15 @@
 
 		var StoreRoute = function ($routeProvider, $stateProvider) {
 			$stateProvider.state('store',{
-	            url:'/stores',
+	            url:'/stores?zoneId',
 	            templateUrl: 'app/store/views/store-home.html',
 	            controller: 'StoreHomeCtrl',
 	            resolve: {
 					StoreHomeData : ['StoreService','$stateParams', function (StoreService,$stateParams) {
-						
-							return StoreService.getAllStores().$promise.then(function(response){
+						var obj = {
+								zoneId:$stateParams.zoneId
+						};
+							return StoreService.getGridDataForStorePage(obj).$promise.then(function(response){
 	                    		return response;
 	                    	});						                    	
                     }]

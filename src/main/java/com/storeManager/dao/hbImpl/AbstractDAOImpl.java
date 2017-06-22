@@ -1,5 +1,6 @@
 package com.storeManager.dao.hbImpl;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -264,7 +266,7 @@ public abstract class AbstractDAOImpl<E> {
 		return list;
 	}
 
-	public List<E> getAllByCriteria(List<Criterion> criterias,Class<E> tempClass) {
+	public List<E> getAllByCriteria(List<Criterion> criterias,Projection projection,Class<E> tempClass) {
 		List<E> list = null;
 		try {
 			Session session =getSession();
@@ -273,7 +275,7 @@ public abstract class AbstractDAOImpl<E> {
 			for (Criterion se : criterias) {
 				cr.add(se);	
 			}
-					
+				cr.setProjection(projection);
 	         list = cr.list();
 	         System.out.println("list size:"+list.size());
 	         trans.commit();
@@ -283,5 +285,28 @@ public abstract class AbstractDAOImpl<E> {
 		}
 		return list;
 	}
+	
+	
+	public List executeQuery(String queryStr,Map<String,Object> creteriaMap ) {
+		List list = null;
+		try {
+			Session session =getSession();
+			Transaction trans=session.beginTransaction();
+			
+			Query query =session.createSQLQuery(queryStr);
+			for (String keyStr : creteriaMap.keySet()) {
+				query.setParameter(keyStr, creteriaMap.get(keyStr));
+			}
+			System.out.println("query :"+query.getQueryString());
+	         list = query.list();
+	         System.out.println("list size:"+list.size());
+	         trans.commit();
+	         session.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+
 
 }

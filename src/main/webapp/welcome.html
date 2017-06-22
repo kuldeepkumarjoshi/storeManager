@@ -10,10 +10,13 @@
  <link rel="stylesheet" type="text/css" href="angular-ui-grid/ui-grid.min.css" />
 <link rel="styleSheet" href="library/bootstrap/css/bootstrap.min.css" />
 <link rel="styleSheet" href="css/font-awesome-4.3.0/css/font-awesome.min.css" />
+
 <link rel="styleSheet" href="css/loading-bar.min.css" />
 <link rel="styleSheet" href="css/ui-bootstrap-csp.css" />
+<link rel="stylesheet" href="lib/ngToast/ngToast.min.css" />
 <link rel="styleSheet" media="(min-width:601px)" href="css/web.css" />
  <link rel="stylesheet" media="(max-width:600px)"  href="css/mobile.css">
+ 
 <script type="text/javascript" src="lib/require.js"></script>
 <script type="text/javascript" src="lib/head.js"></script>
 <script type="text/javascript" src="boot_ace.js"></script>
@@ -32,6 +35,7 @@
 		<div>
 			 <div class="" ng-include="'nav.html'"></div>
 			<div class="" style="">
+			 <toast></toast>
 				<div ng-class="{'col-md-2 col-sm-2':!isMobile}"></div>
 				<div ng-class="{'col-md-10 col-sm-10':!isMobile}" ui-view></div>
 			</div>

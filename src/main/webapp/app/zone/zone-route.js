@@ -10,7 +10,7 @@
 	            controller: 'ZoneHomeCtrl',
 	            resolve: {
 					ZoneHomeData : ['ZoneService','$stateParams', function (ZoneService,$stateParams) {
-                    	return ZoneService.getAllZones().$promise.then(function(response){
+                    	return ZoneService.getAllZonesForZonePage().$promise.then(function(response){
                     		return response;
                     	});
                     }]

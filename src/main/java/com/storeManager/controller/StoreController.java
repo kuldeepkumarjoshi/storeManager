@@ -1,5 +1,6 @@
 package com.storeManager.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ import com.storeManager.business.ZoneBusiness;
 import com.storeManager.entity.Store;
 import com.storeManager.entity.Zone;
 import com.storeManager.service.StoreService;
+import com.storeManager.utility.CalendarUtil;
+import com.storeManager.vo.StoreGridVo;
 
 @Controller
 @RequestMapping("/store")
@@ -53,6 +56,28 @@ public class StoreController {
 			
 			List<Store> storeList = storeBusiness.getAllStores();
 		
+			resultMap.put("storeList",storeList);			
+			return resultMap;
+		}
+		
+
+		
+		@RequestMapping(value="/getGridDataForStorePage",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getGridDataForStorePage(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			Map<String,Date> monthLimits = new HashMap<String, Date>();
+			String month = request.getParameter("month");
+			Date fromDate =null;
+			Date toDate = null;
+			Long zoneId = null;
+			if( request.getParameter("zoneId")!=null){
+				zoneId = Long.parseLong(request.getParameter("zoneId"));
+			}
+			monthLimits = CalendarUtil.getMonthLimit(monthLimits,month);
+			fromDate = monthLimits.get("fromDate");
+			toDate = monthLimits.get("toDate");
+			List<StoreGridVo> storeList = storeBusiness.getGridDataForStorePage(zoneId,fromDate,toDate);
 			resultMap.put("storeList",storeList);			
 			return resultMap;
 		}

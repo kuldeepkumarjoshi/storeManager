@@ -13,7 +13,11 @@
 	        //cfpLoadingBar.start();
 	        $scope.$back=function(){
 				$window.history.back();
-			}
+			};
+	        var year = new Date().getFullYear();
+	        $scope.months = [{id:-1,name:"Month"},{id:0,name:"Jan "+year},{id:1,name:"Feb "+year},{id:2,name:"Mar "+year},{id:3,name:"Apri "+year},
+			                 {id:4,name:"May "+year},{id:5,name:"Jun "+year},{id:6,name:"Jul "+year},{id:7,name:"Aug "+year},
+			                 {id:8,name:"Sep "+year},{id:9,name:"Oct "+year},{id:10,name:"Nov "+year},{id:11,name:"Dec "+year}];
 	        $scope.$storeCreateView =function(row){
 				  $rootScope.selectedStore = row.entity; 
 				  $location.path('/store-createEdit').search({id:row.entity.id});
@@ -72,7 +76,10 @@
 	         * @param dataList
 	         * @returns {{height: string}}
 	         */
-	        $scope.getTableHeight = function (dataList,extraAdd ) {
+	        $scope.getTableHeight = function (dataList,extraAdd,extraHt ) {
+	        	if(extraHt== null){
+	        		extraHt=1;
+	        	}
 	        	if(extraAdd == null){
 	        		extraAdd = 0 ;
 	        	}
@@ -88,7 +95,7 @@
 	                };
 	            } else {
 	                return {
-	                    height: (dataList.length * rowHeight + headerHeight)+extraAdd + "px"
+	                    height: (dataList.length * rowHeight*extraHt + headerHeight)+extraAdd + "px"
 	                };
 	            }
 	        };
@@ -111,7 +118,7 @@
         			break;	        	
 	        	/*case "/contact":$scope.contact='back-color';
 	        		break;*/
-	        	default:$location.path('/quickOrder/selectZone');
+	        	default:$location.path('/zones');
 	        			$scope.home='back-color';
 	        			break;
 
