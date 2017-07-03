@@ -21,6 +21,12 @@
 						operation :'getBeforeCreate'
 					}
 				},
+				getGridDataForOrderPage:{
+					method:'GET',
+					params:{
+						operation :'getGridDataForOrderPage'
+					}
+				},
 				getBeforeEdit:{
 					method :'GET',
 					params : {

@@ -1,15 +1,49 @@
-<div class="transparent">
-	<div class="col-md-12 col-sm-12" style="margin-bottom:1%;margin-top: 1%;">
-		<button class="col-md-2 col-sm-2 btn btn-plus btn-white" ng-click="createOrder()"
-					uib-tooltip-placement="auto"> Create Order
+<style>
+.inputGroup {
+	border-radius: 0px;
+}
+
+.inputGroupAddon {
+	width: 20% !important;
+}
+.ui-grid-viewport .ui-grid-cell-contents {
+  word-wrap: break-word;
+  white-space: normal !important;
+}
+
+.ui-grid-row, .ui-grid-cell {
+  height: auto !important;
+}
+
+.ui-grid-row div[role=row] {
+  display: flex ;
+  align-content: stretch;
+}
+</style>
+<div class="headerTitle" style="border-bottom: 1px solid #eee;background-color: #d4b587;color: white;">
+		<div class="col-md-2 col-sm-2 col-xs-2 " ng-click="$back()"><i class="fa fa-arrow-left fa-lg"></i> </div>
+		<div class="col-md-6 col-sm-6 col-xs-6 " style="margin-top: 1%;">Select Order </div>
+		<button class="col-md-3 col-sm-3  col-xs-3 btn btn-plus btn-white" ng-click="createOrder()"
+					uib-tooltip-placement="auto">New Order   
 		</button>
-	</div>
-	<div class="col-md-12 col-sm-12" style="">
-		<div class="bg-primary topicTitle" style="">
-		  Orders
-		</div>
-	</div>
-<div class="col-md-12 col-sm-12" style="">
-		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(orderData)"  ui-grid-exporter >
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">	
+	<div class="input-group" style="width: 100%;"> 
+		
+			<select class="form-control input-group-addon inputGroup"  id="basic-addon1" style="width: 30%;"
+			ng-options="filter as filter.name for filter in filters track by filter.id"
+			ng-model="orderFilter.selectedFilter" ng-change="loadFilterOptions()"	aria-describedby="basic-addon2"></select> 
+
+			<select class="form-control inputGroup" style="width: 70%;"
+			ng-options="filterOption as filterOption.name for filterOption in filterOptions track by filterOption.id"
+			ng-model="orderFilter.selectedValue" 	aria-describedby="basic-addon2"></select>
+	</div>		
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">	
+		
+		<button  class="col-md-3 col-xs-offset-9 col-sm-3 col-xs-3 btn btn-round btn-white" ng-click="getOrderDetail()">Go</button>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">
+		<div ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-auto-resize  ui-grid-exporter >
    		 </div>
 </div>

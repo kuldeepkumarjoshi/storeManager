@@ -10,7 +10,7 @@
 	            controller: 'OrderHomeCtrl',
 	            resolve: {
 					OrderData : ['OrderService','$stateParams', function (OrderService,$stateParams) {
-                    	return OrderService.getAllOrders().$promise.then(function(response){
+                    	return OrderService.getGridDataForOrderPage().$promise.then(function(response){
                     		return response;
                     	});
                     }]

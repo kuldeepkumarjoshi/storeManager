@@ -92,7 +92,7 @@
 						$scope.quickTitle = "Create Order";
 						$scope.selectedZone = $scope.zones[0];
 					}else{
-						$scope.selectedZone = setSelectedZones($rootScope.selectedStore);
+						$scope.selectedZone = setSelectedZones($scope.orderItemVo.store);
 						$scope.quickTitle = "Edit Order";
 					}
 					

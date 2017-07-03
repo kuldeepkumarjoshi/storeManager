@@ -118,7 +118,7 @@
         			break;	        	
 	        	/*case "/contact":$scope.contact='back-color';
 	        		break;*/
-	        	default:$location.path('/zones');
+	        	default:$location.path('/orders');
 	        			$scope.home='back-color';
 	        			break;
 

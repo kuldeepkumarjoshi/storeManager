@@ -26,7 +26,6 @@ import com.storeManager.utility.CalendarUtil;
 import com.storeManager.utility.GlobalFilterUtility;
 import com.storeManager.utility.QueryManager;
 import com.storeManager.vo.OrderItemVO;
-import com.storeManager.vo.ZoneDetailVo;
 
 @Component
 public class OrderBusiness {
@@ -206,14 +205,28 @@ public class OrderBusiness {
 			if(voObject == null){
 				voObject  = new OrderItemVO();
 				voObject.setId(Long.parseLong(orderIdStr));		
-				voObject.setTotal(Integer.parseInt(orderFields[1]+"") );
+				voObject.setTotal(Double.parseDouble(orderFields[1]+"") );
 				voObject.setStatus(orderFields[2]+"");
 				voObject.setOrderProductStr(orderFields[3]+"");
-				orderItemVOs.add(voObject);				
+				orderItemVOs.add(voObject);	
+				orderItemMap.put(orderIdStr, voObject);
 			}else{
 				voObject.setOrderProductStr(voObject.getOrderProductStr()+","+orderFields[3]+"");
 			}						
 		}		
 		return orderItemVOs;
+	}
+
+	public List<Map<String,String>> getOrderStatusObjectList() {
+		List<Map<String,String>> ostList = new ArrayList<Map<String,String>>();
+		int count = 0 ;
+		for(OrderStatusType ost : OrderStatusType.values()){
+			
+			Map<String,String> objMap = new HashMap<String, String>();
+			objMap.put("id",""+(count++));
+			objMap.put("name",ost.getOrderStatusType());
+			ostList.add(objMap);
+		}
+		return ostList;
 	}	
 }
