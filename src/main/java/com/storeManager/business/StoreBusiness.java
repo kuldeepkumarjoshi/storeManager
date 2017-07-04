@@ -9,20 +9,17 @@ import java.util.Map;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.storeManager.entity.OrderItem;
 import com.storeManager.entity.Store;
-import com.storeManager.entity.Zone;
 import com.storeManager.service.OrderItemService;
 import com.storeManager.service.StoreService;
 import com.storeManager.service.ZoneService;
 import com.storeManager.utility.GlobalFilterUtility;
 import com.storeManager.vo.StoreGridVo;
-import com.storeManager.vo.ZoneDetailVo;
 
 @Component
 public class StoreBusiness {
@@ -66,6 +63,16 @@ public class StoreBusiness {
 		}		
 		Projection projection =null;// Projections.property("id");
 		List<Store> storeList = storeService.getAllByCriteria(creterias,projection, Store.class);
+		for (Store store : storeList) {			
+			StoreGridVo storeGridVo = orderItemStoreMap.get(store.getId());
+			if(storeGridVo == null){	
+				storeGridVo = new StoreGridVo();
+				storeGridVo.setCommanEntity(store);
+				storeGridVo.setStore(store);				
+				orderItemStoreMap.put(store.getId(), storeGridVo);
+				storeGridVos.add(storeGridVo);				
+			}			
+		}
 		List<Criterion> orderCriterias = GlobalFilterUtility.getGlobalFilterCreteria();
 		orderCriterias.add(Restrictions.in("store",storeList));		
 		LogicalExpression andExp  = Restrictions.and(Restrictions.ge("deliveryDate",fromDate), Restrictions.le("deliveryDate",toDate));
@@ -76,8 +83,7 @@ public class StoreBusiness {
 			if(storeGridVo == null){	
 				storeGridVo = new StoreGridVo();
 				storeGridVo.setCommanEntity(orderItem.getStore());
-				storeGridVo.setStore(orderItem.getStore());
-				
+				storeGridVo.setStore(orderItem.getStore());				
 				orderItemStoreMap.put(orderItem.getStore().getId(), storeGridVo);
 				storeGridVos.add(storeGridVo);				
 			}
@@ -85,6 +91,14 @@ public class StoreBusiness {
 		}
 		
 		return storeGridVos;
+	}
+
+	public List<Store> getAllByZoneId(Long zoneId) {
+		List<Criterion> creterias = GlobalFilterUtility.getGlobalFilterCreteria();
+		if(zoneId != null){			
+			creterias.add(Restrictions.eq("zoneId",zoneId));
+		}
+		return 	 storeService.getAllByCriteria(creterias,null, Store.class);
 	}
 	
 	

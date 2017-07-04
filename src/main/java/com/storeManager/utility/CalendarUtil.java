@@ -28,7 +28,7 @@ public class CalendarUtil {
 		Calendar cal =  Calendar.getInstance();
 		int selectMonth = 0;
 		if(month == null || month.equals("-1") ){							
-			selectMonth = Calendar.DAY_OF_MONTH;
+			selectMonth = cal.get(Calendar.MONTH);
 		}else{
 			selectMonth = Integer.parseInt(month);							
 		}

@@ -78,7 +78,9 @@
 								}],
 
 					};
-					$scope.storeSearch.selectedMonth  = $scope.months[0];
+					
+					var  initialValue = (new Date()).getMonth();
+					 $scope.storeSearch.selectedMonth  = $scope.months[initialValue];
 					
 				};
 				return [ '$scope','$q','$interval', '$rootScope','$location', '$http','StoreService', 'StoreHomeData','i18nNotifications', StoreHomeCtrl ];

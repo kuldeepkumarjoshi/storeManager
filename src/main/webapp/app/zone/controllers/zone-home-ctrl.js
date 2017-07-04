@@ -90,7 +90,8 @@
 					};
 					
 				
-				$scope.zoneSearch.selectedMonth  = $scope.months[0];
+					 var initialValue = (new Date()).getMonth();
+				$scope.zoneSearch.selectedMonth  = $scope.months[initialValue];
 					
 				};
 				return [ '$scope','$q','$interval', '$rootScope','$location','ZoneService', '$http', 'ZoneHomeData','i18nNotifications', ZoneHomeCtrl ];

@@ -87,7 +87,7 @@ public class StoreController {
 		public Map<String,Object> getAllByZoneId(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			String zoneId = request.getParameter("zoneId");
-			List<Store> storeList = storeService.getAllByZoneId(Long.parseLong(zoneId),"from Store");
+			List<Store> storeList = storeBusiness.getAllByZoneId(Long.parseLong(zoneId));
 			resultMap.put("storeList",storeList);			
 			return resultMap;
 		}

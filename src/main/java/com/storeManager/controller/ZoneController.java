@@ -1,7 +1,5 @@
 package com.storeManager.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -119,9 +117,7 @@ public class ZoneController {
 		@RequestMapping(value="/update",method=RequestMethod.PUT)
 		@ResponseBody
 		public String updateZone(HttpServletRequest request,Model model){
-			String name = request.getParameter("name");
-			String price = request.getParameter("price");
-			String symbol = request.getParameter("symbol");
+			
 			Zone zone = new Zone();
 		
 			//System.out.println( request.getSession().getAttributeNames());
