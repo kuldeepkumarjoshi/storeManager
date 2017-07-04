@@ -15,7 +15,7 @@
 				$window.history.back();
 			};
 	        var year = new Date().getFullYear();
-	        $scope.months = [{id:-1,name:"Month"},{id:0,name:"Jan "+year},{id:1,name:"Feb "+year},{id:2,name:"Mar "+year},{id:3,name:"Apri "+year},
+	        $scope.months = [{id:0,name:"Jan "+year},{id:1,name:"Feb "+year},{id:2,name:"Mar "+year},{id:3,name:"Apri "+year},
 			                 {id:4,name:"May "+year},{id:5,name:"Jun "+year},{id:6,name:"Jul "+year},{id:7,name:"Aug "+year},
 			                 {id:8,name:"Sep "+year},{id:9,name:"Oct "+year},{id:10,name:"Nov "+year},{id:11,name:"Dec "+year}];
 	        $scope.$storeCreateView =function(row){
@@ -118,7 +118,7 @@
         			break;	        	
 	        	/*case "/contact":$scope.contact='back-color';
 	        		break;*/
-	        	default:$location.path('/orders');
+	        	default:$location.path('/stores');
 	        			$scope.home='back-color';
 	        			break;
 
