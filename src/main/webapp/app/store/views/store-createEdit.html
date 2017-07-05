@@ -1,0 +1,79 @@
+<style>
+.inputGroup {
+	border-radius: 0px;
+}
+
+.inputGroupAddon {
+	width: 40%;
+}
+</style>
+
+
+
+<div class=" headerTitle"
+	style="border-bottom: 1px solid #eee; height: 49px; padding: 2% 0% 0% 0%; background-color: #d4b587; color: white;">
+	<div class="col-md-1 col-sm-1 col-xs-1 " ng-click="$back()">
+		<i class="fa fa-arrow-left fa-lg"></i>
+	</div>
+	<div class="col-md-6 col-sm-6 col-xs-6 " style="margin-top: 1%;">{{quickTitle}}
+	</div>
+	<div class="linkDiv col-md-4 col-sm-4 col-xs-4 " style="margin-top: 1%;" ng-click="showToast()">Delete
+	</div>
+</div>
+
+<div class="col-md-12 col-sm-12" style="margin-top: 1%;">
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon"
+			id="basic-addon1"> Zone :</span> <select
+			class="form-control inputGroup"
+			ng-options="zone as zone.name for zone in zones track by zone.id"
+			ng-model="selectedZone" 
+			aria-describedby="basic-addon2">
+
+		</select>
+	</div><br />
+
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon2"> Store name:</span>
+		<input type="text" class="form-control inputGroup"	ng-model="store.name" placeholder="Enter store name"	aria-describedby="basic-addon3">
+	</div><br />
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon1"> Contact name :</span>
+		<input type="text" class="form-control inputGroup"	ng-model="store.contactName" placeholder="Enter contact name" aria-describedby="basic-addon2">	
+	</div><br />
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon3"> Contact number 1 :</span>
+		<input type="text" class="form-control inputGroup" ng-model="store.contactNumber1" placeholder="Enter contact number 1" aria-describedby="basic-addon4">
+	</div><br/>
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon"	id="basic-addon5"> Contact number 2 :</span>
+		<input type="text" class="form-control inputGroup" ng-model="store.contactNumber2" placeholder="Enter contact number 2"	aria-describedby="basic-addon6">
+	</div><br />
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon7"> Contact number 3 :</span> 
+		<input type="text" class="form-control inputGroup" ng-model="store.contactNumber3" placeholder="Enter contact number 3"	aria-describedby="basic-addon8">
+	</div><br />	
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon9"> Address :</span>
+		<textarea class="form-control inputGroup" ng-model="store.address"	style="width: 100%;" placeholder="Enter address" rows="5"
+			aria-describedby="basic-addon10"></textarea>
+	</div><br />
+	<div class="input-group" style="width: 100%;">
+		<span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon11"> Email :</span> 
+		<input type="text" class="form-control inputGroup" ng-model="store.email" placeholder="Enter email"	aria-describedby="basic-addon12">
+	</div><br />
+</div>
+<div class="ol-md-12 col-sm-12" style=""  ng-show="orderData.length > 0">
+	<div class="bg-primary" style="padding: 2% 0% 2% 2%;">Orders <br/></div>
+	<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize	ng-style="getTableHeight(orderData)" ui-grid-exporter></div>
+</div>
+
+<div class="col-md-12 col-sm-12"
+	style="margin-top: 1%; text-align: center;">
+	<button class="btn btn-plus btn-white" ng-click="saveStore()"
+		style="width: 50%;">Save store</button>
+</div>
+<br/>
+
+
+

@@ -1,1 +1,1 @@
-heroku war:deploy E:\folder\target\storeManager.war  --app storemanager
+heroku war:deploy D:\folder\target\storeManager.war  --app storemanager

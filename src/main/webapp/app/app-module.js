@@ -2,8 +2,8 @@
 	"use strict";
 
 	define(['app-ctrl','home/home-module','contactUs/contactUs-module','about/about-module','store/store-module','zone/zone-module'
-	        ,'order/order-module','ourServices/ourServices-module','profile/profile-module','event/event-module','user/user-module'],
-			function(AppCtrl,homePage,contactUs,about,store,zone,order,ourService,profile,event,user) {
+	        ,'order/order-module','quickOrder/quickOrder-module'],
+			function(AppCtrl,homePage,contactUs,about,store,zone,order,quickOrder) {
 
 		/**
          * Specify main application dependencies...
@@ -11,7 +11,7 @@
          *
          * @type {Array}
          */
-		var app, appName = "app.eventManagement";
+		var app, appName = "app.storeManager";
 
 		/**
          * Start the main application
@@ -20,7 +20,7 @@
          * ( necessary to allow Loader splash pre-AngularJS activity to finish properly )
          */
 
-		app = angular.module(appName, ['ngRoute','angular-loading-bar','ngAnimate',homePage,contactUs,about,store,zone,order,ourService,profile,event,user])
+		app = angular.module(appName, ['ngRoute','angular-loading-bar','ngAnimate',homePage,contactUs,about,store,zone,order,quickOrder])
 		                               .controller('AppCtrl', AppCtrl)
 		                               .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
 		                            	  

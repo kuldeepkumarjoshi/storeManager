@@ -30,8 +30,9 @@ import com.storeManager.utility.MailUtil;
 import com.storeManager.utility.PropertyUtil;
 
 @Component("mailService")
-public class GoogleMailService implements MailService {
+public class GoogleMailService implements MailService, Runnable{
 
+	MimeMessage threadMsg = null;
 
 	@Override
 	public void sendMail(MailMessage mail) throws Exception {
@@ -103,7 +104,10 @@ public class GoogleMailService implements MailService {
 				}
 				msg.setContent(mp);
 				System.out.println("5");
-				Transport.send(msg);
+				Thread mailSendingThread = new Thread();
+				threadMsg= msg;
+				mailSendingThread.start();
+				
 				System.out.println("6");
 			} else {
 				System.out.println("6.1");
@@ -273,6 +277,17 @@ public class GoogleMailService implements MailService {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public void run() {
+		try {
+			Transport.send(threadMsg);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 

@@ -15,11 +15,15 @@
 						operation : 'getAll'
 					}
 				},
-				save:{
-					method :'POST',
-					params:{
-						operation:'save'
+				getAllZonesForZonePage:{
+					method : 'GET',
+					params : {
+						operation : 'getAllZonesForZonePage'
 					}
+				},
+				saveZone:{
+					method :'POST',
+					url:'/rest/zone/save'
 				}
 			});
 

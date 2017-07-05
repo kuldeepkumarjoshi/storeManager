@@ -2,6 +2,7 @@ package com.storeManager.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 
 public class Store extends CommanEntity implements Serializable{
@@ -10,10 +11,7 @@ public class Store extends CommanEntity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Override
-	public String toString() {
-		return "Stock [id=" + getId() + ", Ticker=" + name + "]";
-	}
+	
 
 	private String name;
 	
@@ -32,6 +30,8 @@ public class Store extends CommanEntity implements Serializable{
 	private String email;
 	
 	private Date mostRecentOrderDate;
+	 
+	private Set orderItems; 
 
 	public String getName() {
 		return name;
@@ -104,6 +104,24 @@ public class Store extends CommanEntity implements Serializable{
 
 	public void setZoneId(Long zoneId) {
 		this.zoneId = zoneId;
+	}
+
+	public Set getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(Set orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	@Override
+	public String toString() {
+		return "Store [name=" + name + ", zoneId=" + zoneId + ", address="
+				+ address + ", contactName=" + contactName
+				+ ", contactNumber1=" + contactNumber1 + ", contactNumber2="
+				+ contactNumber2 + ", contactNumber3=" + contactNumber3
+				+ ", email=" + email + ", mostRecentOrderDate="
+				+ mostRecentOrderDate + ", orderItems=" + orderItems + "]";
 	}
 
 }

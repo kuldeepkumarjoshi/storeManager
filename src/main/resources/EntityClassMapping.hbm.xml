@@ -49,14 +49,14 @@
  	<property name="lastModifiedBy" column="lastModifiedBy" type="string"></property>
  	<property name="createdDate" column="createdDate" type="date"></property> 	
  	<property name="lastModifiedDate" column="lastModifiedDate" type="date"></property>
-
+	<many-to-one name="store" column="storeId"      class="com.storeManager.entity.Store"  not-null="true" lazy="false" index="INDOIstoreId"/>
+       
     <property name="title" column="title" type="string" not-null="true"></property>
-    <property name="storeId" column="storeId" type="long" not-null="true" index="INDOIstoreId"></property>    
     <property name="total" column="total" type="double" not-null="true"></property>
     <property name="subTotal" column="subTotal" type="double" not-null="true"></property>
     <property name="status" column="status" type="string" not-null="true" index="INDOIstatus"></property>   
-    <property name="poNumber" column="poNumber" type="long"></property>    
-    <property name="orderDate" column="orderDate" type="date" index="INDOIorderDate"></property>
+    <property name="poNumber" column="poNumber" type="string"></property>    
+    <property name="deliveryDate" column="deliveryDate" type="date" index="INDOIorderDate"></property>
     <property name="remarks" column="remarks" type="string"></property>
     <property name="poReceivedOnEmail" column="poReceivedOnEmail" type="boolean"></property>
     <property name="orderReceivedNotification" column="orderReceivedNotification" type="boolean" not-null="true"></property>
@@ -72,8 +72,9 @@
  	<property name="lastModifiedBy" column="lastModifiedBy" type="string"></property>
  	<property name="createdDate" column="createdDate" type="date"></property> 	
  	<property name="lastModifiedDate" column="lastModifiedDate" type="date"></property>
- 	
- 	<property name="orderId" column="orderId" type="long" not-null="true" index="INDOPorderId"></property>
+ 	<many-to-one name="orderItem" column="orderId"      class="com.storeManager.entity.OrderItem"  not-null="true" lazy="false" index="INDOPorderId"/>
+   
+
  	<property name="productId" column="productId" type="long" not-null="true" index="INDOPproductId"></property>    
  	<property name="quantity" column="quantity" type="int" not-null="true"></property>
  	<property name="price" column="price" type="double" not-null="true"></property>

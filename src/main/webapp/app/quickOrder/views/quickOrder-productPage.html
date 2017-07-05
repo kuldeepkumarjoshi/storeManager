@@ -1,0 +1,50 @@
+<style>
+.inputGroup{
+border-radius:0px;
+}
+.inputGroupAddon{
+	width:40%;
+}
+</style>
+<div class="col-md-12 col-sm-12" style="margin-top:1%;">
+	<div class="bg-primary topicTitle" style="">Zone - {{selectedZone.name}} <br/>
+		Store - {{selectedStore.name}}
+	</div>
+</div>
+ <div class="col-md-12 col-sm-12" >
+	<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(productData,35)"  ui-grid-exporter >
+  		 </div>
+</div>
+ <div class="col-md-12 col-sm-12" style="margin-top:2%;">
+ 	 <div class="input-group" style="width:100%">
+	  <span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon1">
+	  <input type="checkbox" ng-model="poReceivedOnEmail" aria-label="Radio button for following text input"> PO email :</span>
+	     <input type="text" class="form-control inputGroup" ng-model="poNumber"  placeholder="Enter PO Number" aria-describedby="basic-addon2">
+	</div>
+	<br/>
+	<div class="input-group">
+	  <span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon2">Delivery Date:</span>		
+				<input type="text" class="form-control inputGroup"
+					datepicker-popup="dd/MM/yyyy" ng-model="deliveryDate" is-open="opened"
+					max-date="maxDate" min-date="minDate" ng-required="true" show-weeks="false"
+					close-text="Close" readonly="true" ng-change="" ng-click="open($event)"/>
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-white btn-md"
+						ng-click="open($event)">
+						<i class="fa fa-calendar fa-lg text-info"></i>
+					</button>
+				</span>		
+	</div>
+	<br/>
+	<div class="input-group" style="width: 100%;">	  
+	  <textarea  class="form-control inputGroup"  ng-model="remarks" style="width: 100%;" placeholder="Remarks" rows="5" aria-describedby="basic-addon4"></textarea>
+	</div>
+	<br/>
+</div>
+<div class="col-md-12 col-sm-12"  style="margin:1% 0% 1% 0%;text-align: center;">
+	<button class="btn btn-plus btn-white" ng-disabled="orderTotal == 0" ng-click="saveOrder()" style="width:50%;">Save order</button>
+</div>
+
+
+
+

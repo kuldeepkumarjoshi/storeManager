@@ -5,33 +5,81 @@
 			[],
 			function() {
 
-				var HomePageCtrl = function($scope,$http, $location, $state, $rootScope,HomePageService, i18nNotifications) {
+				var HomePageCtrl = function($scope,$q, $location, $interval, $rootScope,DashboadData,HomePageService, i18nNotifications) {
 
-					$scope.login=function(){
-						HomePageService.login(obj)
-							.success(function(res){
-								console.log(res);
-							})
-							.error(function(res){
-								console.log(res);
-							});
+					var isAdmin=true;
+					
+					$scope.newQuickOrder ={};					
+						
+					 console.log(DashboadData);
+					
+					    
+					$scope.inprogressOrders = DashboadData.inprogressOrders;
+					$scope.opportunityData = DashboadData.passiveOppotunity;
+					 $scope.createEditOrderView2 =function(row){
+						  $rootScope.selectedStore = row.entity.store;
+						  $location.path('/order-createEdit').search({id:row.entity.id});
+					 };
+					
+					 var fakeI18n = function( title ){
+						    var deferred = $q.defer();
+						    $interval( function() {
+						      deferred.resolve( 'col: ' + title );
+						    }, 1000, 1);
+						    return deferred.promise;
+						  };
+						  
+					 
+					$scope.gridOptions = {
+						multiSelect : false,
+						enableCellEditOnFocus : false,
+						 exporterMenuCsv: true,
+						 enableGridMenu: true,
+						 gridMenuTitleFilter: fakeI18n,
+						data : 'inprogressOrders',
+						columnDefs : [
+								{
+									field : 'name',
+									displayName: 'Store',
+									enableCellEdit: false,
+									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.createEditOrderView2(row)">'+" {{row.entity.store.name }} "+'</div>'
+								},{
+									field : 'subTotal',
+									displayName: 'Sub-Total'
+								},{
+									field : 'deliveryDate',
+									displayName: 'Delivery',
+									cellFilter: 'date:"dd/MM/yyyy"', 
+									filterCellFiltered:true,
+								}],
+
 					};
 					
-					$scope.postData=function(){
-						$http.post('/eventManagment/dataFile/contacts.json',{
-							params:{
-								name:"kuldeep"
-							}
-						})
-						.success(function(response){
-							console.log(response);
-						})
-						.error(function(response){
-							console.log(response);
-						});
-					}
+					
+					$scope.gridOptionOpportunity={
+							multiSelect : false,
+							enableCellEditOnFocus : false,
+							 exporterMenuCsv: true,
+							 enableGridMenu: true,
+							 gridMenuTitleFilter: fakeI18n,
+							data : 'opportunityData',
+							columnDefs : [
+									{
+										field : 'name',
+										displayName: 'Store',
+										enableCellEdit: false,
+										cellTemplate:'<div class="linkDiv" style="padding-left: 2%;" ng-click="grid.appScope.$storeCreateView(row)">'+" {{row.entity.name }} "+'</div>'
+									},{
+										field : 'mostRecentOrderDate',
+										displayName: 'Last order',
+										cellTemplate:'<div class="{{grid.appScope.$getClassByLastDate(row.entity.mostRecentOrderDate)}}">{{row.entity.mostRecentOrderDate | date:"dd/MM/yyyy"}}</div>'
+										
+																		
+									}],
+
+					};
 				};
-				return [ '$scope','$http', '$location', '$state', '$rootScope','HomePageService', 'i18nNotifications', HomePageCtrl ];
+				return [ '$scope','$q', '$location', '$interval', '$rootScope','DashboadData','HomePageService', 'i18nNotifications', HomePageCtrl ];
 			});
 
 }(define));

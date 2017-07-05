@@ -1,28 +1,32 @@
 package com.storeManager.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.storeManager.dao.OrderItemDAO;
 import com.storeManager.entity.OrderItem;
 import com.storeManager.service.OrderItemService;
 
-@Component
+@Service("orderItemService")
 public class OrderItemServiceImpl  extends AbstractServiceImpl<OrderItem> implements OrderItemService {
 
 	
-	@Autowired
-	@Qualifier("orderItemDAOImpl")
+	@Autowired	
 	OrderItemDAO orderItemDAO;	
 	
 	@Override
-	public OrderItemDAO getObjectDao() {
-	
+	public OrderItemDAO getObjectDao() {	
 		return orderItemDAO;
 	}
 
-	
+	@Override
+	public List<OrderItem> getByOrderStatus(String status, Class<OrderItem> className) {
+		
+		return orderItemDAO.getByOrderStatus(status,className);
+	}
 
+	
 
 }

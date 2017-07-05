@@ -1,0 +1,14 @@
+Design following UI screens for new order-
+Colour theme example: https://dribbble.com/shots/2950232-Time-Off-App-Concept/attachments/613156
+Base Dashboard-
+Url: https://drive.google.com/open?id=0B8XWpWuZa-lyc2NaTy1hMmJUcVU
+Description: Use this as a base dashboard. The header will contain menu icon and store name. Add a button on the page to create a new order.
+New order Step 1- Zone selection
+Url : https://drive.google.com/open?id=0B8XWpWuZa-lyWEc0WElUMXJkdkE
+Description: List all the zones in the table format. Table width should be 100% on mobile and tablet and 60% on laptops and so on. Zone name will be clickable and take to the step 2.
+New Order Step 2 - Store Selection
+Url : https://drive.google.com/open?id=0B8XWpWuZa-lyRlF5Mk9QZzhQdnM
+Description: Show all the stores for the selected zone. Show last order date for each store. Show the date in red in case if the date is 7 days before the current date. Store name will take to step 3. Back button will take you back to the zone selection screen.
+New Order Step 3 - Product Quantity
+Url: https://drive.google.com/open?id=0B8XWpWuZa-lyRmlleG1KRnJKbEk
+Description: Show all the products based on the DisplayOrder. Add quantity input box to add quantity. Confirm order button will create the order and order items.

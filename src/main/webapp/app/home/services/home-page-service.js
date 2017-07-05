@@ -8,11 +8,10 @@
 				operation:"@operation"
 			}, 
 			{
-				getHomePageForGrid:{
+				getDashboadData:{
 					method : 'GET',
-					params : {
-						operation : 'data.do'
-					}
+					url:'/rest/order/getDashBoardDetail',
+					
 				},
 				getHomePageForEdit:{
 					method : 'GET',

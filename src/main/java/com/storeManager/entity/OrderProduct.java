@@ -11,9 +11,20 @@ public class OrderProduct extends CommanEntity implements Serializable{
 	private Long orderId;
 	private Long productId;
 	
+	private String name;
 	private double price =0.0 ;
 	
 	private int quantity=0 ;
+	private OrderItem orderItem;
+	public OrderProduct(Product product) {
+		productId = product.getId();
+		price = product.getPrice();
+		name = product.getName();
+	}
+	
+	public OrderProduct() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Long getOrderId() {
 		return orderId;
@@ -51,6 +62,22 @@ public class OrderProduct extends CommanEntity implements Serializable{
 	public String toString() {
 		return "orderProduct [orderId=" + orderId + ", productId=" + productId
 				+ ", price=" + price + ", quantity=" + quantity + "]";
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public OrderItem getOrderItem() {
+		return orderItem;
+	}
+
+	public void setOrderItem(OrderItem orderItem) {
+		this.orderItem = orderItem;
 	}
 	
 }

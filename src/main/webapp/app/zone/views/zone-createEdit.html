@@ -1,0 +1,38 @@
+<style>
+.inputGroup {
+	border-radius: 0px;
+}
+
+.inputGroupAddon {
+	width: 40%;
+}
+</style>
+
+<div class=" headerTitle"
+	style="border-bottom: 1px solid #eee; height: 49px; padding: 2% 0% 0% 0%; background-color: #d4b587; color: white;">
+	<div class="col-md-1 col-sm-1 col-xs-1 " ng-click="$back()">
+		<i class="fa fa-arrow-left fa-lg"></i>
+	</div>
+	<div class="col-md-8 col-sm-8 col-xs-8 " style="margin-top: 1%;">{{quickTitle}}
+	</div>
+</div>
+<div class="col-md-12 col-sm-12" style="margin-top: 1%;">
+ <div class="input-group" style="width:100%;">
+	  <span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon1"> Zone :</span>
+	     <input type="text" class="form-control inputGroup" ng-model="selectedZone.name"  placeholder="Enter zone name" aria-describedby="basic-addon2">
+</div>
+<br/>
+<div class="" style="" ng-show="storeData">
+		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(storeData)"  ui-grid-exporter >
+   		 </div>
+</div>
+</div>
+<div class="col-md-12 col-sm-12"
+	style="margin-top: 1%; text-align: center;">
+	<button class="btn btn-plus btn-white" ng-click="saveZone()"
+		style="width: 50%;">Save zone</button>
+</div>
+<br/>
+
+
+

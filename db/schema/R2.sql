@@ -1,0 +1,1 @@
+ALTER TABLE orderitem ALTER COLUMN ponumber TYPE varchar(255) USING ponumber::varchar(255);

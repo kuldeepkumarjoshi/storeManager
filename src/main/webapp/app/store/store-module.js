@@ -3,16 +3,16 @@
 	
 	define(['common/common',
 	        'store/store-route',
-	        'store/controllers/store-ctrl',
-	        'store/controllers/store-create-ctrl',
+	        'store/controllers/store-home-ctrl',
+	        'store/controllers/store-createEdit-ctrl',
 	        'store/services/store-service'], 
-			function(common, StoreRoute, StoreCtrl,StoreCreateCtrl, StoreService) {
+			function(common, StoreRoute, StoreHomeCtrl,StoreCreateEditCtrl, StoreService) {
 		
 		var moduleName = 'storePage';
-		angular.module(moduleName, [common, 'ui.grid.exporter', 'ui.grid.autoResize','ui.grid.selection','ui.grid.edit', 'ui.grid.cellNav'])
+		angular.module(moduleName, [common, 'ui.grid.exporter', 'ui.grid.autoResize','ui.grid.resizeColumns','ui.grid.selection','ui.grid.edit', 'ui.grid.cellNav'])
 				.config(StoreRoute)
-				.controller('StoreCtrl', StoreCtrl)
-				.controller('StoreCreateCtrl', StoreCreateCtrl)
+				.controller('StoreHomeCtrl', StoreHomeCtrl)
+				.controller('StoreCreateEditCtrl', StoreCreateEditCtrl)
 				.factory('StoreService', StoreService);
 		return moduleName;
 	});

@@ -1,0 +1,51 @@
+<style>
+.inputGroup {
+	border-radius: 0px;
+}
+
+.inputGroupAddon {
+	width: 20%;
+}
+
+</style>
+<div class="headerTitle" style="border-bottom: 1px solid #eee;background-color: #d4b587;color: white;">
+		<div class="col-md-2 col-sm-2 col-xs-2 " ng-click="$back()"><i class="fa fa-arrow-left fa-lg"></i> </div>
+		<div class="col-md-6 col-sm-6 col-xs-6 " style="margin-top: 1%;">Select Zone </div>
+		<button class="col-md-3 col-sm-3  col-xs-3 btn btn-plus btn-white" ng-click="createZone()"
+					uib-tooltip-placement="auto">New Zone
+		</button>
+</div>
+<div class="transparent">
+	<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">
+		<div class="input-group">
+			 <input type="text" placeholder="Date" style="background:white;"
+				class="form-control inputGroup" datepicker-popup="dd/MM/yyyy"
+				ng-model="zoneSearch.deliveryFromDate" is-open="opened1" max-date="maxDate"
+				min-date="minDate" ng-required="true" show-weeks="false"
+				close-text="Close" readonly="true" ng-change=""
+				ng-click="open1($event)" /> 
+			<span class="input-group-addon inputGroup inputGroupAddon"
+				id="basic-addon2">To</span>
+				 <input type="text" placeholder="Date"  style="background:white;"
+				class="form-control inputGroup" datepicker-popup="dd/MM/yyyy"
+				ng-model="zoneSearch.deliveryToDate" is-open="opened2" max-date="maxDate"
+				min-date="minDate" ng-required="true" show-weeks="false"
+				close-text="Close" readonly="true" ng-change=""
+				ng-click="open2($event)" /> 
+		</div>
+	</div>
+	
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">	
+		<div class="col-md-5 col-sm-5 col-xs-5 " style="padding-left:0px;">
+				<select class="form-control inputGroup" style=""
+			ng-options="month as month.name for month in months track by month.id"
+			ng-model="zoneSearch.selectedMonth" 	aria-describedby="basic-addon2"></select>
+			</div>
+		<button  class="col-md-3 col-xs-offset-3 col-sm-3 col-xs-3 btn btn-round btn-white" ng-click="getZoneDetail()">Go</button>
+		
+	</div>
+<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">
+		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(zoneData)"  ui-grid-exporter >
+   		 </div>
+</div>

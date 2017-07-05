@@ -13,7 +13,16 @@ public class CommanEntity {
 	private Date createdDate  = new Date();
 	private Date lastModifiedDate = new Date();
 	
-
+	public void setCommanEntity(Long id, Boolean active, Boolean deleted, String createBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate){
+		setId(id);
+		setActive(active);
+		setDeleted(deleted);
+		setCreatedBy(createBy);
+		setCreatedDate(createdDate);
+		setLastModifiedBy(lastModifiedBy);
+		setLastModifiedDate(lastModifiedDate);
+	}
+	
 	public Boolean isActive() {
 		return active;
 	}
@@ -42,7 +51,7 @@ public class CommanEntity {
 		return lastModifiedDate;
 	}
 	public void setLastModifiedDate(Date lastModifiedDate) {
-		this.lastModifiedDate = new Date();
+		this.lastModifiedDate = lastModifiedDate;
 	}
 	public Long getId() {
 		return id;

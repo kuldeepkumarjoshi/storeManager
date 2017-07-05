@@ -1,5 +1,6 @@
 package com.storeManager.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +8,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.storeManager.business.ProductBusiness;
+import com.storeManager.business.ZoneBusiness;
+import com.storeManager.entity.OrderProduct;
 import com.storeManager.entity.Product;
 import com.storeManager.service.ProductService;
 
@@ -22,8 +25,13 @@ import com.storeManager.service.ProductService;
 public class ProductController {
 		
 		@Autowired		
-		@Qualifier("productServiceImpl")
 		ProductService productService;
+		
+		@Autowired
+		ProductBusiness productBusiness;
+		
+		@Autowired
+		ZoneBusiness zoneBusiness;
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
@@ -47,6 +55,22 @@ public class ProductController {
 			return resultMap;
 		}
 		
+		@RequestMapping(value="/getAllOrderProducts",method=RequestMethod.GET)
+		@ResponseBody
+		public Map<String,Object> getAllOrderProducts(HttpServletRequest request){
+			Map<String,Object> resultMap = new HashMap<String, Object>();
+			List<Product> productList = productBusiness.getAllProductList();
+			
+			List<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
+			for (Product product : productList) {
+				orderProductList.add(new OrderProduct(product)) ;
+			}
+			resultMap.put("productList",orderProductList);			
+			return resultMap;
+		}		
+		
+		
+
 		@RequestMapping(value="/getAllPaginated",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String,Object> getAllProductPaginated(HttpServletRequest request){
@@ -59,20 +83,25 @@ public class ProductController {
 		
 		@RequestMapping(value="/delete",method=RequestMethod.DELETE)
 		@ResponseBody
-		public String deleteProduct(HttpServletRequest request){
-			String productID = request.getParameter("id");
+		public Map<String,String> deleteOrder(HttpServletRequest request){
+			Map<String,String> resultMap = new HashMap<String, String>();
+			String productID = request.getParameter("productId");
+			try{
+				productBusiness.deleleProduct(Long.parseLong(productID));
 			//System.out.println( request.getSession().getAttributeNames());
-			productService.remove(Long.parseLong(productID),Product.class);			
-			return "success";
+			}catch(Exception e){
+				e.printStackTrace();
+				 resultMap.put("error", "error");
+			}
+			 resultMap.put("success", "success");
+			 return resultMap;
 		}
 		
 		
 		@RequestMapping(value="/update",method=RequestMethod.PUT)
 		@ResponseBody
 		public String updateProduct(HttpServletRequest request,Model model){
-			String name = request.getParameter("name");
-			String price = request.getParameter("price");
-			String symbol = request.getParameter("symbol");
+			
 			Product product = new Product();
 		
 			//System.out.println( request.getSession().getAttributeNames());

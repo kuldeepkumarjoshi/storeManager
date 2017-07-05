@@ -1,5 +1,6 @@
 package com.storeManager.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.storeManager.business.OrderBusiness;
 import com.storeManager.entity.OrderItem;
 import com.storeManager.entity.OrderProduct;
 import com.storeManager.service.OrderItemService;
@@ -26,12 +27,13 @@ import com.storeManager.vo.OrderItemVO;
 public class OrderProductController {
 		
 		@Autowired		
-		@Qualifier("orderProductServiceImpl")
 		OrderProductService orderProductService;
 		
 		@Autowired		
-		@Qualifier("orderItemServiceImpl")
 		OrderItemService orderItemService;
+		
+		@Autowired
+		OrderBusiness orderBusiness; 
 		
 		@RequestMapping(value="/getById",method=RequestMethod.GET)
 		@ResponseBody
@@ -67,11 +69,18 @@ public class OrderProductController {
 		
 		@RequestMapping(value="/delete",method=RequestMethod.DELETE)
 		@ResponseBody
-		public String deleteOrderProduct(HttpServletRequest request){
-			String orderProductID = request.getParameter("id");
+		public Map<String,String> deleteOrder(HttpServletRequest request){
+			Map<String,String> resultMap = new HashMap<String, String>();
+			String orderProductID = request.getParameter("orderProductID");
+			try{
+				orderBusiness.deleleOrderProduct(Long.parseLong(orderProductID));
 			//System.out.println( request.getSession().getAttributeNames());
-			orderProductService.remove(Long.parseLong(orderProductID),OrderProduct.class);			
-			return "success";
+			}catch(Exception e){
+				e.printStackTrace();
+				 resultMap.put("error", "error");
+			}
+			 resultMap.put("success", "success");
+			 return resultMap;
 		}
 		
 		
@@ -93,15 +102,37 @@ public class OrderProductController {
 		@ResponseBody
 		public Map<String,Object> saveOrderProduct(@RequestBody OrderItemVO orderItemVO, HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
+			Map<Long, OrderProduct> saveMap = null;
 			OrderItem orderItem = new OrderItem(orderItemVO);
-			Long orderItemId = orderItemService.insert(orderItem);
-			for (OrderProduct orderproduct : orderItemVO.getOrderProducts()) {
-				orderproduct.setOrderId(orderItemId);
+			if(orderItemVO.getId() == null){
+				Long orderItemId = orderBusiness.insert(orderItem);
+				orderItem.setId(orderItemId);				
+			}else{
+				orderItem = orderItemService.update(orderItem);
 			}
-			
-			System.out.println("product::"+orderItemVO.getOrderProducts());
-			Map<Long, OrderProduct> saveMap = orderProductService.insertAll(orderItemVO.getOrderProducts());
-			resultMap.put("saveMap", saveMap);
+			List<OrderProduct> createOrderProduct = new ArrayList<OrderProduct>();
+			List<OrderProduct> updateOrderProduct = new ArrayList<OrderProduct>();
+			for (OrderProduct orderproduct : orderItemVO.getOrderProducts()) {
+				
+				if(orderproduct.getQuantity()!=0){
+					orderproduct.setOrderId(orderItem.getId());
+					orderproduct.setOrderItem(orderItem);
+					if(orderproduct.getId() == null){
+						createOrderProduct.add(orderproduct);
+					}else{
+						updateOrderProduct.add(orderproduct);						
+					}
+				}else{
+					if(orderproduct.getId() != null){
+						orderproduct.setDeleted(Boolean.TRUE);
+						updateOrderProduct.add(orderproduct);
+					}
+				}
+			}			
+			System.out.println("product::"+createOrderProduct);
+			saveMap = orderProductService.insertAll(createOrderProduct);
+			updateOrderProduct = orderProductService.updateAll(updateOrderProduct);
+			resultMap.put("success", "order saved successfully.");
 			return resultMap;
 		}
 		

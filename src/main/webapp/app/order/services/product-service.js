@@ -8,7 +8,11 @@
 				id:"@id",
 				operation:"@operation"
 			},
-			{
+			{ 	getAllOrderProducts:{
+					method : 'GET',
+					url:'/rest/product/getAllOrderProducts',
+					
+				},
 				getAllProducts:{
 					method : 'GET',
 					params : {

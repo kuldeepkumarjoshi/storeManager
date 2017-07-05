@@ -15,10 +15,38 @@
 						operation : 'getAll'
 					}
 				},
+				getBeforeCreate:{
+					method :'GET',
+					params : {
+						operation :'getBeforeCreate'
+					}
+				},
+				getGridDataForOrderPage:{
+					method:'GET',
+					params:{
+						operation :'getGridDataForOrderPage'
+					}
+				},
+				getBeforeEdit:{
+					method :'GET',
+					params : {
+						operation :'getBeforeEdit'
+					}
+				},
+				getAllByStore:{
+					method : 'GET',
+					params : {
+						operation : 'getAllByStore'
+					}
+				},
+				deleteOrder:{
+					method : 'DELETE',
+					url:'/rest/order/delete'
+					
+				},
 				save:{
 					method : 'POST',
-					url:'/rest/orderProduct/save'
-					
+					url:'/rest/orderProduct/save'					
 				}
 			});
 
