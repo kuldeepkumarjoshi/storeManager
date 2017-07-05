@@ -10,23 +10,20 @@
 					
 					 console.log(ZoneHomeData);
 					 $scope.zoneSearch ={};
+					 $scope.zoneSearch.isDateWise = false;
 					 $scope.createZone= function(){
 						 $rootScope.selectedZone = {id:null,name:""};
 						 $location.path('/zone-createEdit');
 					 };
 					 $scope.getZoneDetail  = function(){
-						var obj={
-								month:$scope.zoneSearch.selectedMonth.id
-						};		 
-						 if($scope.zoneSearch.deliveryFromDate !=undefined){
-							 obj.fromDate = $scope.zoneSearch.deliveryFromDate.getTime();							 
-						 }
-						 if($scope.zoneSearch.deliveryToDate != undefined){
-							 obj.toDate = $scope.zoneSearch.deliveryToDate.getTime();							 
-						 }
-						 if($scope.zoneSearch.deliveryToDate != undefined  && $scope.zoneSearch.deliveryFromDate !=undefined){
-							// $scope.zoneSearch.selectedMonth.id= -1;
-						 }
+						var obj={};		 
+						if( $scope.zoneSearch.isDateWise){
+							 obj.fromDate = $scope.zoneSearch.deliveryFromDate.getTime();	
+							 obj.toDate = $scope.zoneSearch.deliveryToDate.getTime();	
+						}else{
+							obj.month = $scope.zoneSearch.selectedMonth.id;
+						}
+						 
 						 ZoneService.getAllZonesForZonePage(obj,function(res){
 							 $scope.zoneData = res.zoneList;
 							 $scope.zoneSearch.deliveryFromDate=new Date(res.fromDate);

@@ -15,9 +15,21 @@
 					uib-tooltip-placement="auto">New Zone
 		</button>
 </div>
-<div class="transparent">
+
+
 	<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">
-		<div class="input-group">
+		<div class="btn-group btn-group-justified" role="group" aria-label="...">
+		  <div class="btn-group"  role="group" >
+		    <button type="button" ng-class="{'btn-success':zoneSearch.isDateWise}" ng-click="zoneSearch.isDateWise = true;" class="btn btn-default">Date Wise</button>
+		  </div>
+		  <div class="btn-group"  role="group" >
+		    <button type="button" ng-class="{'btn-success':!zoneSearch.isDateWise}" ng-click="zoneSearch.isDateWise = false;" class="btn btn-default">Month Wise</button>
+		  </div>
+		</div>
+					
+		</div>
+	<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">
+		<div class="input-group" ng-show="zoneSearch.isDateWise">
 			 <input type="text" placeholder="Date" style="background:white;"
 				class="form-control inputGroup" datepicker-popup="dd/MM/yyyy"
 				ng-model="zoneSearch.deliveryFromDate" is-open="opened1" max-date="maxDate"
@@ -34,14 +46,14 @@
 				ng-click="open2($event)" /> 
 		</div>
 	</div>
-	
-</div>
+
 <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">	
-		<div class="col-md-5 col-sm-5 col-xs-5 " style="padding-left:0px;">
+		<div  ng-hide="zoneSearch.isDateWise" class="col-md-5 col-sm-5 col-xs-5 " style="padding-left:0px;">
 				<select class="form-control inputGroup" style=""
 			ng-options="month as month.name for month in months track by month.id"
 			ng-model="zoneSearch.selectedMonth" 	aria-describedby="basic-addon2"></select>
 			</div>
+			<div  ng-show="zoneSearch.isDateWise" class="col-md-5 col-sm-5 col-xs-5 " style="padding-left:0px;"></div>
 		<button  class="col-md-3 col-xs-offset-3 col-sm-3 col-xs-3 btn btn-round btn-white" ng-click="getZoneDetail()">Go</button>
 		
 	</div>
