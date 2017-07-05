@@ -2,3 +2,11 @@
 /target/
 /target/
 /target/
+/target/m2e-wtp
+/target/maven-archiver
+/target/maven-status
+/target/storeManager
+/target/test-classes
+/target/storeManager.war
+/target/classes
+/target
