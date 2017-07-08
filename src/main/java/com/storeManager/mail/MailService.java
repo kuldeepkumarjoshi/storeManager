@@ -1,8 +1,9 @@
 package com.storeManager.mail;
 
 
-public interface MailService {
+public interface MailService extends Runnable{
+	
+	public void setMailMessage(MailMessage mailMessage);
 
-	public void sendMail(MailMessage message) throws Exception;
-	public void  sendMail(String mailMsg, String sendTo, String methodName) throws Exception;
+
 }

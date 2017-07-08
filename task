@@ -1,19 +1,15 @@
 quick order :- last order background red if more than 7 day recent order -(2 hours) -done
 back-end :- in store most recent order date should be updated on every order creation (4 hours ) -done
-
 unit testing of order,zone,store modules (UI for separate module has been created )(4 hours + 4 hours bug fixing) -done
-
 Delete functionality for order , store , zone (8 hours) -done 
 global filter layer attachment ( deleted/active -entities ) (8 hours) ( Restrictions ) -done 
 
-
-ui grid row height should be variable
-month filter on store view.
-zone home page testing and bug removing 
-store detail page 
+ui grid row height should be variable - more effort not know
+month filter on store view. -done 
+zone home page testing and bug removing -done 
+store detail page - done 
   
-end case :-on removing product from existing order on editing should delete order product entry from table .(Bug found)(2 hours)
-
+end case :-on removing product from existing order on editing should delete order product entry from table .(Bug found)(2 hours) - done
 
 notification warning alerts (4 hours) 
 web compatible ui (16 hours )

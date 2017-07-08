@@ -8,18 +8,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.storeManager.dao.OrderItemDAO;
 import com.storeManager.entity.OrderItem;
-import com.storeManager.mail.MailService;
+import com.storeManager.utility.MailUtil;
 
 @Repository("orderItemDAO")
 public class OrderItemDAOImpl extends AbstractDAOImpl<OrderItem> implements OrderItemDAO {
-
-	@Autowired
-	MailService mailService;
 	
 	@Override
 	public Long insert(OrderItem orderItem) {
@@ -30,7 +26,7 @@ public class OrderItemDAOImpl extends AbstractDAOImpl<OrderItem> implements Orde
 			if(orderItem.getStore() !=null){
 				email = orderItem.getStore().getEmail();
 			}
-					mailService.sendMail("order created successfully ",email,"Order success : "+orderitemId);
+					MailUtil.sendMail("order created successfully ",email,"Order success : "+orderitemId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

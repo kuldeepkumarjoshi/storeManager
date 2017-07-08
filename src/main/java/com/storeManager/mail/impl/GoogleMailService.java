@@ -3,7 +3,6 @@ package com.storeManager.mail.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -30,23 +29,32 @@ import com.storeManager.utility.MailUtil;
 import com.storeManager.utility.PropertyUtil;
 
 @Component("mailService")
-public class GoogleMailService implements MailService, Runnable{
+public class GoogleMailService implements MailService {
 
-	MimeMessage threadMsg = null;
 
-	@Override
+	MailMessage mailMessage  =null;
+	public void setMailMessage(MailMessage mailMessage){
+		this.mailMessage = mailMessage;
+	}
+	
 	public void sendMail(MailMessage mail) throws Exception {
-		   String host = "smtp.gmail.com";
+		//   String host = "localhost";// "smtp.gmail.com";
 
 		      Properties props = new Properties();
-		      props.put("mail.smtp.auth", "true");
-		      props.put("mail.smtp.starttls.enable", "true");
+		      props.put("mail.smtp.host", "smtp.gmail.com");    
+	          props.put("mail.smtp.socketFactory.port", "465");    
+	          props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");    
+	          props.put("mail.smtp.auth", "true");    
+	          props.put("mail.smtp.port", "587");    
+	          
+		    /*  props.put("mail.smtp.auth", "true");
+		  //    props.put("mail.smtp.starttls.enable", "true");
 		      props.put("mail.smtp.host", host);
-		      props.put("mail.smtp.port", "587");
-
+		 //     props.put("mail.smtp.port", "587");
+*/
 		      // Get the Session object.
 		    
-		      
+		
 		MimeMessage msg = null;
 		try {
 			  Session session = Session.getInstance(props,
@@ -54,10 +62,9 @@ public class GoogleMailService implements MailService, Runnable{
 				         protected PasswordAuthentication getPasswordAuthentication() {
 				        
 								try {
-									return new PasswordAuthentication( PropertyUtil.getProperty("email.sender.id")
-											,  PropertyUtil.getProperty("email.sender.password"));
+									return new PasswordAuthentication(MailUtil.EMIAL_SENDER ,MailUtil.SENDER_PASSWORD);
 								} catch (Exception e) {
-									// TODO Auto-generated catch block
+								
 									e.printStackTrace();
 									return null;
 								}
@@ -82,10 +89,9 @@ public class GoogleMailService implements MailService, Runnable{
 						msg.addRecipient(MailUtil.getMessageRecipientType(recipient.getRecipientType()), toAddress);
 					}
 				}
-				String adminEmail= PropertyUtil.getProperty("email.sender.id");
-				if(!
-						adminEmail.isEmpty()){
-					InternetAddress toAddress = new InternetAddress(adminEmail, "Admin");
+				
+				if(!MailUtil.EMIAL_SENDER.isEmpty()){
+					InternetAddress toAddress = new InternetAddress(MailUtil.EMIAL_SENDER, "Admin");
 					msg.addRecipient(MailUtil.getMessageRecipientType(RecipientType.CC), toAddress);
 				}
 
@@ -103,11 +109,8 @@ public class GoogleMailService implements MailService, Runnable{
 					mp.addBodyPart(html);
 				}
 				msg.setContent(mp);
-				System.out.println("5");
-				Thread mailSendingThread = new Thread();
-				threadMsg= msg;
-				mailSendingThread.start();
-				
+				System.out.println("5");				
+				Transport.send(msg);
 				System.out.println("6");
 			} else {
 				System.out.println("6.1");
@@ -257,37 +260,17 @@ public class GoogleMailService implements MailService, Runnable{
 		}
 	}
 
-	public void sendMail(String mailMsg, String sendTo, String subject) throws Exception {
-		String adminEmail= PropertyUtil.getProperty("email.sender.id");
-		MailMessage mailMessage = new MailMessage();
-		List<Recipient> recipientsList = new ArrayList<Recipient>();
-		Recipient recipient = new Recipient();
-		try {
-			recipient.setMailAddress(new MailAddress("",sendTo));
-		recipient.setRecipientType(RecipientType.TO);
-		recipientsList.add(recipient);
-		mailMessage.setSubject(subject+" : " + new Date());
-		mailMessage.setRecipients(recipientsList);
-		mailMessage.setSender(new MailAddress("", (adminEmail)));
-		System.out.println("sending mail");
-		mailMessage.setHtmlBody("<html><head></head><body>" + mailMsg+ "</body></html>");
-
-			sendMail(mailMessage);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	@Override
 	public void run() {
-		try {
-			Transport.send(threadMsg);
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+			System.out.println("7");
+			try {
+				this.sendMail(mailMessage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 

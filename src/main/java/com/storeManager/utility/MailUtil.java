@@ -1,5 +1,9 @@
 package com.storeManager.utility;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.MimetypesFileTypeMap;
@@ -12,19 +16,27 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.storeManager.mail.MailAddress;
 import com.storeManager.mail.MailAttachment;
 import com.storeManager.mail.MailMessage;
+import com.storeManager.mail.MailService;
+import com.storeManager.mail.Recipient;
 import com.storeManager.mail.RecipientType;
 import com.storeManager.mail.impl.GoogleMailService;
 
 public class MailUtil {
 
-	
 	@Autowired
-	private GoogleMailService googleMailService;
+	@Qualifier("mailService")
+	private static	MailService mailService;
 	
 	private static MimetypesFileTypeMap mediaTypes;
+	
+	public static final String EMIAL_SENDER = PropertyUtil.getProperty(ServerCommonConstant.EMAIL_SENDER_ID);
+	public static final String SENDER_PASSWORD = PropertyUtil.getProperty(ServerCommonConstant.EMAIL_SENDER_PASSWORD);
+
 
 	public static Message.RecipientType getMessageRecipientType(RecipientType type) {
 		Message.RecipientType recipientType = null;
@@ -117,15 +129,40 @@ public class MailUtil {
 	}
 	
 	public static boolean isValidEmailAddress(String email) {
-		   boolean result = true;
-		   try {
-		      InternetAddress emailAddr = new InternetAddress(email);
-		      emailAddr.validate();
-		   } catch (AddressException ex) {
-		      result = false;
-		   }
-		   return result;
-		}
+	   boolean result = true;
+	   try {
+	      InternetAddress emailAddr = new InternetAddress(email);
+	      emailAddr.validate();
+	   } catch (AddressException ex) {
+	      result = false;
+	   }
+	   return result;
+	}
+	
+	public static void sendMail(String mailMsg, String sendTo, String subject) throws Exception {
+
+			MailMessage mailMessage = new MailMessage();
+			List<Recipient> recipientsList = new ArrayList<Recipient>();
+			Recipient recipient = new Recipient();
+			try {
+				recipient.setMailAddress(new MailAddress("",sendTo));
+			recipient.setRecipientType(RecipientType.TO);
+			recipientsList.add(recipient);
+			mailMessage.setSubject(subject+" : " + new Date());
+			mailMessage.setRecipients(recipientsList);
+			mailMessage.setSender(new MailAddress("", (EMIAL_SENDER)));
+			System.out.println("sending mail");
+			mailMessage.setHtmlBody("<html><head></head><body>" + mailMsg+ "</body></html>");
+			mailService = new GoogleMailService();	
+			mailService.setMailMessage(mailMessage);
+			Thread mailSendingThread = new Thread(mailService);				
+			mailSendingThread.start();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		
+	}
 	
 	
 }

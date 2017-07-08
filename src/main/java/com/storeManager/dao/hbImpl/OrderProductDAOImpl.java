@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import com.storeManager.dao.OrderProductDAO;
 import com.storeManager.entity.OrderItem;
 import com.storeManager.entity.OrderProduct;
-import com.storeManager.entity.Store;
 
 
 @Repository("orderProductDAO")

@@ -7,3 +7,4 @@
 /target/storeManager.war
 /target/classes
 /target
+/src/main/resources/webmvc-config.xml
