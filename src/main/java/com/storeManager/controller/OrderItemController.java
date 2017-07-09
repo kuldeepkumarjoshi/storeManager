@@ -82,12 +82,12 @@ public class OrderItemController {
 		public Map<String, Object> getAllByStore(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();	
 			String storeId = request.getParameter("storeId");
-			Store store = new Store();
-			List<Zone> zones = zoneBusiness.getAllZones();
-			store.setId(Long.parseLong(storeId));
-			List<OrderItem> orders = orderBusiness.getAllByStore(store);
 			
-			resultMap.put("orders", orders);
+			List<Zone> zones = zoneBusiness.getAllZones();
+			
+			List<OrderItemVO> orderVOList = orderBusiness.getGridDataForOrderPage(null,storeId,null);
+			
+			resultMap.put("orders", orderVOList);
 			resultMap.put("zones", zones);
 			return resultMap;
 		}

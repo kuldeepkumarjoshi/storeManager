@@ -1,0 +1,20 @@
+.mandatory{
+	border-left-width: 4px;
+	border-left-color: red;
+	
+}
+.errorMsg{
+	color:red;
+}
+p.errorMsg {
+  font-style: italic;
+  display: inline;
+}
+.mandatoryInput{
+  
+}
+.mandatoryInput.ng-invalid.ng-invalid-required.ng-touched{
+  background: rgba(228, 33, 18, 0.68) !important;
+  color:white;
+  border-color: yellow !important;
+}

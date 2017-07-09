@@ -16,22 +16,26 @@
 	<div class="col-md-8 col-sm-8 col-xs-8 " style="margin-top: 1%;">{{quickTitle}}
 	</div>
 </div>
-<div class="col-md-12 col-sm-12" style="margin-top: 1%;">
- <div class="input-group" style="width:100%;">
-	  <span class="input-group-addon inputGroup inputGroupAddon" id="basic-addon1"> Zone :</span>
-	     <input type="text" class="form-control inputGroup" ng-model="selectedZone.name"  placeholder="Enter zone name" aria-describedby="basic-addon2">
-</div>
-<br/>
-<div class="" style="" ng-show="storeData">
-		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(storeData)"  ui-grid-exporter >
-   		 </div>
-</div>
-</div>
-<div class="col-md-12 col-sm-12"
-	style="margin-top: 1%; text-align: center;">
-	<button class="btn btn-plus btn-white" ng-click="saveZone()"
-		style="width: 50%;">Save zone</button>
-</div>
+
+<form name="zoneForm" novalidate>
+	<div class="col-md-12 col-sm-12" style="margin-top: 1%;">
+	 <div class="input-group" style="width:100%;">
+		  <span class="input-group-addon inputGroup inputGroupAddon mandatory" id="basic-addon1"> Zone :</span>
+		     <input type="text" name="zoneName" class="form-control inputGroup mandatoryInput" ng-model="selectedZone.name"  placeholder="Enter zone name" aria-describedby="basic-addon2" required>
+	</div>
+	<p class="errorMsg" ng-show="zoneForm.zoneName.$invalid &&  zoneForm.zoneName.$touched">Please enter zone name.</p>
+	<br/>
+	<div class="" style="" ng-show="storeData">
+			<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(storeData)"  ui-grid-exporter >
+	   		 </div>
+	</div>
+	</div>
+	<div class="col-md-12 col-sm-12"
+		style="margin-top: 1%; text-align: center;">
+		<button ng-disabled="zoneForm.$invalid" class="btn btn-plus btn-white" ng-click="saveZone()"
+			style="width: 50%;">Save zone</button>
+	</div>
+</form>
 <br/>
 
 

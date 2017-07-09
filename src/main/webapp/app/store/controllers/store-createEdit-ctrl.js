@@ -84,8 +84,9 @@
 									field : 'id',
 									displayName: 'Order Id'
 								},{
-									field : 'id',
-									displayName: 'P.Q.'
+									field : 'orderProductStr',
+									displayName: 'P.Q.',
+									cellTooltip: true
 								},{
 									field : 'poNumber',
 									displayName: 'PO Number'

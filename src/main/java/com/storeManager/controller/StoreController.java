@@ -21,7 +21,6 @@ import com.storeManager.entity.Store;
 import com.storeManager.entity.Zone;
 import com.storeManager.service.StoreService;
 import com.storeManager.utility.CalendarUtil;
-import com.storeManager.utility.MailUtil;
 import com.storeManager.vo.StoreGridVo;
 
 @Controller
@@ -45,7 +44,7 @@ public class StoreController {
 			String storeId = request.getParameter("storeId");
 			
 			
-			Store store  = storeService.getById(Long.parseLong(storeId),Store.class);
+			Store store  = (Store) storeService.getById(Long.parseLong(storeId),Store.class);
 			resultMap.put("store", store);
 			return resultMap;
 		}
@@ -66,12 +65,12 @@ public class StoreController {
 		@RequestMapping(value="/getGridDataForStorePage",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String,Object> getGridDataForStorePage(HttpServletRequest request){
-			try {
+			/*try {
 				MailUtil.sendMail("order created successfully ","kkuldeepjoshi5@gmail.com","Order success : "+1999);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			Map<String,Date> monthLimits = new HashMap<String, Date>();
 			String month = request.getParameter("month");
@@ -151,7 +150,7 @@ public class StoreController {
 			if(store.getId() == null){
 				store.setId( storeService.insert(store));
 			}else{
-				store = storeService.update(store);
+				store = (Store) storeService.update(store);
 			}
 			resultMap.put("store", store);
 			return resultMap;

@@ -33,6 +33,7 @@
 							};
 							OrderService.save(obj,function(response){
 								alert("saved successfully.");
+								$scope.$back();
 							},function(response){
 								alert("error in save order.");
 							});

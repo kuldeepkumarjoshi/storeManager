@@ -7,7 +7,7 @@
 
 				var ZoneCreateEditCtrl = function($scope, $location,$rootScope,uiGridConstants , $q,$interval, $http,ZoneService,ZoneData, i18nNotifications) {
 					var isAdmin=true; 
-					
+				
 						
 				//	 console.log(ZoneData);
 						$scope.saveZone=function(){
@@ -17,6 +17,7 @@
 							};
 							ZoneService.saveZone($scope.selectedZone,function(response){
 								alert("saved successfully.");
+								$scope.$back();
 							},function(response){
 								alert("error in save zone.");
 							});
@@ -25,9 +26,8 @@
 						
 					console.log(ZoneData);
 					$scope.storeData = ZoneData.storeList;
-					if($rootScope.selectedZone.id == null || $rootScope.selectedZone.id == undefined){
-						$scope.quickTitle = "Create Zone";
-					}else{
+					$scope.quickTitle = "Create Zone";
+					if($rootScope.selectedZone != undefined){
 						$scope.quickTitle = "Edit Zone";
 					}
 					
