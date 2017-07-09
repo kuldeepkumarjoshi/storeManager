@@ -58,6 +58,9 @@
 		
 	</div>
 <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">
-		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(zoneData)"  ui-grid-exporter >
+		<div ng-show="zoneData.length" ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(zoneData)"  ui-grid-exporter >
+   		 </div>
+   		 <div ng-hide="zoneData.length">
+   		 	 <div class="alert alert-info" > No record for the filter.  </div> 
    		 </div>
 </div>

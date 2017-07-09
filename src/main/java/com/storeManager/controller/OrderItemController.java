@@ -94,7 +94,7 @@ public class OrderItemController {
 		
 		@RequestMapping(value="/getGridDataForOrderPage",method=RequestMethod.GET)
 		@ResponseBody
-		public Map<String,Object> getGridDataForStorePage(HttpServletRequest request){
+		public Map<String,Object> getGridDataForOrderPage(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();			
 			String month = request.getParameter("month");
 			String status = request.getParameter("status");

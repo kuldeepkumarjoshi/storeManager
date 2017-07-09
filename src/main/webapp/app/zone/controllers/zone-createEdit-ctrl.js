@@ -16,10 +16,11 @@
 									id:$scope.selectedZone.id
 							};
 							ZoneService.saveZone($scope.selectedZone,function(response){
-								alert("saved successfully.");
+								$scope.notifications.removeAll();
+								$scope.notifications.pushForCurrentRoute($scope.saveSuccessMsg, 'success', {}, {});
 								$scope.$back();
 							},function(response){
-								alert("error in save zone.");
+								$scope.$internalErrorMsg(response);
 							});
 						};
 						
@@ -27,8 +28,10 @@
 					console.log(ZoneData);
 					$scope.storeData = ZoneData.storeList;
 					$scope.quickTitle = "Create Zone";
+					$scope.saveSuccessMsg = 'zone.create.success';
 					if($rootScope.selectedZone != undefined){
 						$scope.quickTitle = "Edit Zone";
+						$scope.saveSuccessMsg = 'zone.edit.success';
 					}
 					
 					

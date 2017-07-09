@@ -76,17 +76,13 @@
 		<br />
 		<div class="input-group">
 			<span class="input-group-addon inputGroup inputGroupAddon"
-				id="basic-addon2">Delivery Date:</span> <input type="text"
-				class="form-control inputGroup" datepicker-popup="dd/MM/yyyy"
-				ng-model="orderItemVo.deliveryDate" is-open="opened" max-date="maxDate"
-				min-date="minDate" show-weeks="false"
-				close-text="Close" readonly="true" ng-change=""
-				ng-click="open($event)" /> <span class="input-group-btn">
-				<button type="button" class="btn btn-white btn-md"
-					ng-click="open($event)">
-					<i class="fa fa-calendar fa-lg text-info"></i>
-				</button>
-			</span>
+				id="basic-addon2">Delivery Date:</span> <input type="text" name="deliveryDate"  class="form-control ng-valid inputGroup" datepicker-popup="dd/MM/yyyy"
+				ng-model="orderItemVo.deliveryDate" is-open="opened" show-weeks="false"	close-text="Close" 	ng-click="open($event)" /> 
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-white btn-md" ng-click="open($event)">
+						<i class="fa fa-calendar fa-lg text-info"></i>
+					</button>
+				</span>
 		</div>
 		<br />
 		<div class="input-group" style="width: 100%;">

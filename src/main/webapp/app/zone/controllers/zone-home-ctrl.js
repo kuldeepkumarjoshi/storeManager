@@ -29,8 +29,8 @@
 							 $scope.zoneSearch.deliveryFromDate=new Date(res.fromDate);
 							 $scope.zoneSearch.deliveryToDate =new Date( res.toDate);
 							 // $scope.gridOptions;
-						 },function(res){
-							 console.log(res);
+						 },function(response){
+							 $scope.$internalErrorMsg(response);
 						 });
 					 };
 						$scope.open1 = function($event) {

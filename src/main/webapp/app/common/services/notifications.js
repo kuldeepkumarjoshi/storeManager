@@ -63,10 +63,14 @@
 
 		        // Only removing success type notifications with timeout
 		        if (notification.type === "success") {
-		            notificationsService.removeAuto(notification, 5000);
+		            notificationsService.removeAuto(notification, 3000);
 		        } else if (notification.type === "warning") {
-		            notificationsService.removeAuto(notification, 7000);
-		        } 
+		            notificationsService.removeAuto(notification, 4000);
+		        } else if(notification.type === "info"){
+		        	notificationsService.removeAuto(notification, 5000);
+		        } else if(notification.type === "danger"){
+		        	notificationsService.removeAuto(notification, 5000);
+		        }
 		        return anNotification;
 		    };
 
@@ -78,12 +82,17 @@
 		     */
 		    notificationsService.pushForNextRoute = function (notification) {
 		        var anNotification = addNotification(notifications.ROUTE_NEXT, notification);
-
+		        
+		        
 		        // Only removing success type notifications with timeout
 		        if (notification.type === "success") {
 		            notificationsService.removeAuto(notification);
 		        } else if (notification.type === "warning") {
-		            notificationsService.removeAuto(notification, 5000);
+		            notificationsService.removeAuto(notification, 4000);
+		        }else if(notification.type === "info"){
+		        	notificationsService.removeAuto(notification, 5000);
+		        } else if(notification.type === "danger"){
+		        	notificationsService.removeAuto(notification, 5000);
 		        }
 		        return anNotification;
 		    };

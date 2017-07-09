@@ -5,15 +5,10 @@
 			[],
 			function() {
 
-				var StoreCreateEditCtrl = function($scope, $location,$rootScope,uiGridConstants , $q,$interval, $http,ngToast,StoreService,StoreData, i18nNotifications) {
+				var StoreCreateEditCtrl = function($scope, $location,$rootScope,uiGridConstants , $q,$interval,StoreService,StoreData) {
 					var isAdmin=true; 
 					
-					$scope.showToast =function(){
-						ngToast.create({
-							  className: 'alert-success',
-							  content: '<a href="#" class="">a message</a>'
-							});
-					}
+					
 				
 					
 				//	 console.log(StoreData);
@@ -21,20 +16,22 @@
 						var obj={
 								storeId :$scope.store.id
 						};
-						StoreService.deleteStore(obj,function(response){
-							alert("deleted successfully.");
+						StoreService.deleteStore(obj,function(response){							
+							$scope.notifications.removeAll();
+							$scope.notifications.pushForCurrentRoute('store.delete.success', 'success', {}, {});							
 							$scope.$back();
-						},function(response){
-							alert("error in delete store.");
+						},function(response){							
+							  $scope.$internalErrorMsg(response);
 						});
 					}
 						$scope.saveStore=function(){
 							$scope.store.zoneId = $scope.selectedZone.id;
 							StoreService.save($scope.store,function(response){
-								alert("saved successfully.");
+								$scope.notifications.removeAll();
+								$scope.notifications.pushForCurrentRoute($scope.saveSuccessMsg, 'success', {}, {});	
 								$scope.$back();
-							},function(response){
-								alert("error in save store.");
+							},function(response){								
+								$scope.$internalErrorMsg(response);
 							});
 						};
 						
@@ -42,11 +39,14 @@
 					console.log(StoreData);
 					$scope.store = $rootScope.selectedStore;
 					$scope.zones = StoreData.zones;
-					if($scope.store.id == null){
-						$scope.quickTitle = "Create Store";
-						$scope.selectedZone = $scope.zones[0];
-					}else{
+					
+					$scope.quickTitle = "Create Store";
+					$scope.saveSuccessMsg = 'store.create.success';
+					$scope.selectedZone = $scope.zones[0];
+					if($scope.store != null){
+						
 						$scope.quickTitle = "Edit Store";
+						$scope.saveSuccessMsg = 'store.edit.success';
 						_.each($scope.zones,function(item){
 							if(item.id == $scope.store.zoneId){
 								$scope.selectedZone = item;
@@ -101,7 +101,7 @@
 					};
 					
 				};
-				return [ '$scope', '$location', '$rootScope','uiGridConstants' , '$q','$interval','$http','ngToast', 'StoreService','StoreData','i18nNotifications', StoreCreateEditCtrl ];
+				return [ '$scope', '$location', '$rootScope','uiGridConstants' , '$q','$interval', 'StoreService','StoreData', StoreCreateEditCtrl ];
 			});
 
 }(define));
