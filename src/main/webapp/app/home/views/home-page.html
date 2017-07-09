@@ -7,7 +7,8 @@
 	<div class="col-md-12 col-sm-12" style="margin-bottom:1%"  >
 		<div ng-show="inprogressOrders.length" ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(inprogressOrders)"  ui-grid-exporter >
 	  		 </div>
-	  		 <div ng-hide="inprogressOrders.length"> No Order found in progress status.
+	  		 <div ng-hide="inprogressOrders.length">
+	  		 	<div class="alert alert-info" > No in-process order in application.  </div>
 	  		 </div>
 	</div>
 	<div class="col-md-12 col-sm-12" style="">
@@ -18,7 +19,8 @@
 	<div class="col-md-12 col-sm-12" style="" >
 		<div ng-show="opportunityData.length" ui-grid="gridOptionOpportunity" class="grid" ui-grid-auto-resize ng-style="getTableHeight(opportunityData)"  ui-grid-exporter >
 	  		 </div>
-  		 <div ng-hide="opportunityData.length"> No store in passive state.
+  		 <div ng-hide="opportunityData.length">
+  		 	<div class="alert alert-info" > No store in passive state.  </div> 
   		 </div>
 	</div>
 </div>

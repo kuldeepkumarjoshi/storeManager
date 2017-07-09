@@ -77,9 +77,9 @@ public class OrderBusiness {
 		Store store = orderItem.getStore();
 		Long orderId = orderItemService.insert(orderItem);
 		Map<String,Object> setterParams = new HashMap<>();
-		SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String finalString = newFormat.format(orderItem.getCreatedDate());
-		setterParams.put("mostRecentOrderDate", finalString);
+		/*SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String finalString = newFormat.format();*/
+		setterParams.put("mostRecentOrderDate", orderItem.getCreatedDate());
 		Map<String,Object> creteriaMap = new HashMap<String, Object>();
 		creteriaMap.put("id", store.getId());
 		if(orderId !=null){
@@ -208,6 +208,7 @@ public class OrderBusiness {
 				voObject.setTotal(Double.parseDouble(orderFields[1]+"") );
 				voObject.setStatus(orderFields[2]+"");
 				voObject.setOrderProductStr(orderFields[3]+"");
+				voObject.setPoNumber(orderFields[4]+"");
 				orderItemVOs.add(voObject);	
 				orderItemMap.put(orderIdStr, voObject);
 			}else{

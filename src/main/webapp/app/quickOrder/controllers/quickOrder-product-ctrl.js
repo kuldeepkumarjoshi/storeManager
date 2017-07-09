@@ -32,9 +32,11 @@
 									poReceivedOnEmail:$scope.poReceivedOnEmail
 							};
 							OrderService.save(obj,function(response){
-								alert("saved successfully.");
+								$scope.notifications.removeAll();
+								$scope.notifications.pushForCurrentRoute('order.create.success', 'success', {}, {});
+								$scope.$back();
 							},function(response){
-								alert("error in save order.");
+								 $scope.$internalErrorMsg(response);
 							});
 						};
 						$scope.calculateOrderTotal = function(){

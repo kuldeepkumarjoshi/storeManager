@@ -3,7 +3,10 @@
 	</div>
 </div>
 <div class="col-md-12 col-sm-12" style="">
-		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(storeData)"  ui-grid-exporter >
+		<div ng-show="storeData.length" ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(storeData)"  ui-grid-exporter >
+   		 </div>
+   		 <div ng-hide="storeData.length">
+   		 	 <div class="alert alert-info" > No store in zone. please <a href="#/store-createEdit"><u><b><i>create store</i></b></u></a> first.  </div> 
    		 </div>
 </div>
 
