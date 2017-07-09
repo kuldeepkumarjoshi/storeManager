@@ -33,7 +33,12 @@
 	        $scope.$on('$routeChangeError', function (event, current, previous, rejection) {
 	            i18nNotifications.pushForCurrentRoute('errors.route.changeError', 'danger', {}, {rejection: rejection});
 	        });
-
+	        $scope.$internalErrorMsg=function(response){
+	        	console.log(response);
+	        	i18nNotifications.removeAll();
+	        	 i18nNotifications.pushForCurrentRoute('general.internal.error', 'danger', {}, {});
+			};
+	        
 	        if($window.innerWidth<600){
 	        	 $scope.isMobile=true;
 	        };

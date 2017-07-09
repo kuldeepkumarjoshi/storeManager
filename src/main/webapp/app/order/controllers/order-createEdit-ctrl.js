@@ -10,13 +10,13 @@
 					$scope.$parent.quickTitle = "Enter Detail";
 					$scope.opened = false;
 					$scope.orderTotal = 0 ;
-				
+					
 					//$scope.maxDate = new Date();
 				 //	$scope.minDate = new Date();
 					$scope.open = function($event) {
 					    $event.preventDefault();
 					    $event.stopPropagation();
-					    $scope.opened = true;
+					    $scope.opened = !$scope.opened;
 				  };
 				  
 				  $scope.setStores = function(zone){
@@ -50,10 +50,11 @@
 									poReceivedOnEmail:$scope.orderItemVo.poReceivedOnEmail
 							};
 							OrderService.save(obj,function(response){
-								alert("saved successfully.");
+								$scope.notifications.removeAll();
+								$scope.notifications.pushForCurrentRoute(	$scope.saveSuccessMsg, 'success', {}, {});
 								$scope.$back();
 							},function(response){
-								alert("error in save order.");
+								 $scope.$internalErrorMsg(response);
 							});
 						};
 						$scope.deleteOrder=function(){
@@ -63,10 +64,11 @@
 									storeId: $scope.orderItemVo.store.id,									
 							};
 							OrderService.deleteOrder(obj,function(response){
-								alert("saved successfully.");
+								$scope.notifications.removeAll();
+								$scope.notifications.pushForCurrentRoute('order.delete.success', 'success', {}, {});
 								$scope.$back();
 							},function(response){
-								alert("error in save order.");
+								$scope.$internalErrorMsg(response);
 							});
 						};
 						$scope.calculateOrderTotal = function(){
@@ -90,10 +92,13 @@
 					
 					if($scope.orderItemVo.id == null || $scope.orderItemVo.id == undefined){
 						$scope.quickTitle = "Create Order";
+						$scope.saveSuccessMsg = 'order.create.success';
 						$scope.selectedZone = $scope.zones[0];
 					}else{
 						$scope.selectedZone = setSelectedZones($scope.orderItemVo.store);
+						$scope.saveSuccessMsg = 'order.edit.success';
 						$scope.quickTitle = "Edit Order";
+						$scope.orderItemVo.deliveryDate = new Date($scope.orderItemVo.deliveryDate);
 					}
 					
 					$scope.setStores($scope.selectedZone);

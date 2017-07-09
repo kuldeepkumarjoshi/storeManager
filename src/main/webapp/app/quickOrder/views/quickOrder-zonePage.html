@@ -1,5 +1,8 @@
 
 <div class="col-md-12 col-sm-12"  style="margin-top:1%;">
-		<div ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(quickOrderZoneData)"  ui-grid-exporter >
+		<div ng-show="quickOrderZoneData.length" ui-grid="gridOptions" class="grid" ui-grid-auto-resize ng-style="getTableHeight(quickOrderZoneData)"  ui-grid-exporter >
+   		 </div>
+   		 <div ng-hide="quickOrderZoneData.length">
+   		 	 <div class="alert alert-info" > No zone in application. please <a href="#/zone-createEdit"><u><b><i>create zone</i></b></u></a> first.  </div> 
    		 </div>
 </div>

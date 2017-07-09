@@ -63,33 +63,34 @@ public class StoreBusiness {
 		}		
 		Projection projection =null;// Projections.property("id");
 		List<Store> storeList = storeService.getAllByCriteria(creterias,projection, Store.class);
-		for (Store store : storeList) {			
-			StoreGridVo storeGridVo = orderItemStoreMap.get(store.getId());
-			if(storeGridVo == null){	
-				storeGridVo = new StoreGridVo();
-				storeGridVo.setCommanEntity(store);
-				storeGridVo.setStore(store);				
-				orderItemStoreMap.put(store.getId(), storeGridVo);
-				storeGridVos.add(storeGridVo);				
-			}			
-		}
-		List<Criterion> orderCriterias = GlobalFilterUtility.getGlobalFilterCreteria();
-		orderCriterias.add(Restrictions.in("store",storeList));		
-		LogicalExpression andExp  = Restrictions.and(Restrictions.ge("deliveryDate",fromDate), Restrictions.le("deliveryDate",toDate));
-		orderCriterias.add(andExp);
-		List<OrderItem> orderItemList = orderItemService.getAllByCriteria(orderCriterias, null, OrderItem.class);
-		for (OrderItem orderItem : orderItemList) {			
-			StoreGridVo storeGridVo = orderItemStoreMap.get(orderItem.getStore().getId());
-			if(storeGridVo == null){	
-				storeGridVo = new StoreGridVo();
-				storeGridVo.setCommanEntity(orderItem.getStore());
-				storeGridVo.setStore(orderItem.getStore());				
-				orderItemStoreMap.put(orderItem.getStore().getId(), storeGridVo);
-				storeGridVos.add(storeGridVo);				
+		if(storeList.size() > 0){
+			for (Store store : storeList) {			
+				StoreGridVo storeGridVo = orderItemStoreMap.get(store.getId());
+				if(storeGridVo == null){	
+					storeGridVo = new StoreGridVo();
+					storeGridVo.setCommanEntity(store);
+					storeGridVo.setStore(store);				
+					orderItemStoreMap.put(store.getId(), storeGridVo);
+					storeGridVos.add(storeGridVo);				
+				}			
 			}
-			storeGridVo.setObject(orderItem);			
+			List<Criterion> orderCriterias = GlobalFilterUtility.getGlobalFilterCreteria();
+			orderCriterias.add(Restrictions.in("store",storeList));		
+			LogicalExpression andExp  = Restrictions.and(Restrictions.ge("deliveryDate",fromDate), Restrictions.le("deliveryDate",toDate));
+			orderCriterias.add(andExp);
+			List<OrderItem> orderItemList = orderItemService.getAllByCriteria(orderCriterias, null, OrderItem.class);
+			for (OrderItem orderItem : orderItemList) {			
+				StoreGridVo storeGridVo = orderItemStoreMap.get(orderItem.getStore().getId());
+				if(storeGridVo == null){	
+					storeGridVo = new StoreGridVo();
+					storeGridVo.setCommanEntity(orderItem.getStore());
+					storeGridVo.setStore(orderItem.getStore());				
+					orderItemStoreMap.put(orderItem.getStore().getId(), storeGridVo);
+					storeGridVos.add(storeGridVo);				
+				}
+				storeGridVo.setObject(orderItem);			
+			}
 		}
-		
 		return storeGridVos;
 	}
 

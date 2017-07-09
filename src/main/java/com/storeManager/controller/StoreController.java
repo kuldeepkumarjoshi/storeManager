@@ -44,7 +44,7 @@ public class StoreController {
 			String storeId = request.getParameter("storeId");
 			
 			
-			Store store  = storeService.getById(Long.parseLong(storeId),Store.class);
+			Store store  = (Store) storeService.getById(Long.parseLong(storeId),Store.class);
 			resultMap.put("store", store);
 			return resultMap;
 		}
@@ -145,7 +145,7 @@ public class StoreController {
 			if(store.getId() == null){
 				store.setId( storeService.insert(store));
 			}else{
-				store = storeService.update(store);
+				store = (Store) storeService.update(store);
 			}
 			resultMap.put("store", store);
 			return resultMap;

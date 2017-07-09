@@ -44,7 +44,7 @@
 							 console.log(res);
 							 $scope.orderData = res.orderList;
 						 },function(res){
-							 console.log(res);
+							 $scope.$internalErrorMsg(res);
 						 });
 					 };
 					$scope.orderData = OrderData.orderList;

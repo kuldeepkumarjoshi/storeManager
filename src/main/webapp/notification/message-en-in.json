@@ -1,3 +1,16 @@
 {
-"mail.send.success":"mail is sent successfully."
+    "general.internal.error": "Some internal error. please try again later.",
+    "errors.route.changeError": "Some internal error. please try again later.",
+    
+    "order.create.success": "Order has been created successfully.",
+    "order.edit.success": "Order has been updated successfully.",
+    "order.delete.success":"Order has been deleted successfully.",
+    
+    "zone.create.success": "Zone has been created successfully.",
+    "zone.edit.success": "Zone has been updated successfully.",
+      
+    "store.create.success": "Store has been created successfully.",
+    "store.edit.success": "Store has been updated successfully.",
+    "store.delete.success":"Store has been deleted successfully."
+   
 }

@@ -5,7 +5,7 @@
 			[],
 			function() {
 
-				var StoreHomeCtrl = function($scope,$q,$interval, $rootScope,$location, $http,StoreService,StoreHomeData, i18nNotifications) {
+				var StoreHomeCtrl = function($scope,$q,$interval, $rootScope,$location,StoreService,StoreHomeData) {
 					var isAdmin=true; 
 					
 					 console.log(StoreHomeData);
@@ -17,10 +17,11 @@
 					$scope.storeData = StoreHomeData.storeList;
 					
 					$scope.storeSearch = {};
-					  $scope.storeCreateView =function(row){
-						  $rootScope.selectedStore = row.entity.store; 
-						  $location.path('/store-createEdit').search({id:row.entity.id});
-					 };
+				  $scope.storeCreateView =function(row){
+					
+					 $rootScope.selectedStore = row.entity.store; 
+					  $location.path('/store-createEdit').search({id:row.entity.id});
+				 };
 					 $scope.getStoreDetail  = function(){
 							var obj={
 									month:$scope.storeSearch.selectedMonth.id
@@ -30,7 +31,7 @@
 								 $scope.storeData = res.storeList;
 								 
 							 },function(res){
-								 console.log(res);
+								 $scope.$internalErrorMsg(res);
 							 });
 						 };
 				
@@ -83,7 +84,7 @@
 					 $scope.storeSearch.selectedMonth  = $scope.months[initialValue];
 					
 				};
-				return [ '$scope','$q','$interval', '$rootScope','$location', '$http','StoreService', 'StoreHomeData','i18nNotifications', StoreHomeCtrl ];
+				return [ '$scope','$q','$interval', '$rootScope','$location','StoreService', 'StoreHomeData', StoreHomeCtrl ];
 			});
 
 }(define));

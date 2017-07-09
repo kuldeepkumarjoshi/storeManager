@@ -41,8 +41,7 @@ var root="";
     	{ textAngular : root+"/lib/text-angular.js"},
     	{ angularFileUpload : root+"/lib/angular-file-upload.js"},
     	{ ngDragDrop: root+"/lib/angular-dragdrop.min.js"},
-    	{ pdfmake    : root+"/lib/pdfmake.js"},
-    	{ ngToast    : root+"/lib/ngToast/ngToast.js"},
+    	{ pdfmake    : root+"/lib/pdfmake.js"},    
     	{ vfsFontd   : root+"/lib/vfs_fonts.js"}/*,
     	{angularApp:root+"/angular-app.min.js"}*/
        
