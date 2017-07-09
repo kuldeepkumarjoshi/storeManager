@@ -1,9 +1,15 @@
 package com.storeManager.mail;
 
+import java.util.Properties;
 
-public interface MailService extends Runnable{
-	
-	public void setMailMessage(MailMessage mailMessage);
+import javax.mail.Session;
+
+
+public interface MailService{
+
+	public Properties getProperties();
+
+	public Session getSessionForMail(Properties props);
 
 
 }

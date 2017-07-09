@@ -19,19 +19,18 @@ public class OrderItemDAOImpl extends AbstractDAOImpl<OrderItem> implements Orde
 	
 	@Override
 	public Long insert(OrderItem orderItem) {
-		Long orderitemId = super.insert(orderItem);
-		
-		try {
-			String email = "kkuldeepjoshi5@gmail.com";
-			if(orderItem.getStore() !=null){
-				email = orderItem.getStore().getEmail();
-			}
-					MailUtil.sendMail("order created successfully ",email,"Order success : "+orderitemId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Long orderitemId = super.insert(orderItem);		
+		orderItem.setId(orderitemId);
+		MailUtil.sendOrderMail(orderItem);		
 		return orderitemId;
+		
+	}
+	
+	@Override
+	public OrderItem update(OrderItem orderItem) {
+		OrderItem orderitem = super.update(orderItem);
+		MailUtil.sendOrderMail(orderItem);
+		return orderitem;
 		
 	}
 

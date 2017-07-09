@@ -1,9 +1,5 @@
 package com.storeManager.utility;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.MimetypesFileTypeMap;
@@ -15,39 +11,38 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
-import com.storeManager.mail.MailAddress;
+import com.storeManager.entity.OrderItem;
 import com.storeManager.mail.MailAttachment;
 import com.storeManager.mail.MailMessage;
-import com.storeManager.mail.MailService;
-import com.storeManager.mail.Recipient;
-import com.storeManager.mail.RecipientType;
-import com.storeManager.mail.impl.GoogleMailService;
+import com.storeManager.mail.MailSenderThread;
 
-public class MailUtil {
-
-	@Autowired
-	@Qualifier("mailService")
-	private static	MailService mailService;
+public class MailUtil {	
 	
 	private static MimetypesFileTypeMap mediaTypes;
 	
+	static{
+		
+	}
 	public static final String EMIAL_SENDER = PropertyUtil.getProperty(ServerCommonConstant.EMAIL_SENDER_ID);
 	public static final String SENDER_PASSWORD = PropertyUtil.getProperty(ServerCommonConstant.EMAIL_SENDER_PASSWORD);
 
+	public static final String MAIL_SMTP_HOST = PropertyUtil.getProperty(ServerCommonConstant.MAIL_SMTP_HOST);    
+	public static final String MAIL_SMTP_SOCKETFACTORY_PORT = PropertyUtil.getProperty(ServerCommonConstant.MAIL_SMTP_SOCKETFACTORY_PORT);    
+	public static final String MAIL_SMTP_SOCKETFACTORY_CLASS = PropertyUtil.getProperty(ServerCommonConstant.MAIL_SMTP_SOCKETFACTORY_CLASS);      
+	public static final String MAIL_SMTP_AUTH = PropertyUtil.getProperty(ServerCommonConstant.MAIL_SMTP_AUTH);     
+	public static final String MAIL_SMTP_PORT =  PropertyUtil.getProperty(ServerCommonConstant.MAIL_SMTP_PORT);    
 
-	public static Message.RecipientType getMessageRecipientType(RecipientType type) {
+
+	public static Message.RecipientType getMessageRecipientType(String type) {
 		Message.RecipientType recipientType = null;
 		switch (type) {
-		case TO:
+		case "TO":
 			recipientType = MimeMessage.RecipientType.TO;
 			break;
-		case CC:
+		case "CC":
 			recipientType = MimeMessage.RecipientType.CC;
 			break;
-		case BCC:
+		case "BCC":
 			recipientType = MimeMessage.RecipientType.BCC;
 			break;
 		}
@@ -138,30 +133,18 @@ public class MailUtil {
 	   }
 	   return result;
 	}
-	
-	public static void sendMail(String mailMsg, String sendTo, String subject) throws Exception {
 
-			MailMessage mailMessage = new MailMessage();
-			List<Recipient> recipientsList = new ArrayList<Recipient>();
-			Recipient recipient = new Recipient();
-			try {
-				recipient.setMailAddress(new MailAddress("",sendTo));
-			recipient.setRecipientType(RecipientType.TO);
-			recipientsList.add(recipient);
-			mailMessage.setSubject(subject+" : " + new Date());
-			mailMessage.setRecipients(recipientsList);
-			mailMessage.setSender(new MailAddress("", (EMIAL_SENDER)));
-			System.out.println("sending mail");
-			mailMessage.setHtmlBody("<html><head></head><body>" + mailMsg+ "</body></html>");
-			mailService = new GoogleMailService();	
-			mailService.setMailMessage(mailMessage);
-			Thread mailSendingThread = new Thread(mailService);				
-			mailSendingThread.start();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
+	public static void sendOrderMail(OrderItem orderItem) {
+		String APP_SEND_EMAIL = PropertyUtil.getProperty(ServerCommonConstant.APP_SEND_EMAIL);
 		
+		if(APP_SEND_EMAIL.equalsIgnoreCase("yes")){
+			String APP_SEND_SPECIFIC_EMAIL = PropertyUtil.getProperty(ServerCommonConstant.APP_SEND_SPECIFIC_EMAIL+orderItem.getStatus());
+			if(APP_SEND_SPECIFIC_EMAIL.equalsIgnoreCase("yes")){
+			MailSenderThread mailSenderThread = new MailSenderThread(orderItem);	
+			Thread mailSendingThread = new Thread(mailSenderThread);	
+			mailSendingThread.start();
+			}
+		}
 	}
 	
 	
