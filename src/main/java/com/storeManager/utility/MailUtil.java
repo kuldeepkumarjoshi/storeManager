@@ -11,6 +11,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.storeManager.entity.OrderItem;
 import com.storeManager.mail.MailAttachment;
 import com.storeManager.mail.MailMessage;
@@ -134,17 +136,16 @@ public class MailUtil {
 	   return result;
 	}
 
-	public static void sendOrderMail(OrderItem orderItem) {
+	public static boolean canSendMail(OrderItem orderItem) {
 		String APP_SEND_EMAIL = PropertyUtil.getProperty(ServerCommonConstant.APP_SEND_EMAIL);
 		
 		if(APP_SEND_EMAIL.equalsIgnoreCase("yes")){
 			String APP_SEND_SPECIFIC_EMAIL = PropertyUtil.getProperty(ServerCommonConstant.APP_SEND_SPECIFIC_EMAIL+orderItem.getStatus());
-			if(APP_SEND_SPECIFIC_EMAIL.equalsIgnoreCase("yes")){
-			MailSenderThread mailSenderThread = new MailSenderThread(orderItem);	
-			Thread mailSendingThread = new Thread(mailSenderThread);	
-			mailSendingThread.start();
+			if(APP_SEND_SPECIFIC_EMAIL.equalsIgnoreCase("yes")){			
+			return true;
 			}
 		}
+		return false;
 	}
 	
 	

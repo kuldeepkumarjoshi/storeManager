@@ -21,7 +21,7 @@
 				//	 console.log(OrderData);
 						$scope.saveOrder=function(){
 							var obj={
-									title:$rootScope.selectedZone.name+"_"+$rootScope.selectedStore.name,
+									title:$rootScope.selectedStore.name+"-"+$rootScope.selectedZone.name,
 									orderProducts:	$scope.productData,	
 									status:"IN_PROGRESS",
 									poNumber:$scope.poNumber,

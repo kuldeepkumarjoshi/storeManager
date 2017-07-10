@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.storeManager.business.StoreBusiness;
 import com.storeManager.business.ZoneBusiness;
+import com.storeManager.entity.OrderItem;
 import com.storeManager.entity.Store;
 import com.storeManager.entity.Zone;
+import com.storeManager.mail.MailSenderThread;
+import com.storeManager.mail.MailService;
 import com.storeManager.service.StoreService;
 import com.storeManager.utility.CalendarUtil;
 import com.storeManager.vo.StoreGridVo;
@@ -60,8 +64,7 @@ public class StoreController {
 			return resultMap;
 		}
 		
-
-		
+				
 		@RequestMapping(value="/getGridDataForStorePage",method=RequestMethod.GET)
 		@ResponseBody
 		public Map<String,Object> getGridDataForStorePage(HttpServletRequest request){

@@ -39,7 +39,7 @@
 						$scope.saveOrder=function(){
 							var obj={
 									id:$scope.orderItemVo.id,
-									title:$scope.selectedZone.name+"_"+$scope.orderItemVo.store.name,
+									title:$scope.orderItemVo.store.name+"-"+$scope.selectedZone.name,
 									orderProducts:	$scope.orderItemVo.orderProducts,	
 									status:$scope.orderItemVo.status,
 									poNumber:$scope.orderItemVo.poNumber,

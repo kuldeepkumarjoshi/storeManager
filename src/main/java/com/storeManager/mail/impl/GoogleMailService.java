@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.storeManager.mail.MailService;
@@ -27,26 +28,18 @@ public class GoogleMailService implements MailService {
 	}
 
 	@Override
-	public Session getSessionForMail(Properties props) {
-		
+	public Session getSessionForMail(Properties props) {		
 	  Session session = Session.getInstance(props,
 		      new javax.mail.Authenticator() {
-		         protected PasswordAuthentication getPasswordAuthentication() {
-		        
+		         protected PasswordAuthentication getPasswordAuthentication() {		        
 						try {
 							return new PasswordAuthentication(MailUtil.EMIAL_SENDER ,MailUtil.SENDER_PASSWORD);
-						} catch (Exception e) {
-						
+						} catch (Exception e) {						
 							e.printStackTrace();
 							return null;
-						}
-				
+						}				
 		         }
 		      });
 		return session;
 	}
-
-
-
-
 }

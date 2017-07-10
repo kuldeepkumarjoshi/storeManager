@@ -1,6 +1,7 @@
 package com.storeManager.mail;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
@@ -11,21 +12,31 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+import com.storeManager.business.OrderBusiness;
 import com.storeManager.entity.OrderItem;
+import com.storeManager.entity.OrderProduct;
 import com.storeManager.utility.MailUtil;
 import com.storeManager.utility.PropertyUtil;
 import com.storeManager.utility.ServerCommonConstant;
+import com.storeManager.vo.OrderItemVO;
 
+@Component
+@Scope("prototype")
 public class MailSenderThread implements Runnable{
 	
 	private OrderItem orderItem = null;
 	private MimeMessage mailMessage =null;
 	
 	@Autowired
-	private MailService mailService;
-	
-	public MailSenderThread(OrderItem orderItem) {
+	OrderBusiness orderBusiness;	
+
+	@Autowired
+	MailService mailService;
+
+	public void setOrderItem(OrderItem orderItem) {
 		this.orderItem = orderItem;
 	}
 	
@@ -44,9 +55,9 @@ public class MailSenderThread implements Runnable{
 			if(orderItem !=null){
 				mailMessage = getMailMessageForOrderCreateEdit();					
 			}			
-			System.out.println("5");				
+			System.out.println("sending mail ...");				
 			Transport.send(mailMessage);
-			System.out.println("6");
+			System.out.println("mail send successfully");
 			} catch (AddressException addressException) {
 				String message = "Failed to send mail. Wrongly Formatted Address Encountered";
 				addressException.printStackTrace();
@@ -60,8 +71,6 @@ public class MailSenderThread implements Runnable{
 			} catch(Exception e){
 				e.printStackTrace();
 			}
-		
-		
 	}
 
 	private MimeMessage getMailMessageForOrderCreateEdit() throws UnsupportedEncodingException, MessagingException {
@@ -77,8 +86,7 @@ public class MailSenderThread implements Runnable{
 			}
 		}
 		if(MailUtil.EMIAL_SENDER !=null){
-			String[] email =MailUtil.EMIAL_SENDER.split("::");
-			InternetAddress fromAddress = new InternetAddress(email[2],email[0]);
+			InternetAddress fromAddress = new InternetAddress(MailUtil.EMIAL_SENDER,MailUtil.EMIAL_SENDER);
 			mailMessage.setFrom(fromAddress);
 		}else{
 			 throw new AddressException("sender invalid ");
@@ -86,17 +94,32 @@ public class MailSenderThread implements Runnable{
 		
 		String subject ="New Order-";
 		
-		mailMessage.setSubject(subject);
+		
 		String txtMessage = "<html><head></head><body> <br/> Store Name: ";
 		if(orderItem.getTitle()!=null){
 			String[] titleStr =orderItem.getTitle().split("-");
 			subject+=orderItem.getTitle();
-			txtMessage+=titleStr[1]+"<br/> Zone Name: "+titleStr[0]+"<br/> Delivery Date:"+titleStr[2];
+			txtMessage+=titleStr[0]+"<br/> Zone Name: "+titleStr[1]+"<br/> Delivery Date:"+titleStr[2];
 		}
-				
-		txtMessage+= "</body></html>";		
-		mailMessage.setText(txtMessage);
+		mailMessage.setSubject(subject);
+		if(orderItem.getRemarks()!=null){
+			txtMessage+="<br/> Remark: "+orderItem.getRemarks();
+		}
+		String borderStyle="style='border: 1px solid black;'";
+		String alingAndBorder = "style='text-align: right;border: 1px solid black;'";
+		txtMessage+="<br/>Details: <br/><table "+borderStyle+"><thead><tr><th "+borderStyle+">Product</th><th "+borderStyle+">Unit price</th><th "+borderStyle+">Quantity</th></tr></thead><tbody>";
 		
+		
+		OrderItemVO orderItemVo  =  orderBusiness.getOrderItemVO(orderItem.getId()+"");
+		for (OrderProduct orderProduct : orderItemVo.getOrderProducts()) {
+			txtMessage+="<tr><td "+borderStyle+">"+orderProduct.getName()+"</td><td "+alingAndBorder+">"+orderProduct.getPrice()+
+					"</td><td "+alingAndBorder+">"+orderProduct.getQuantity()+"</td></tr>";
+		}
+		
+		txtMessage+="<tr><th "+borderStyle+"></th><th "+borderStyle+">Total </th><th "+alingAndBorder+">"+orderItem.getTotal()+"</th></tr></tbody></table>";
+		txtMessage+= "</body></html>";		
+		mailMessage.setContent(txtMessage, "text/html; charset=utf-8");
+		System.out.println("html :"+txtMessage);
 	/*	Multipart mp;
 		for (MailAttachment mailAttachment : mail.getAttachments()) {
 			MimeBodyPart attachment = MailUtil.getAttachmentBodyPart(mailAttachment);
@@ -110,4 +133,13 @@ public class MailSenderThread implements Runnable{
 		mailMessage.setContent(mp);*/
 		return mailMessage;
 	}
+
+	public void sendOrderMail(OrderItem orderItem) {
+		this.setOrderItem(orderItem);
+		Thread mailSendingThread = new Thread(this);	
+		mailSendingThread.start();
+		
+	}
+
+	
 }

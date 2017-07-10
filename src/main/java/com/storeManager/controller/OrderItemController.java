@@ -162,26 +162,8 @@ public class OrderItemController {
 		public Map<String,Object> getBeforeEdit(HttpServletRequest request){
 			Map<String,Object> resultMap = new HashMap<String, Object>();
 			String orderId = request.getParameter("orderId");
-			List<OrderProduct> selectedOrderProductList = orderBusiness.getOrderProductsByOrderId(orderId);
-			Map<Long,OrderProduct> orderProductKeyMap = new HashMap<Long, OrderProduct>();
-			OrderItemVO orderItemVo = new OrderItemVO(orderBusiness.getOrderItemById(orderId));
-			for (OrderProduct orderProduct : selectedOrderProductList) {
-				orderProductKeyMap.put(orderProduct.getProductId(), orderProduct);
-			}
-			List<Product> productList = productBusiness.getAllProductList();
-			List<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
+			OrderItemVO orderItemVo = orderBusiness.getOrderItemVO(orderId);
 			
-			for (Product product : productList) {
-				if(orderProductKeyMap.containsKey(product.getId())){
-					OrderProduct orderProduct = orderProductKeyMap.get(product.getId());
-					orderProduct.setName(product.getName());
-					
-					orderProductList.add(orderProduct);
-				}else{
-					orderProductList.add(new OrderProduct(product)) ;
-				}
-			}
-			orderItemVo.setOrderProducts(orderProductList);
 			List<Store> stores = storeBusiness.getAllStores();
 			List<Zone> zones = zoneBusiness.getAllZones();
 			List<String> statusList = orderBusiness.getOrderStatus();

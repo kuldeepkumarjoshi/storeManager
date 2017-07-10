@@ -15,11 +15,13 @@ import org.springframework.stereotype.Component;
 
 import com.storeManager.entity.OrderItem;
 import com.storeManager.entity.OrderProduct;
+import com.storeManager.entity.Product;
 import com.storeManager.entity.Store;
 import com.storeManager.entity.Zone;
 import com.storeManager.enums.OrderStatusType;
 import com.storeManager.service.OrderItemService;
 import com.storeManager.service.OrderProductService;
+import com.storeManager.service.ProductService;
 import com.storeManager.service.StoreService;
 import com.storeManager.service.ZoneService;
 import com.storeManager.utility.CalendarUtil;
@@ -41,6 +43,9 @@ public class OrderBusiness {
 	
 	@Autowired		
 	OrderProductService orderProductService;
+	
+	@Autowired		
+	ProductService productService;
 
 	public List<Zone> getAllZones() {
 		List<Criterion> creterias = GlobalFilterUtility.getGlobalFilterCreteria();
@@ -62,7 +67,9 @@ public class OrderBusiness {
 		Long orderId = Long.parseLong(orderIdStr);
 		OrderItem orderItem = new OrderItem();
 		orderItem.setId(orderId);
-		List<OrderProduct> orderProducts = orderProductService.getAllByOrderItem(orderItem);
+		List<Criterion> creterias = GlobalFilterUtility.getGlobalFilterCreteria();
+		creterias.add(Restrictions.eq("orderItem",orderItem));
+		List<OrderProduct> orderProducts = orderProductService.getAllByCriteria(creterias,null , OrderProduct.class);	
 		return orderProducts;
 	}
 
@@ -229,5 +236,31 @@ public class OrderBusiness {
 			ostList.add(objMap);
 		}
 		return ostList;
+	}
+
+	public OrderItemVO getOrderItemVO(String orderId) {
+		List<OrderProduct> selectedOrderProductList = getOrderProductsByOrderId(orderId);
+		Map<Long,OrderProduct> orderProductKeyMap = new HashMap<Long, OrderProduct>();
+		OrderItemVO orderItemVo = new OrderItemVO(getOrderItemById(orderId));
+		for (OrderProduct orderProduct : selectedOrderProductList) {
+			orderProductKeyMap.put(orderProduct.getProductId(), orderProduct);
+		}
+		List<Criterion> creterias = GlobalFilterUtility.getGlobalFilterCreteria();
+		List<Product> productList = productService.getAllByCriteria(creterias,null , Product.class);
+		
+		List<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
+		
+		for (Product product : productList) {
+			if(orderProductKeyMap.containsKey(product.getId())){
+				OrderProduct orderProduct = orderProductKeyMap.get(product.getId());
+				orderProduct.setName(product.getName());
+				
+				orderProductList.add(orderProduct);
+			}else{
+				orderProductList.add(new OrderProduct(product)) ;
+			}
+		}
+		orderItemVo.setOrderProducts(orderProductList);
+		return orderItemVo;
 	}	
 }
