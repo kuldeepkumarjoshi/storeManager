@@ -10,10 +10,4 @@ store detail page - done
 end case :-on removing product from existing order on editing should delete order product entry from table .(Bug found)(2 hours) - done
 notification warning alerts (4 hours)  - done
 
-web compatible ui (16 hours )
-email integration (16 hours) 
-sms  integration (16 hours) 
-
-code refinement update by condition remove
-code criteria implementation only used.
-optimization of unnecessary code (js lib,)
+email integration (16 hours) - done

@@ -1,6 +1,7 @@
 package com.storeManager.mail;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Properties;
 
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import com.storeManager.business.OrderBusiness;
 import com.storeManager.entity.OrderItem;
 import com.storeManager.entity.OrderProduct;
+import com.storeManager.utility.CalendarUtil;
 import com.storeManager.utility.MailUtil;
 import com.storeManager.utility.PropertyUtil;
 import com.storeManager.utility.ServerCommonConstant;
@@ -98,8 +100,10 @@ public class MailSenderThread implements Runnable{
 		String txtMessage = "<html><head></head><body> <br/> Store Name: ";
 		if(orderItem.getTitle()!=null){
 			String[] titleStr =orderItem.getTitle().split("-");
-			subject+=orderItem.getTitle();
-			txtMessage+=titleStr[0]+"<br/> Zone Name: "+titleStr[1]+"<br/> Delivery Date:"+titleStr[2];
+			String finalString = CalendarUtil.convertUTCtoIST(orderItem.getDeliveryDate(), "dd-MM-yyyy HH:mm");
+			
+			subject+=titleStr[0]+"-"+titleStr[1]+"-"+finalString.substring(0, 11);
+			txtMessage+=titleStr[0]+"<br/> Zone Name: "+titleStr[1]+"<br/> Delivery Date:"+finalString;
 		}
 		mailMessage.setSubject(subject);
 		if(orderItem.getRemarks()!=null){
@@ -107,13 +111,15 @@ public class MailSenderThread implements Runnable{
 		}
 		String borderStyle="style='border: 1px solid black;'";
 		String alingAndBorder = "style='text-align: right;border: 1px solid black;'";
-		txtMessage+="<br/>Details: <br/><table "+borderStyle+"><thead><tr><th "+borderStyle+">Product</th><th "+borderStyle+">Unit price</th><th "+borderStyle+">Quantity</th></tr></thead><tbody>";
+		txtMessage+="<br/>Details: <br/><table "+borderStyle+" cellspacing='0'><thead><tr><th "+borderStyle+">Product</th><th "+borderStyle+">Unit price</th><th "+borderStyle+">Quantity</th></tr></thead><tbody>";
 		
 		
 		OrderItemVO orderItemVo  =  orderBusiness.getOrderItemVO(orderItem.getId()+"");
 		for (OrderProduct orderProduct : orderItemVo.getOrderProducts()) {
-			txtMessage+="<tr><td "+borderStyle+">"+orderProduct.getName()+"</td><td "+alingAndBorder+">"+orderProduct.getPrice()+
+			if(orderProduct.getQuantity()!=0){
+				txtMessage+="<tr><td "+borderStyle+">"+orderProduct.getName()+"</td><td "+alingAndBorder+">"+orderProduct.getPrice()+
 					"</td><td "+alingAndBorder+">"+orderProduct.getQuantity()+"</td></tr>";
+			}
 		}
 		
 		txtMessage+="<tr><th "+borderStyle+"></th><th "+borderStyle+">Total </th><th "+alingAndBorder+">"+orderItem.getTotal()+"</th></tr></tbody></table>";
