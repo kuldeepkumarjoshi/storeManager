@@ -34,7 +34,7 @@
 							OrderService.save(obj,function(response){
 								$scope.notifications.removeAll();
 								$scope.notifications.pushForCurrentRoute('order.create.success', 'success', {}, {});
-								$scope.$back();
+								 $location.path('/home');
 							},function(response){
 								 $scope.$internalErrorMsg(response);
 							});
