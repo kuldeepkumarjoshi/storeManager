@@ -76,7 +76,7 @@ public class StoreBusiness {
 			}
 			List<Criterion> orderCriterias = GlobalFilterUtility.getGlobalFilterCreteria();
 			orderCriterias.add(Restrictions.in("store",storeList));		
-			LogicalExpression andExp  = Restrictions.and(Restrictions.ge("deliveryDate",fromDate), Restrictions.le("deliveryDate",toDate));
+			LogicalExpression andExp  = Restrictions.and(Restrictions.ge("createdDate",fromDate), Restrictions.le("createdDate",toDate));
 			orderCriterias.add(andExp);
 			List<OrderItem> orderItemList = orderItemService.getAllByCriteria(orderCriterias, null, OrderItem.class);
 			for (OrderItem orderItem : orderItemList) {			
