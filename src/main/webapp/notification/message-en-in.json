@@ -4,6 +4,7 @@
     
     "order.create.success": "Order has been created successfully.",
     "order.edit.success": "Order has been updated successfully.",
+    
     "order.delete.success":"Order has been deleted successfully.",
     
     "zone.create.success": "Zone has been created successfully.",

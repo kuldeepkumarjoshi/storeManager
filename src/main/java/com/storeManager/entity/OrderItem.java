@@ -15,7 +15,7 @@ public class OrderItem extends CommanEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	public OrderItem(OrderItemVO orderItemVO) {
-		title = orderItemVO.getTitle()+"_"+new Date();
+		title = orderItemVO.getTitle()+"-"+orderItemVO.getDeliveryDate();
 		storeId = orderItemVO.getStoreId();
 		store = orderItemVO.getStore();
 		if(orderItemVO.getOrderProducts()!=null){

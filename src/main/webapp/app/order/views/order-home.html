@@ -43,7 +43,14 @@
 		
 		<button  class="col-md-3 col-xs-offset-9 col-sm-3 col-xs-3 btn btn-round btn-white" ng-click="getOrderDetail()">Go</button>
 </div>
-<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1%;">
+<div ng-show="orderData.length" class="col-md-12 col-sm-12  col-xs-12" style="margin-top: 1%;">
+		<div style="font-size: small;color: lightgrey;float: right;">
+		<div> IP = In Progress, C = Completed.</div>
+		</div>
+	</div>
+<div class="col-md-12 col-sm-12 col-xs-12" ">
+ 		
+ 		
 		<div ng-show="orderData.length" ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-auto-resize  ui-grid-exporter >
    		 </div>
    		 <div ng-hide="orderData.length">

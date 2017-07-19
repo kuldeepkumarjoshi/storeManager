@@ -2,26 +2,21 @@ package com.storeManager.utility;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TimeZone;
 
 public class CalendarUtil {
 
-	public static String getProperty(String key) throws Exception {
-		InputStream ipathshalaPropertiesLoadStream = CalendarUtil.class.getClassLoader().getResourceAsStream("store.properties");
-		if (ipathshalaPropertiesLoadStream == null) {
-			throw new Exception("Cannod read from Ipathshala properties file");
-		}
-		Properties ipathshalaProperties = new Properties();
-		try {
-			ipathshalaProperties.load(ipathshalaPropertiesLoadStream);
-		} catch (IOException e) {
-			throw new Exception("Cannod read from Ipathshala properties file");
-		}
-		String propertyValue = ipathshalaProperties.getProperty(key);
-		return propertyValue;
+	public static String convertUTCtoIST(Date utcDate,String formateString){
+
+		DateFormat formatter = new SimpleDateFormat(formateString);
+		formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata")); // Or whatever IST is supposed to be
+		return formatter.format(utcDate);
 	}
 
 	public static Map<String, Date> getMonthLimit(Map<String, Date> monthLimits, String month) {

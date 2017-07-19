@@ -1,7 +1,11 @@
 .storeAlert{
-	position: absolute;
+	/* position: absolute;
     width: 100%;
-    top: 50%;
+    top: 5px; */
+    Position: fixed;
+width 100%;
+top: 0;
+left: 0;
 }
 .topicTitle{
 	padding:2% 0% 2% 1%;

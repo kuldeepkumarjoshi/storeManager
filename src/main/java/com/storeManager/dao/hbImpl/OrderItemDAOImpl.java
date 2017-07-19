@@ -8,30 +8,37 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.storeManager.dao.OrderItemDAO;
 import com.storeManager.entity.OrderItem;
+import com.storeManager.mail.MailSenderThread;
 import com.storeManager.utility.MailUtil;
 
 @Repository("orderItemDAO")
 public class OrderItemDAOImpl extends AbstractDAOImpl<OrderItem> implements OrderItemDAO {
 	
+	@Autowired
+	MailSenderThread mailSenderThread ;
+
 	@Override
 	public Long insert(OrderItem orderItem) {
-		Long orderitemId = super.insert(orderItem);
-		
-		try {
-			String email = "kkuldeepjoshi5@gmail.com";
-			if(orderItem.getStore() !=null){
-				email = orderItem.getStore().getEmail();
-			}
-					MailUtil.sendMail("order created successfully ",email,"Order success : "+orderitemId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Long orderitemId = super.insert(orderItem);		
+		orderItem.setId(orderitemId);
+		if(MailUtil.canSendMail(orderItem)){
+			mailSenderThread.sendOrderMail(orderItem);
+		}	
+		return orderitemId;		
+	}
+	
+	@Override
+	public OrderItem update(OrderItem orderItem) {
+		OrderItem orderitem = super.update(orderItem);
+		if(MailUtil.canSendMail(orderItem)){
+			mailSenderThread.sendOrderMail(orderItem);
 		}
-		return orderitemId;
+		return orderitem;
 		
 	}
 

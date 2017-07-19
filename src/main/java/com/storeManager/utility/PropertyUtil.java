@@ -36,7 +36,7 @@ public class PropertyUtil {
 				e.printStackTrace();
 			}
 		}
-		return propertyValue;
+		return propertyValue.trim();
 	}
 	
 
