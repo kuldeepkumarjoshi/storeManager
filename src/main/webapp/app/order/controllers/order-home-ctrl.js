@@ -70,17 +70,26 @@
 						columnDefs : [{
 									field : 'id',
 									displayName: 'Id',
-									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.createEditOrderView(row)">'+" {{row.entity.id}} "+'</div>'
-										
+									visible: false,	
+								},{
+									field : 'createdDate',
+									displayName: 'Created',
+									// cellFilter: 'date:"dd/MM/yyyy"', 
+									cellTemplate:'<div class="linkDiv"  style="padding-left: 2%;" ng-click="grid.appScope.createEditOrderView(row)">'+" {{row.entity.createdDate | date:'dd/MM/yyyy'}} "+'</div>',
+									width:'25%',
+									filterCellFiltered:true,
 								},{
 									field : 'total',
 									displayName: 'Total', 									
 								},{
 									field : 'orderProductStr',
-									displayName: 'Products'
+									displayName: 'Products',
+										width:'50%'
 								},{
 									field : 'status',
-									displayName: 'Status'
+									displayName: 'Status',
+									cellTemplate:'<div style="padding-left: 2%;" ng-if="row.entity.status==\'COMPLETED\'">C</div><div style="padding-left: 2%;" ng-if="row.entity.status==\'IN_PROGRESS\'">IP</div>'
+										
 								}],
 
 					};

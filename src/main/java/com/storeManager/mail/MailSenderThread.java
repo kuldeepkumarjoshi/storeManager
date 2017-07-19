@@ -97,13 +97,13 @@ public class MailSenderThread implements Runnable{
 		String subject ="New Order-";
 		
 		
-		String txtMessage = "<html><head></head><body> <br/> Store Name: ";
+		String txtMessage = "<html><head></head><body> <br/> Store : ";
 		if(orderItem.getTitle()!=null){
 			String[] titleStr =orderItem.getTitle().split("-");
 			String finalString = CalendarUtil.convertUTCtoIST(orderItem.getDeliveryDate(), "dd-MM-yyyy");
 			
-			subject+=titleStr[0]+"-"+titleStr[1]+"-"+finalString;
-			txtMessage+=titleStr[0]+"<br/> Zone Name: "+titleStr[1]+"<br/> Delivery Date:"+finalString;
+			subject+=titleStr[0]+"-"+titleStr[1]+"-"+CalendarUtil.convertUTCtoIST(orderItem.getCreatedDate(), "dd-MM-yyyy");;
+			txtMessage+=titleStr[0]+"<br/> Zone : "+titleStr[1]+"<br/> Delivery Date:"+finalString;
 		}
 		mailMessage.setSubject(subject);
 		if(orderItem.getRemarks()!=null){

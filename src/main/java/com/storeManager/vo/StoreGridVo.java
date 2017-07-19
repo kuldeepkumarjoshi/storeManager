@@ -41,7 +41,7 @@ public class StoreGridVo extends CommanEntity{
 	public void setObject(OrderItem orderItem) {
 		
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(orderItem.getDeliveryDate());
+		cal.setTime(orderItem.getCreatedDate());
 		int weekOfMonth = Calendar.WEEK_OF_MONTH;
 		String week = weekWiseOrdersSubtotal.get(weekOfMonth);	
 		if(week == null){

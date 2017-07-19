@@ -27,7 +27,7 @@ public class OrderItemDAOImpl extends AbstractDAOImpl<OrderItem> implements Orde
 		Long orderitemId = super.insert(orderItem);		
 		orderItem.setId(orderitemId);
 		if(MailUtil.canSendMail(orderItem)){
-			mailSenderThread.setOrderItem(orderItem);
+			mailSenderThread.sendOrderMail(orderItem);
 		}	
 		return orderitemId;		
 	}
